@@ -550,6 +550,68 @@
       transform: none;
     }
 
+    /* ── YEAR BANNER ── */
+    .year-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: linear-gradient(90deg, rgba(0,212,255,0.06), transparent);
+      border: 1px solid var(--cyan-dim);
+      border-left: 3px solid var(--cyan);
+      padding: 24px 28px;
+      border-radius: 4px;
+      margin-bottom: 36px;
+    }
+
+    .year-badge {
+      display: inline-block;
+      background: rgba(0,212,255,0.1);
+      color: var(--cyan);
+      border: 1px solid var(--cyan-dim);
+      padding: 5px 14px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      border-radius: 2px;
+      white-space: nowrap;
+      margin-bottom: 10px;
+    }
+
+    .year-desc {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+      margin-top: 4px;
+    }
+
+    /* ── FEATURED CARD ACCENT ── */
+    .project-card.featured {
+      border-color: #1a2540;
+    }
+    .project-card.featured::before {
+      content: '2026';
+      position: absolute;
+      top: 14px; right: 16px;
+      font-size: 10px;
+      color: var(--cyan);
+      letter-spacing: 0.15em;
+      opacity: 0.5;
+    }
+
+    /* ── FLAGSHIP HEADER ── */
+    .flagship-header {
+      margin-top: 80px;
+    }
+
+    /* ── CODE TAG ── */
+    code {
+      background: var(--bg2);
+      color: var(--cyan);
+      padding: 2px 6px;
+      border-radius: 2px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
@@ -579,9 +641,9 @@
 
 <!-- ── HERO ── -->
 <section id="hero">
-  <p class="hero-eyebrow">// PhD · AI Engineer · Medical AI Consultant</p>
+  <p class="hero-eyebrow">// PhD · Senior LLM &amp; Enterprise AI Expert · Medical AI Consultant</p>
   <h1>Adam<br /><span>Feldmann</span></h1>
-  <p class="hero-title">Senior LLM &amp; RAG Engineer</p>
+  <p class="hero-title">Senior LLM &amp; Enterprise AI Expert</p>
   <p class="hero-sub">
     15+ years at the intersection of clinical neuroscience, NLP research, and production AI systems.
     I build RAG pipelines, agentic architectures, and LLMs that ship — including one of the first
@@ -768,22 +830,12 @@
     </div>
 
     <div class="tl-item">
-      <div class="tl-period">SEP 2023 — NOV 2024</div>
-      <div class="tl-role">Leader, Generative AI Research Group</div>
-      <div class="tl-company">Óbuda University — John von Neumann Faculty · Remote</div>
-      <ul class="tl-points">
-        <li>Led research bridging cutting-edge AI research and enterprise implementation</li>
-        <li>Developed and taught graduate course covering GPT-4, Claude, Llama 3, and Mistral</li>
-      </ul>
-    </div>
-
-    <div class="tl-item">
       <div class="tl-period">APR 2022 — NOV 2024</div>
-      <div class="tl-role">Assistant Professor — Bioinformatics &amp; Applied AI</div>
+      <div class="tl-role">Assistant Professor — Generative AI</div>
       <div class="tl-company">Óbuda University · Remote</div>
       <ul class="tl-points">
         <li>Led practical sessions on Generative AI for BSc students</li>
-        <li>Contributed to curriculum development integrating LLM and NLP in engineering education</li>
+        <li>Contributed to curriculum development integrating LLM and NLP in MSc engineering education</li>
       </ul>
     </div>
 
@@ -801,7 +853,7 @@
 
     <div class="tl-item">
       <div class="tl-period">MAY 2009 — NOV 2019</div>
-      <div class="tl-role">Assistant Professor — Medical Statistics &amp; AI</div>
+      <div class="tl-role">Assistant Professor — Neuropsychology</div>
       <div class="tl-company">University of Pécs, Medical School · Hungary</div>
       <ul class="tl-points">
         <li>Delivered training in advanced statistical methods and MRI data processing</li>
@@ -819,36 +871,121 @@
     <p class="section-label">// Selected Work</p>
     <h2>Featured Projects</h2>
   </div>
+
+  <!-- 2026 BANNER -->
+  <div class="reveal year-banner">
+    <div>
+      <span class="year-badge">⬡ 2026 Deliverables</span>
+      <p class="year-desc">A selection of production-grade AI systems and POC builds shipped in 2026 — spanning autonomous agents, social automation, B2B AI, and medical AI infrastructure.</p>
+    </div>
+  </div>
+
+  <div class="projects-grid reveal">
+
+    <!-- 1. Customer AI Agent MVP -->
+    <div class="project-card featured">
+      <div class="project-year">2026 · B2B AI AGENT · MVP</div>
+      <div class="project-title">Customer AI Agent MVP</div>
+      <div class="project-sub">Autonomous B2B prospecting and outbound email management agent</div>
+      <ul class="project-points">
+        <li>Multi-campaign dashboard with live outreach KPIs and lead qualification (Cold / Warm / Hot scoring)</li>
+        <li>AI inbound reply intent classification — automatically detects interest, objections, or opt-outs</li>
+        <li>Built-in compliance guardrails: opt-out handling, unsubscribe logic, and full audit event logging</li>
+        <li>FastAPI + Docker stack; demo-ready UI for client presentations and stakeholder walkthroughs</li>
+      </ul>
+      <a class="project-link" href="https://github.com/dataandai/customer-ai-agent-mvp" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+
+    <!-- 2. Sovereign Agent Moltbook SDK -->
+    <div class="project-card featured">
+      <div class="project-year">2026 · PYTHON SDK · OPEN SOURCE</div>
+      <div class="project-title">Sovereign Agent Framework</div>
+      <div class="project-sub">Professional-grade autonomous agent SDK for the Moltbook network</div>
+      <ul class="project-points">
+        <li>Model-agnostic sovereign runtime supporting Gemini, Claude, and ChatGPT as interchangeable backends</li>
+        <li>Dynamic self-modifying strategy via <code>SOVEREIGN_META.md</code> — agents autonomously evolve their own operational profiles</li>
+        <li>Skill discovery protocol: agents query peer capabilities and delegate tasks to specialists in real time</li>
+        <li>Docker-ready for 24/7 production deployment; covers SDLC leadership, community coordination, and team assembly use cases</li>
+      </ul>
+      <a class="project-link" href="https://github.com/dataandai/sovereign-agent-moltbook-python-sdk" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+
+    <!-- 3. Multi-Brand Social Automation -->
+    <div class="project-card featured">
+      <div class="project-year">2026 · SOCIAL AI · AUTOMATION</div>
+      <div class="project-title">Multi-Brand Social Automation System</div>
+      <div class="project-sub">End-to-end AI content generation and publishing automation for multiple brands from a single interface</div>
+      <ul class="project-points">
+        <li>One short topic prompt → full Facebook post, first comment, and a unique DALL-E 3 image, respecting each brand's tone and persona</li>
+        <li>Centralized Manager UI: brand profile management, drag-and-drop flyer/PDF ingestion with AI data extraction, inline schedule editing synced to Google Sheets</li>
+        <li>Make.com automation pipeline watches the sheet and posts content autonomously — including image and comment — the moment a new row appears</li>
+        <li>Self-healing reliability: auto-corrects misaligned sheet headers and filters empty rows to prevent failed posts</li>
+      </ul>
+      <a class="project-link" href="https://github.com/dataandai/balanceshop-multi" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+
+    <!-- 4. AI SaaS Dashboard for Recruitment -->
+    <div class="project-card featured">
+      <div class="project-year">2026 · HR AI · POC</div>
+      <div class="project-title">AI SaaS Dashboard for Recruitment</div>
+      <div class="project-sub">AI-powered hiring intelligence platform for HR teams</div>
+      <ul class="project-points">
+        <li>Automated resume scoring engine surfaces the strongest candidates from large applicant pools</li>
+        <li>AI-generated interview question sets tailored to the role and candidate profile</li>
+        <li>Visual hiring funnel analytics — tracks pipeline health from application to offer in real time</li>
+        <li>Next.js dark-mode interface backed by FastAPI; designed for clean client demos and rapid iteration</li>
+      </ul>
+      <a class="project-link" href="https://github.com/dataandai/scalable-ivf-management-platform-poc-" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+
+    <!-- 5. AI Content Strategy Planner -->
+    <div class="project-card featured">
+      <div class="project-year">2026 · POC · SHOWCASE</div>
+      <div class="project-title">AI Content Strategy Planner</div>
+      <div class="project-sub">Agentic content intelligence platform for marketing and editorial teams</div>
+      <ul class="project-points">
+        <li>Autonomous agents research market trends, competitor signals, and audience behaviour to generate structured strategy briefs</li>
+        <li>Multi-step reasoning pipeline: discovery → gap analysis → content calendar with channel and format recommendations</li>
+        <li>Outputs actionable editorial plans with SEO priorities, publish cadence, and measurable KPI targets</li>
+        <li>Modular API-first design — integrates into existing CMS and marketing stacks without friction</li>
+      </ul>
+      <a class="project-link" href="https://github.com/dataandai/ai-content-strategy-planner-poc" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+
+  </div>
+
+  <!-- FLAGSHIP / RESEARCH PROJECTS -->
+  <div class="reveal flagship-header">
+    <p class="section-label">// Flagship Research &amp; Personal Projects</p>
+    <div class="divider"></div>
+  </div>
+
   <div class="projects-grid reveal">
 
     <div class="project-card">
-      <div class="project-year">HUNGARY · 2021–2022</div>
+      <div class="project-year">HUNGARY · 2021–2022 · GOVERNMENT-BACKED</div>
       <div class="project-title">HILANCO GPTX</div>
-      <div class="project-sub">Government-backed National LLM Initiative · First bilingual LLM for a low-resource EU language</div>
+      <div class="project-sub">First bilingual LLM for a low-resource European language · National AI Initiative</div>
       <ul class="project-points">
         <li>6.7B-parameter autoregressive transformer (GPT-NeoX), pretrained from scratch on NVIDIA DGX A100</li>
         <li>Bilingual English-Hungarian — one of the first state-sponsored LLMs for a low-resource EU language</li>
-        <li>Prompt engineering wiki published June 2022 — 5 months before ChatGPT — covering few-shot learning, NER, chain-of-thought</li>
-        <li>Presented at a national government AI conference</li>
+        <li>Prompt engineering wiki published June 2022 — 5 months before ChatGPT — covering few-shot learning, NER, chain-of-thought, bilingual NLU</li>
+        <li>Presented at a national government AI conference; contributed to Hungary's strategic AI roadmap</li>
       </ul>
-      <a class="project-link" href="https://github.com/dataandai/Hungarian-gpt-3/wiki" target="_blank" rel="noopener">
-        GitHub Wiki ↗
-      </a>
+      <a class="project-link" href="https://github.com/dataandai/Hungarian-gpt-3/wiki" target="_blank" rel="noopener">GitHub Wiki ↗</a>
     </div>
 
     <div class="project-card">
-      <div class="project-year">PERSONAL PROJECT · 2026–PRESENT</div>
+      <div class="project-year">PERSONAL PROJECT · 2026 · UNDER CONSTRUCTION</div>
       <div class="project-title">The AI News Hub</div>
       <div class="project-sub">Agentic AI Publishing Platform for Neurodivergent Readers</div>
       <ul class="project-points">
-        <li>AI journalist agents autonomously transform peer-reviewed papers into accessible articles</li>
-        <li>Autism-friendly UX: no sensory overload, knowledge graph generation for complex concepts</li>
-        <li>End-to-end agentic pipeline: retrieval, summarisation, tone adaptation, KG generation</li>
-        <li>Privacy-first by design: zero user data collection, fully GDPR-compliant</li>
+        <li>AI journalist agents autonomously transform peer-reviewed scientific papers into accessible everyday-language articles on pre-defined topics</li>
+        <li>Autism-friendly UX: no sensory overload, knowledge graph visualisation connects concepts beyond the article itself</li>
+        <li>End-to-end agentic pipeline: retrieval → summarisation → tone adaptation → knowledge graph generation</li>
+        <li>Privacy-first by design: zero user data collection, fully GDPR-compliant architecture</li>
       </ul>
-      <a class="project-link" href="https://theainewshub.com" target="_blank" rel="noopener">
-        theainewshub.com ↗
-      </a>
+      <a class="project-link" href="https://theainewshub.com" target="_blank" rel="noopener">theainewshub.com ↗</a>
     </div>
 
   </div>
