@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adam Feldmann · Senior LLM & RAG Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080c12;
+      --bg2:      #0d1320;
+      --bg3:      #111827;
+      --cyan:     #00d4ff;
+      --cyan-dim: #00d4ff33;
+      --amber:    #f59e0b;
+      --text:     #e2e8f0;
+      --muted:    #64748b;
+      --border:   #1e293b;
+      --card:     #0f1929;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── CANVAS BACKGROUND ── */
+    #neural-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(8,12,18,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--cyan); }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 120px 48px;
+    }
+
+    section:first-of-type { padding-top: 160px; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 120px;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s forwards;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: #fff;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s forwards;
+    }
+
+    h1 span { color: var(--cyan); }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(16px, 2.5vw, 22px);
+      font-weight: 600;
+      color: var(--amber);
+      margin-top: 16px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.55s forwards;
+    }
+
+    .hero-sub {
+      max-width: 620px;
+      margin-top: 28px;
+      color: #94a3b8;
+      font-size: 13px;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.7s forwards;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 36px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.85s forwards;
+    }
+
+    .badge {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      padding: 6px 14px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      border-radius: 2px;
+    }
+
+    .badge-cyan { border-color: var(--cyan); color: var(--cyan); }
+    .badge-amber { border-color: var(--amber); color: var(--amber); }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+      opacity: 0;
+      animation: fadeUp 0.7s 1.0s forwards;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--cyan);
+      color: var(--bg);
+      border: 1px solid var(--cyan);
+      font-weight: 500;
+    }
+    .btn-primary:hover { background: transparent; color: var(--cyan); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* ── SECTION HEADINGS ── */
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: var(--cyan);
+      margin: 16px 0 48px;
+    }
+
+    /* ── AWARDS ── */
+    .awards-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .award-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px;
+      border-radius: 4px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .award-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+
+    .award-star { color: var(--amber); font-size: 20px; margin-bottom: 12px; }
+    .award-title { font-family: 'Syne', sans-serif; font-weight: 700; color: #fff; font-size: 14px; margin-bottom: 8px; }
+    .award-desc { color: var(--muted); font-size: 12px; line-height: 1.7; }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 4px;
+    }
+
+    .skill-block-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--cyan);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 4px 10px;
+      font-size: 11px;
+      border-radius: 2px;
+    }
+
+    /* ── NVIDIA STACK ── */
+    .nvidia-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .nvidia-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      padding: 18px 20px;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .nvidia-item:hover { background: #111827; }
+
+    .nvidia-icon {
+      color: var(--cyan);
+      font-size: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .nvidia-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      color: #fff;
+      font-size: 13px;
+    }
+    .nvidia-desc { color: var(--muted); font-size: 11px; margin-top: 3px; }
+
+    /* ── TIMELINE / EXPERIENCE ── */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .tl-item {
+      position: relative;
+      padding-bottom: 44px;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -33px;
+      top: 8px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--cyan);
+    }
+
+    .tl-period {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .tl-role {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .tl-company {
+      color: var(--cyan);
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .tl-points {
+      list-style: none;
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .tl-points li::before {
+      content: '▸ ';
+      color: var(--cyan);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--amber));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover { border-color: var(--cyan-dim); transform: translateY(-4px); }
+    .project-card:hover::after { opacity: 1; }
+
+    .project-year {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .project-sub {
+      color: var(--amber);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      margin-bottom: 18px;
+    }
+
+    .project-points {
+      list-style: none;
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .project-points li::before { content: '▸ '; color: var(--cyan); }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--cyan);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .project-link:hover { border-color: var(--cyan); }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+
+    .contact-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 24px 36px;
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 12px;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-width: 160px;
+    }
+    .contact-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+
+    .contact-icon { font-size: 24px; }
+    .contact-label { color: var(--muted); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; }
+    .contact-value { color: var(--cyan); }
+
+    .avail-pill {
+      display: inline-block;
+      background: rgba(0, 212, 255, 0.08);
+      border: 1px solid var(--cyan-dim);
+      color: var(--cyan);
+      padding: 8px 20px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+
+    .avail-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: #22c55e;
+      border-radius: 50%;
+      margin-right: 8px;
+      animation: pulse 2s infinite;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 32px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      nav ul { gap: 20px; }
+      section { padding: 80px 24px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Neural network background canvas -->
+<canvas id="neural-canvas"></canvas>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">AF<span style="color:#64748b">·</span>portfolio</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <p class="hero-eyebrow">// PhD · AI Engineer · Medical AI Consultant</p>
+  <h1>Adam<br /><span>Feldmann</span></h1>
+  <p class="hero-title">Senior LLM &amp; RAG Engineer</p>
+  <p class="hero-sub">
+    15+ years at the intersection of clinical neuroscience, NLP research, and production AI systems.
+    I build RAG pipelines, agentic architectures, and LLMs that ship — including one of the first
+    bilingual European LLMs, months before ChatGPT existed.
+  </p>
+  <div class="hero-badges">
+    <span class="badge badge-cyan">NVIDIA Deep Stack</span>
+    <span class="badge badge-amber">PhD Summa Cum Laude</span>
+    <span class="badge">State AI Award · Hungary</span>
+    <span class="badge">IEEE Reviewer</span>
+    <span class="badge">Microsoft Ignite Speaker</span>
+    <span class="badge">EU Contractor · Remote</span>
+  </div>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#contact">Get in touch</a>
+    <a class="btn btn-ghost" href="https://github.com/dataandai" target="_blank" rel="noopener">GitHub ↗</a>
+    <a class="btn btn-ghost" href="https://linkedin.com/in/adam-feldmann" target="_blank" rel="noopener">LinkedIn ↗</a>
+  </div>
+</section>
+
+<!-- ── AWARDS ── -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">// Recognition</p>
+    <h2>Honors &amp; Awards</h2>
+  </div>
+  <div class="awards-row reveal">
+    <div class="award-card">
+      <div class="award-star">★</div>
+      <div class="award-title">State Award — Hungary</div>
+      <div class="award-desc">Outstanding contributions to the advancement of artificial intelligence, pioneering LLM development and application within the national AI landscape.</div>
+    </div>
+    <div class="award-card">
+      <div class="award-star">★</div>
+      <div class="award-title">International Public Speaker</div>
+      <div class="award-desc">Presented at Microsoft Ignite and ML Prague, representing Hungarian AI research on the international stage.</div>
+    </div>
+    <div class="award-card">
+      <div class="award-star">★</div>
+      <div class="award-title">IEEE Journal Reviewer</div>
+      <div class="award-desc">Regularly reviews submissions for high-impact IEEE journals focused on large language models and natural language processing.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="reveal">
+    <p class="section-label">// Expertise</p>
+    <h2>Core Skills</h2>
+  </div>
+
+  <div class="reveal" style="margin-bottom: 48px;">
+    <p style="color: var(--muted); font-size: 12px; margin-bottom: 24px; letter-spacing: 0.05em; text-transform: uppercase;">NVIDIA Deep Stack</p>
+    <div class="nvidia-grid">
+      <div class="nvidia-item">
+        <div class="nvidia-icon">⬡</div>
+        <div>
+          <div class="nvidia-name">DGX A100 &amp; H200</div>
+          <div class="nvidia-desc">HPC cluster pretraining and large-scale fine-tuning</div>
+        </div>
+      </div>
+      <div class="nvidia-item">
+        <div class="nvidia-icon">⬡</div>
+        <div>
+          <div class="nvidia-name">NVIDIA NIM</div>
+          <div class="nvidia-desc">End-to-end optimised model microservices for production inference</div>
+        </div>
+      </div>
+      <div class="nvidia-item">
+        <div class="nvidia-icon">⬡</div>
+        <div>
+          <div class="nvidia-name">Triton Inference Server</div>
+          <div class="nvidia-desc">Scalable multi-model serving with dynamic batching</div>
+        </div>
+      </div>
+      <div class="nvidia-item">
+        <div class="nvidia-icon">⬡</div>
+        <div>
+          <div class="nvidia-name">TensorRT</div>
+          <div class="nvidia-desc">Model optimisation and latency reduction for production</div>
+        </div>
+      </div>
+      <div class="nvidia-item">
+        <div class="nvidia-icon">⬡</div>
+        <div>
+          <div class="nvidia-name">NVIDIA NeMo</div>
+          <div class="nvidia-desc">Model development, fine-tuning, and RLHF pipeline orchestration</div>
+        </div>
+      </div>
+      <div class="nvidia-item">
+        <div class="nvidia-icon">⬡</div>
+        <div>
+          <div class="nvidia-name">RLHF Pipelines</div>
+          <div class="nvidia-desc">Reward modeling, PPO, full alignment stack via NeMo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-grid reveal">
+    <div class="skill-block">
+      <div class="skill-block-title">LLM Pretraining</div>
+      <div class="skill-tags">
+        <span class="skill-tag">DGX A100/H200</span>
+        <span class="skill-tag">NeMo</span>
+        <span class="skill-tag">FSDP</span>
+        <span class="skill-tag">DeepSpeed</span>
+        <span class="skill-tag">GPT-NeoX</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">RAG Architecture</div>
+      <div class="skill-tags">
+        <span class="skill-tag">NIM</span>
+        <span class="skill-tag">Weaviate</span>
+        <span class="skill-tag">Pinecone</span>
+        <span class="skill-tag">LangChain</span>
+        <span class="skill-tag">Apache Spark</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">RLHF &amp; Fine-tuning</div>
+      <div class="skill-tags">
+        <span class="skill-tag">NeMo</span>
+        <span class="skill-tag">LoRA</span>
+        <span class="skill-tag">QLoRA</span>
+        <span class="skill-tag">PPO</span>
+        <span class="skill-tag">Reward Modeling</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">AI Agents</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Agentic Pipelines</span>
+        <span class="skill-tag">n8n</span>
+        <span class="skill-tag">Tool Routing</span>
+        <span class="skill-tag">Multi-step Reasoning</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">Medical AI</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Clinical NLP</span>
+        <span class="skill-tag">GDPR</span>
+        <span class="skill-tag">FHIR</span>
+        <span class="skill-tag">Biostatistics</span>
+        <span class="skill-tag">VBM</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">Cloud &amp; Infra</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Azure</span>
+        <span class="skill-tag">IBM Cloud</span>
+        <span class="skill-tag">Kubernetes</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">On-premise</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+  <div class="reveal">
+    <p class="section-label">// Career</p>
+    <h2>Experience</h2>
+  </div>
+  <div class="timeline reveal">
+
+    <div class="tl-item">
+      <div class="tl-period">APR 2024 — PRESENT</div>
+      <div class="tl-role">Senior AI Engineer &amp; Consultant</div>
+      <div class="tl-company">Independent / EU Contractor · Tenerife, Spain (Remote)</div>
+      <ul class="tl-points">
+        <li>Production RAG systems using NVIDIA NIM, Triton, and TensorRT — fully on-premise for GDPR compliance</li>
+        <li>Agentic tool layers with multi-step reasoning and query orchestration on NIM microservices</li>
+        <li>Large-scale Spark ingestion pipelines feeding Weaviate/Pinecone with hallucination &amp; retrieval eval</li>
+        <li>RLHF and fine-tuning via NeMo: reward modeling, PPO, alignment stack on DGX/H200</li>
+        <li>n8n workflow automations for European SME and enterprise clients</li>
+        <li>Built &amp; operate The AI News Hub — agentic publishing platform for neurodivergent readers</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">SEP 2023 — NOV 2024</div>
+      <div class="tl-role">Leader, Generative AI Research Group</div>
+      <div class="tl-company">Óbuda University — John von Neumann Faculty · Remote</div>
+      <ul class="tl-points">
+        <li>Led research bridging cutting-edge AI research and enterprise implementation</li>
+        <li>Developed and taught graduate course covering GPT-4, Claude, Llama 3, and Mistral</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">APR 2022 — NOV 2024</div>
+      <div class="tl-role">Assistant Professor — Bioinformatics &amp; Applied AI</div>
+      <div class="tl-company">Óbuda University · Remote</div>
+      <ul class="tl-points">
+        <li>Led practical sessions on Generative AI for BSc students</li>
+        <li>Contributed to curriculum development integrating LLM and NLP in engineering education</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">NOV 2019 — JUL 2023</div>
+      <div class="tl-role">Group Leader, Applied Data Science &amp; AI</div>
+      <div class="tl-company">University of Pécs · Hungary</div>
+      <ul class="tl-points">
+        <li>Led pretraining of HILANCO GPTX: 6.7B-parameter bilingual GPT-NeoX on NVIDIA DGX A100</li>
+        <li>Collaborated with Microsoft Hungary on Hungarian BERT Large; presented at Microsoft Ignite</li>
+        <li>Led medical AI: computer vision-based drug recognition system</li>
+        <li>Published prompt engineering research (Jun 2022) — predating ChatGPT; presented at ML Prague</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">MAY 2009 — NOV 2019</div>
+      <div class="tl-role">Assistant Professor — Medical Statistics &amp; AI</div>
+      <div class="tl-company">University of Pécs, Medical School · Hungary</div>
+      <ul class="tl-points">
+        <li>Delivered training in advanced statistical methods and MRI data processing</li>
+        <li>Taught biostatistics, voxel-based morphometry, and clinical trial methodology</li>
+        <li>Applied early machine learning to clinical neuroscience and diagnostic imaging</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="reveal">
+    <p class="section-label">// Selected Work</p>
+    <h2>Featured Projects</h2>
+  </div>
+  <div class="projects-grid reveal">
+
+    <div class="project-card">
+      <div class="project-year">HUNGARY · 2021–2022</div>
+      <div class="project-title">HILANCO GPTX</div>
+      <div class="project-sub">Government-backed National LLM Initiative · First bilingual LLM for a low-resource EU language</div>
+      <ul class="project-points">
+        <li>6.7B-parameter autoregressive transformer (GPT-NeoX), pretrained from scratch on NVIDIA DGX A100</li>
+        <li>Bilingual English-Hungarian — one of the first state-sponsored LLMs for a low-resource EU language</li>
+        <li>Prompt engineering wiki published June 2022 — 5 months before ChatGPT — covering few-shot learning, NER, chain-of-thought</li>
+        <li>Presented at a national government AI conference</li>
+      </ul>
+      <a class="project-link" href="https://github.com/dataandai/Hungarian-gpt-3/wiki" target="_blank" rel="noopener">
+        GitHub Wiki ↗
+      </a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-year">PERSONAL PROJECT · 2026–PRESENT</div>
+      <div class="project-title">The AI News Hub</div>
+      <div class="project-sub">Agentic AI Publishing Platform for Neurodivergent Readers</div>
+      <ul class="project-points">
+        <li>AI journalist agents autonomously transform peer-reviewed papers into accessible articles</li>
+        <li>Autism-friendly UX: no sensory overload, knowledge graph generation for complex concepts</li>
+        <li>End-to-end agentic pipeline: retrieval, summarisation, tone adaptation, KG generation</li>
+        <li>Privacy-first by design: zero user data collection, fully GDPR-compliant</li>
+      </ul>
+      <a class="project-link" href="https://theainewshub.com" target="_blank" rel="noopener">
+        theainewshub.com ↗
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="reveal">
+    <p class="section-label">// Let's work together</p>
+    <h2>Get in Touch</h2>
+    <div class="avail-pill">
+      <span class="avail-dot"></span>
+      Available for new projects · CET timezone
+    </div>
+    <p style="color: var(--muted); font-size: 13px; max-width: 460px; margin: 0 auto;">
+      EU contractor · Clean invoicing for European and US clients · Immediate availability.
+    </p>
+  </div>
+  <div class="contact-grid reveal">
+    <a class="contact-card" href="https://linkedin.com/in/adam-feldmann" target="_blank" rel="noopener">
+      <div class="contact-icon">💼</div>
+      <div class="contact-label">LinkedIn</div>
+      <div class="contact-value">adam-feldmann</div>
+    </a>
+    <a class="contact-card" href="https://github.com/dataandai" target="_blank" rel="noopener">
+      <div class="contact-icon">⌥</div>
+      <div class="contact-label">GitHub</div>
+      <div class="contact-value">dataandai</div>
+    </a>
+    <a class="contact-card" href="https://theainewshub.com" target="_blank" rel="noopener">
+      <div class="contact-icon">◈</div>
+      <div class="contact-label">Project</div>
+      <div class="contact-value">theainewshub.com</div>
+    </a>
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <div class="contact-label">Location</div>
+      <div class="contact-value">Tenerife, Spain</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Adam Feldmann · PhD · Senior LLM &amp; RAG Engineer · Built with purpose, deployed on GitHub Pages
+</footer>
+
+<!-- ── NEURAL CANVAS SCRIPT ── -->
+<script>
+  const canvas = document.getElementById('neural-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function initNodes(n = 55) {
+    nodes = [];
+    for (let i = 0; i < n; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 2 + 1,
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const DIST = 160;
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      a.x += a.vx; a.y += a.vy;
+      if (a.x < 0 || a.x > W) a.vx *= -1;
+      if (a.y < 0 || a.y > H) a.vy *= -1;
+
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < DIST) {
+          const alpha = (1 - d / DIST) * 0.5;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(0,212,255,${alpha})`;
+          ctx.lineWidth = 0.6;
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,212,255,0.6)';
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); initNodes(); });
+  resize(); initNodes(); draw();
+
+  // ── SCROLL REVEAL ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
