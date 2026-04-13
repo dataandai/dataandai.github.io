@@ -1,164 +1,39 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Adam Feldmann · Senior LLM &amp; Enterprise AI Engineer — Governed Agentic AI, RAG &amp; LLMOps</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adam Feldmann · Senior LLM & Enterprise AI Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      color-scheme: dark;
-      --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-display: 'Syne', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
-
-      --bg: #06090d;
-      --bg-deep: #030507;
-      --surface: rgba(14, 20, 25, 0.82);
-      --surface2: rgba(21, 29, 35, 0.88);
-      --surface3: rgba(28, 39, 46, 0.78);
-      --cyan: #54f4cf;
-      --cyan-soft: #8fffe4;
-      --cyan-dim: rgba(84, 244, 207, 0.12);
-      --amber: #e7b549;
-      --amber-dim: rgba(231, 181, 73, 0.14);
-      --green: #73e3a2;
-      --text: #d6ddde;
-      --text-hi: #f4f7f5;
-      --muted: #8b989d;
-      --muted-2: #5e6b72;
-      --border: rgba(142, 160, 166, 0.18);
-      --border-strong: rgba(142, 160, 166, 0.34);
-      --sidebar-w: 320px;
-      --content-w: 1240px;
-
-      --space-1: 4px;
-      --space-2: 8px;
-      --space-3: 12px;
-      --space-4: 16px;
-      --space-5: 20px;
-      --space-6: 24px;
-      --space-7: 32px;
-      --space-8: 40px;
-      --space-9: 56px;
-      --space-10: 72px;
-
-      --radius-xs: 6px;
-      --radius-sm: 10px;
-      --radius-md: 16px;
-      --radius-lg: 24px;
-      --radius-xl: 34px;
-      --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.22);
-      --shadow-md: 0 24px 70px rgba(0, 0, 0, 0.34);
-      --shadow-glow: 0 0 34px rgba(84, 244, 207, 0.11);
-      --ease: cubic-bezier(.2, .8, .2, 1);
-      --transition-fast: 160ms var(--ease);
-      --transition-med: 240ms var(--ease);
+      --bg:        #080c12;
+      --surface:   #0d1320;
+      --surface2:  #111b2e;
+      --cyan:      #00d4ff;
+      --cyan-dim:  rgba(0,212,255,0.12);
+      --amber:     #f59e0b;
+      --text:      #cbd5e1;
+      --text-hi:   #f1f5f9;
+      --muted:     #475569;
+      --border:    #1e293b;
+      --sidebar-w: 300px;
     }
 
-    :root[data-theme='light'] {
-      color-scheme: light;
-      --bg: #f4f1ea;
-      --bg-deep: #ebe4d9;
-      --surface: rgba(255, 252, 245, 0.9);
-      --surface2: rgba(246, 241, 231, 0.92);
-      --surface3: rgba(236, 229, 216, 0.78);
-      --cyan: #087c6c;
-      --cyan-soft: #0f9c87;
-      --cyan-dim: rgba(8, 124, 108, 0.1);
-      --amber: #9b6412;
-      --amber-dim: rgba(155, 100, 18, 0.12);
-      --green: #17884b;
-      --text: #273137;
-      --text-hi: #11171a;
-      --muted: #5e6970;
-      --muted-2: #7b858b;
-      --border: rgba(27, 38, 44, 0.16);
-      --border-strong: rgba(27, 38, 44, 0.28);
-      --shadow-sm: 0 10px 30px rgba(27, 38, 44, 0.09);
-      --shadow-md: 0 24px 70px rgba(27, 38, 44, 0.14);
-      --shadow-glow: 0 0 34px rgba(8, 124, 108, 0.09);
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 28px;
-      background: var(--bg);
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      min-height: 100vh;
-      display: flex;
-      overflow-x: hidden;
-      background:
-        radial-gradient(circle at 16% -12%, rgba(84, 244, 207, 0.12), transparent 34vw),
-        radial-gradient(circle at 88% 12%, rgba(231, 181, 73, 0.1), transparent 28vw),
-        linear-gradient(135deg, var(--bg-deep), var(--bg) 42%, #08100f 100%);
+      background: var(--bg);
       color: var(--text);
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.68;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -2;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.032) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px),
-        radial-gradient(circle, rgba(84, 244, 207, 0.12) 1px, transparent 1.8px);
-      background-size: 56px 56px, 56px 56px, 18px 18px;
-      background-position: 0 0, 0 0, 0 0;
-      mask-image: linear-gradient(90deg, rgba(0,0,0,0.42), rgba(0,0,0,0.12));
-      animation: ambientGrid 30s linear infinite;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: auto -12vw -22vh auto;
-      width: 42vw;
-      height: 42vw;
-      min-width: 420px;
-      min-height: 420px;
-      background:
-        radial-gradient(circle, rgba(84, 244, 207, 0.09), transparent 68%),
-        radial-gradient(circle at 35% 35%, rgba(231, 181, 73, 0.055), transparent 58%);
-      pointer-events: none;
-      z-index: -1;
-      filter: blur(4px);
-      animation: ambientFloat 18s ease-in-out infinite alternate;
-      will-change: transform, opacity;
-    }
-
-    a, button {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    a:focus-visible,
-    button:focus-visible {
-      outline: 2px solid var(--cyan);
-      outline-offset: 4px;
-      border-radius: var(--radius-xs);
-    }
-
-    ::selection {
-      color: #02110d;
-      background: var(--cyan);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
     }
 
     /* ══ SIDEBAR ══ */
@@ -166,2487 +41,864 @@
       width: var(--sidebar-w);
       min-width: var(--sidebar-w);
       position: fixed;
-      inset: 0 auto 0 0;
-      z-index: 10;
+      top: 0; left: 0; bottom: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
+      padding: 40px 28px;
       overflow-y: auto;
-      padding: 42px 26px 30px;
-      background:
-        linear-gradient(180deg, rgba(15, 22, 27, 0.92), rgba(8, 12, 15, 0.9)),
-        radial-gradient(circle at 0 8%, rgba(84, 244, 207, 0.12), transparent 36%);
-      border-right: 1px solid var(--border);
-      box-shadow: 16px 0 70px rgba(0, 0, 0, 0.24);
-      backdrop-filter: blur(18px);
-    }
-
-    aside::before {
-      content: '';
-      position: absolute;
-      inset: 20px 14px auto auto;
-      width: 52px;
-      height: 52px;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      transform: rotate(10deg);
-      background: linear-gradient(135deg, rgba(84, 244, 207, 0.08), transparent 62%);
-      pointer-events: none;
+      z-index: 10;
     }
 
     .sidebar-name {
-      margin-bottom: 10px;
-      color: var(--text-hi);
-      font-family: var(--font-display);
-      font-size: clamp(26px, 2.1vw, 34px);
+      font-family: 'Syne', sans-serif;
+      font-size: 23px;
       font-weight: 800;
-      line-height: .92;
-      letter-spacing: -0.055em;
+      color: var(--text-hi);
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      margin-bottom: 7px;
     }
 
     .sidebar-title {
-      max-width: 22ch;
-      margin-bottom: 8px;
+      font-size: 11px;
       color: var(--cyan);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: .09em;
-      line-height: 1.55;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 4px;
     }
 
     .sidebar-location {
-      margin-bottom: 24px;
+      font-size: 11px;
       color: var(--muted);
-      font-size: 12px;
+      margin-bottom: 24px;
     }
 
     .avail-pill {
-      position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      width: fit-content;
-      margin-bottom: 30px;
-      padding: 8px 12px;
-      border: 1px solid rgba(115, 227, 162, 0.26);
-      border-radius: 999px;
-      background: rgba(115, 227, 162, 0.08);
-      color: #a8ffc7;
-      font-family: var(--font-mono);
+      gap: 7px;
+      background: rgba(34,197,94,0.07);
+      border: 1px solid rgba(34,197,94,0.2);
+      color: #4ade80;
       font-size: 10px;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-      box-shadow: 0 0 28px rgba(115, 227, 162, 0.06);
+      letter-spacing: 0.07em;
+      padding: 5px 11px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      width: fit-content;
     }
 
     .avail-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px; height: 6px;
+      background: #22c55e;
       border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 0 5px rgba(115, 227, 162, 0.12);
-      animation: pulse 2.2s var(--ease) infinite;
+      animation: pulse 2s infinite;
     }
 
-    nav {
-      display: grid;
-      gap: 4px;
-      margin-bottom: 32px;
-    }
+    nav { margin-bottom: 28px; }
 
     nav a {
-      position: relative;
-      display: flex;
-      align-items: center;
-      min-height: 38px;
-      padding: 0 12px 0 18px;
-      overflow: hidden;
-      border: 1px solid transparent;
-      border-radius: 12px;
+      display: block;
+      padding: 7px 10px;
+      margin-bottom: 1px;
       color: var(--muted);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: .12em;
       text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+      font-weight: 500;
+      border-radius: 4px;
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
     }
-
-    nav a::before {
-      content: '';
-      position: absolute;
-      left: 8px;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: currentColor;
-      opacity: .55;
-      transition: transform var(--transition-fast), opacity var(--transition-fast), background var(--transition-fast);
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 0;
-      background: linear-gradient(90deg, var(--cyan-dim), transparent);
-      transition: width var(--transition-med);
-      pointer-events: none;
-    }
-
-    nav a:hover,
-    nav a.active {
-      color: var(--text-hi);
-      border-color: rgba(84, 244, 207, 0.22);
-      background: rgba(84, 244, 207, 0.06);
-      transform: translateX(3px);
-    }
-
-    nav a:hover::before,
-    nav a.active::before {
-      background: var(--cyan);
-      opacity: 1;
-      transform: scale(1.6);
-    }
-
-    nav a:hover::after,
-    nav a.active::after {
-      width: 100%;
+    nav a:hover, nav a.active {
+      color: var(--cyan);
+      border-left-color: var(--cyan);
+      background: var(--cyan-dim);
+      padding-left: 14px;
     }
 
     .s-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-      color: var(--muted);
-      font-family: var(--font-mono);
       font-size: 9px;
-      font-weight: 600;
-      letter-spacing: .2em;
+      color: var(--muted);
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-    }
-
-    .s-label::before {
-      content: '';
-      width: 18px;
-      height: 1px;
-      background: var(--amber);
+      margin-bottom: 10px;
+      font-weight: 600;
     }
 
     .tag-cloud {
       display: flex;
       flex-wrap: wrap;
-      gap: 7px;
-      margin-bottom: 28px;
+      gap: 5px;
+      margin-bottom: 22px;
     }
 
     .tag {
-      display: inline-flex;
-      align-items: center;
-      min-height: 24px;
-      padding: 3px 8px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--muted);
-      font-family: var(--font-mono);
       font-size: 10px;
-      line-height: 1;
-      transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+      padding: 3px 7px;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--bg);
+      font-family: 'JetBrains Mono', monospace;
     }
-
-    .tag:hover {
-      border-color: var(--border-strong);
-      color: var(--text);
-      transform: translateY(-1px);
-    }
-
-    .tag-hi {
-      border-color: rgba(84, 244, 207, 0.28);
-      background: var(--cyan-dim);
-      color: var(--cyan-soft);
-    }
-
-    .tag-amb {
-      border-color: rgba(231, 181, 73, 0.34);
-      background: var(--amber-dim);
-      color: #f7d27b;
-    }
+    .tag-hi  { border-color: rgba(0,212,255,0.3); color: var(--cyan); }
+    .tag-amb { border-color: rgba(245,158,11,0.3); color: var(--amber); }
 
     .sidebar-contact {
-      display: grid;
-      gap: 8px;
       margin-top: auto;
-      padding-top: 22px;
+      padding-top: 20px;
       border-top: 1px solid var(--border);
     }
 
     .c-link {
       display: flex;
       align-items: center;
-      gap: 10px;
-      min-height: 42px;
-      padding: 7px 8px;
-      overflow: hidden;
-      border: 1px solid transparent;
-      border-radius: 14px;
+      gap: 9px;
       color: var(--muted);
-      font-size: 11px;
       text-decoration: none;
-      transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+      font-size: 10px;
+      padding: 5px 0;
+      transition: color 0.15s;
+      overflow: hidden;
     }
-
-    .c-link:hover {
-      color: var(--text-hi);
-      border-color: var(--border);
-      background: rgba(255, 255, 255, 0.035);
-      transform: translateY(-1px);
-    }
+    .c-link:hover { color: var(--text-hi); }
 
     .c-icon {
+      width: 26px; height: 26px;
       display: flex;
-      flex: 0 0 30px;
       align-items: center;
       justify-content: center;
-      width: 30px;
-      height: 30px;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-hi);
+      border-radius: 4px;
       font-size: 12px;
+      flex-shrink: 0;
     }
 
-    .c-link.email-link {
-      color: var(--cyan);
-    }
-
-    .c-link.email-link:hover {
-      color: var(--text-hi);
-    }
-
-    .side-mobile-head {
-      display: none;
-    }
-
-    .desktop-name {
-      display: block;
-    }
+    .c-link.email-link { color: var(--cyan); }
+    .c-link.email-link:hover { color: #fff; }
 
     /* ══ MAIN ══ */
     main {
-      position: relative;
-      isolation: isolate;
-      flex: 1;
-      width: calc(100% - var(--sidebar-w));
-      max-width: var(--content-w);
       margin-left: var(--sidebar-w);
-      padding: 48px clamp(28px, 5vw, 72px) 96px;
+      flex: 1;
+      padding: 56px 56px 80px;
+      max-width: 840px;
     }
 
-    main::before,
-    main::after {
-      content: '';
-      position: fixed;
-      pointer-events: none;
-      z-index: -1;
-      inset: 0 0 0 calc(var(--sidebar-w) - 20px);
-    }
-
-    main::before {
-      background:
-        radial-gradient(circle at 22% 24%, rgba(84, 244, 207, 0.2) 0 2px, transparent 3px),
-        radial-gradient(circle at 31% 46%, rgba(84, 244, 207, 0.16) 0 2px, transparent 3px),
-        radial-gradient(circle at 43% 34%, rgba(84, 244, 207, 0.18) 0 1.8px, transparent 3px),
-        radial-gradient(circle at 66% 22%, rgba(231, 181, 73, 0.16) 0 2px, transparent 3px),
-        radial-gradient(circle at 73% 56%, rgba(84, 244, 207, 0.2) 0 2px, transparent 3px),
-        radial-gradient(circle at 58% 72%, rgba(231, 181, 73, 0.12) 0 2px, transparent 3px),
-        repeating-radial-gradient(circle at 74% 22%, rgba(84, 244, 207, 0) 0 24px, rgba(84, 244, 207, 0.055) 24px 25px, transparent 25px 48px),
-        repeating-radial-gradient(circle at 22% 78%, rgba(231, 181, 73, 0) 0 20px, rgba(231, 181, 73, 0.04) 20px 21px, transparent 21px 40px);
-      opacity: .8;
-      mix-blend-mode: screen;
-      animation: researchOrbit 34s linear infinite;
-    }
-
-    main::after {
-      inset: 0 0 0 calc(var(--sidebar-w) - 12px);
-      background:
-        linear-gradient(116deg, transparent 0 44%, rgba(84, 244, 207, 0.09) 48%, rgba(84, 244, 207, 0.03) 50%, transparent 54%),
-        linear-gradient(116deg, transparent 0 61%, rgba(231, 181, 73, 0.06) 63%, transparent 66%);
-      opacity: .56;
-      animation: researchSweep 18s ease-in-out infinite;
-    }
-
-    .section {
-      position: relative;
-      margin-bottom: clamp(58px, 7vw, 92px);
-    }
+    .section { margin-bottom: 64px; }
 
     .section-header {
-      position: relative;
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 14px;
       margin-bottom: 24px;
-    }
-
-    .section-header::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--border-strong), transparent);
-    }
-
-    /* Case study */
-    .cs-thesis {
-      font-family: var(--font-mono);
-      font-size: 15px;
-      line-height: 1.65;
-      color: var(--text-hi);
-      border-left: 3px solid var(--cyan);
-      background: var(--cyan-dim);
-      border-radius: var(--radius-sm);
-      padding: var(--space-4) var(--space-5);
-      margin: var(--space-6) 0;
-      max-width: 860px;
-    }
-    .cs-block { margin-top: var(--space-7); }
-    #case-study .bullets code {
-      font-family: var(--font-mono);
-      font-size: 0.88em;
-      color: var(--cyan-soft);
-      background: var(--cyan-dim);
-      border-radius: var(--radius-xs);
-      padding: 1px 6px;
-    }
-    .cs-sub {
-      font-family: var(--font-display);
-      font-size: 14px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: var(--space-4);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
     }
 
     .sec-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 34px;
-      height: 28px;
-      border: 1px solid rgba(231, 181, 73, 0.32);
-      border-radius: 999px;
-      background: rgba(231, 181, 73, 0.08);
-      color: #f4d28a;
-      font-family: var(--font-mono);
+      font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
+      color: var(--cyan);
+      opacity: 0.6;
     }
 
     .sec-title {
-      color: var(--text-hi);
-      font-family: var(--font-display);
-      font-size: clamp(22px, 2.7vw, 34px);
+      font-family: 'Syne', sans-serif;
+      font-size: 19px;
       font-weight: 800;
-      letter-spacing: -0.055em;
-      line-height: 1;
-    }
-
-    /* ── HERO / UX LAYER ── */
-    .mobile-topbar,
-    .mobile-overlay {
-      display: none;
-    }
-
-    .hero {
-      margin-bottom: clamp(66px, 8vw, 110px);
-    }
-
-    .hero-shell {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.74fr);
-      align-items: start;
-      gap: clamp(22px, 2.4vw, 34px);
-      overflow: hidden;
-      padding: clamp(22px, 3vw, 38px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      background:
-        radial-gradient(circle at 12% 18%, rgba(84, 244, 207, 0.13), transparent 32%),
-        radial-gradient(circle at 94% 0%, rgba(231, 181, 73, 0.13), transparent 32%),
-        linear-gradient(135deg, rgba(18, 26, 31, 0.92), rgba(9, 13, 17, 0.86));
-      box-shadow: var(--shadow-md), var(--shadow-glow);
-      isolation: isolate;
-    }
-
-    .hero-shell::before {
-      content: '';
-      position: absolute;
-      inset: 1px;
-      z-index: -1;
-      border-radius: calc(var(--radius-xl) - 1px);
-      background:
-        linear-gradient(120deg, rgba(255,255,255,0.08), transparent 28%, rgba(84,244,207,0.06) 52%, transparent 74%),
-        linear-gradient(180deg, rgba(255,255,255,0.045), transparent);
-      pointer-events: none;
-    }
-
-    .hero-shell::after {
-      content: '';
-      position: absolute;
-      top: -40%;
-      right: 24%;
-      width: 220px;
-      height: 180%;
-      background: linear-gradient(180deg, transparent, rgba(84, 244, 207, 0.1), transparent);
-      transform: rotate(26deg);
-      opacity: .52;
-      pointer-events: none;
-      animation: heroBeam 14s ease-in-out infinite alternate;
-    }
-
-    .hero-copy,
-    .hero-panel {
-      position: relative;
-      z-index: 1;
-      min-width: 0;
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-      padding: 8px 12px;
-      border: 1px solid rgba(84, 244, 207, 0.24);
-      border-radius: 999px;
-      background: rgba(3, 6, 8, 0.42);
-      color: var(--cyan-soft);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      backdrop-filter: blur(10px);
-    }
-
-    .hero-kicker::before {
-      content: '';
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 0 5px rgba(115, 227, 162, 0.13), 0 0 22px rgba(115, 227, 162, 0.3);
-    }
-
-    .hero-title {
-      max-width: 100%;
-      margin-bottom: 20px;
       color: var(--text-hi);
-      font-family: var(--font-display);
-      font-size: clamp(36px, 3.9vw, 54px);
-      font-weight: 800;
-      line-height: .96;
-      letter-spacing: -0.055em;
-      text-wrap: balance;
-      word-break: normal;
-      overflow-wrap: normal;
-      hyphens: none;
-    }
-
-    .hero-text {
-      max-width: 68ch;
-      margin-bottom: 24px;
-      color: var(--text);
-      font-size: clamp(15px, 1.25vw, 17px);
-      line-height: 1.82;
-    }
-
-    .hero-chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-bottom: 24px;
-    }
-
-    .hero-chip {
-      display: inline-flex;
-      align-items: center;
-      min-height: 32px;
-      padding: 7px 11px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text);
-      font-size: 12px;
-      line-height: 1;
-      white-space: nowrap;
-      backdrop-filter: blur(8px);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    .hero-btn {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      min-height: 46px;
-      padding: 0 18px;
-      overflow: hidden;
-      border-radius: 14px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      line-height: 1;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
-    }
-
-    .hero-btn::after,
-    .proj-link::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.18) 45%, transparent 70%);
-      transform: translateX(-120%);
-      transition: transform 420ms var(--ease);
-      pointer-events: none;
-    }
-
-    .hero-btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .hero-btn:hover::after,
-    .proj-link:hover::after {
-      transform: translateX(120%);
-    }
-
-    .hero-btn.primary {
-      border: 1px solid rgba(84, 244, 207, 0.55);
-      background: linear-gradient(135deg, var(--cyan), #b6ffe8);
-      color: #06110e;
-      box-shadow: 0 14px 36px rgba(84, 244, 207, 0.18);
-    }
-
-    .hero-btn.secondary {
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-hi);
-    }
-
-    .hero-btn.secondary:hover {
-      border-color: rgba(231, 181, 73, 0.42);
-      background: rgba(231, 181, 73, 0.08);
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .hero-stat {
-      min-height: 112px;
-      padding: 16px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025)),
-        rgba(3, 6, 8, 0.42);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-      transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
-    }
-
-    .hero-stat:hover {
-      transform: translateY(-3px);
-      border-color: rgba(84, 244, 207, 0.28);
-      background: rgba(84, 244, 207, 0.055);
-    }
-
-    .hero-stat-value {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--text-hi);
-      font-family: var(--font-display);
-      font-size: clamp(25px, 2vw, 34px);
-      font-weight: 800;
-      line-height: .92;
-      letter-spacing: -0.055em;
-    }
-
-    .hero-stat-label {
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    .hero-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      justify-content: space-between;
-      overflow: hidden;
-      padding: 4px;
-      border-radius: 28px;
-      isolation: isolate;
-      background:
-        radial-gradient(circle at 30% 38%, rgba(84, 244, 207, 0.13), transparent 32%),
-        radial-gradient(circle at 74% 72%, rgba(231, 181, 73, 0.11), transparent 30%);
-      background-size: 140% 140%, 150% 150%;
-      animation: widgetAura 8s ease-in-out infinite alternate;
-    }
-
-    .hero-panel::before,
-    .hero-panel::after {
-      content: '';
-      position: absolute;
-      border-radius: 999px;
-      pointer-events: none;
-      z-index: 0;
-      filter: blur(18px);
-      opacity: .42;
-    }
-
-    .hero-panel::before {
-      inset: 18% 8% auto auto;
-      width: 190px;
-      height: 190px;
-      background:
-        radial-gradient(circle, rgba(84, 244, 207, 0.42), rgba(84, 244, 207, 0.11) 42%, rgba(84, 244, 207, 0) 70%);
-      animation: widgetFloatOne 7.5s ease-in-out infinite alternate;
-    }
-
-    .hero-panel::after {
-      inset: auto auto 4% 10%;
-      width: 210px;
-      height: 210px;
-      background:
-        radial-gradient(circle, rgba(231, 181, 73, 0.34), rgba(231, 181, 73, 0.1) 44%, rgba(231, 181, 73, 0) 72%);
-      animation: widgetFloatTwo 9.5s ease-in-out infinite alternate;
-    }
-
-    .hero-panel-card,
-    .hero-mini-grid,
-    .hero-mini-card {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-panel-card,
-    .hero-mini-card {
-      border: 1px solid var(--border);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)),
-        rgba(3, 6, 8, 0.42);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.045);
-      backdrop-filter: blur(16px);
-    }
-
-    .hero-panel-card {
-      padding: clamp(18px, 2vw, 24px);
-      border-radius: 22px;
-    }
-
-    .hero-panel-label {
-      margin-bottom: 10px;
-      color: var(--amber);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-
-    .hero-panel-title {
-      margin-bottom: 12px;
-      color: var(--text-hi);
-      font-family: var(--font-display);
-      font-size: clamp(19px, 1.55vw, 25px);
-      font-weight: 800;
-      line-height: 1.04;
-      letter-spacing: -0.045em;
-      text-wrap: balance;
-    }
-
-    .hero-panel-text {
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.76;
-    }
-
-    .hero-list {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-      list-style: none;
-    }
-
-    .hero-list li,
-    .bullets li {
-      position: relative;
-      padding-left: 18px;
-    }
-
-    .hero-list li {
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.62;
-    }
-
-    .hero-list li::before,
-    .bullets li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: .68em;
-      width: 7px;
-      height: 7px;
-      border-radius: 2px;
-      background: var(--cyan);
-      transform: rotate(45deg);
-      box-shadow: 0 0 14px rgba(84, 244, 207, 0.34);
-    }
-
-    .hero-mini-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .hero-mini-grid::before {
-      content: '';
-      position: absolute;
-      inset: -42px 12% auto 12%;
-      height: 2px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, transparent, rgba(84, 244, 207, 0.5), rgba(231, 181, 73, 0.4), transparent);
-      box-shadow: 0 0 24px rgba(84, 244, 207, 0.26);
-      transform: rotate(-9deg);
-      animation: widgetScan 5.8s ease-in-out infinite alternate;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .hero-mini-card {
-      padding: 16px;
-      border-radius: 18px;
-      transition: transform var(--transition-fast), border-color var(--transition-fast);
-    }
-
-    .hero-mini-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(231, 181, 73, 0.36);
-    }
-
-    .hero-mini-title {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--text-hi);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .hero-mini-text {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.58;
-    }
-
-    @media (min-width: 1181px) and (max-width: 1460px) {
-      .hero-shell {
-        grid-template-columns: minmax(0, 1fr) minmax(350px, .74fr);
-      }
-
-      .hero-title {
-        max-width: 100%;
-        font-size: clamp(34px, 3.55vw, 48px);
-      }
-
-      .hero-panel-title {
-        font-size: clamp(18px, 1.35vw, 23px);
-      }
+      letter-spacing: -0.02em;
     }
 
     /* ── ABOUT ── */
     .badge-row {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
     }
 
     .honor {
       display: flex;
       align-items: center;
-      gap: 8px;
-      min-height: 58px;
-      padding: 12px 14px;
+      gap: 6px;
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)),
-        var(--surface);
-      color: var(--text);
-      font-size: 12px;
-      line-height: 1.35;
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
-    }
-
-    .honor:hover {
-      transform: translateY(-2px);
-      border-color: rgba(231, 181, 73, 0.36);
-      background: rgba(231, 181, 73, 0.055);
-    }
-
-    .honor-star {
-      flex: 0 0 auto;
-      color: var(--amber);
+      padding: 5px 11px;
+      border-radius: 4px;
       font-size: 11px;
+      color: var(--text);
     }
+    .honor-star { color: var(--amber); font-size: 9px; }
 
     .summary {
-      position: relative;
-      max-width: none;
-      padding: clamp(20px, 2.6vw, 30px);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background:
-        radial-gradient(circle at 100% 0%, rgba(84, 244, 207, 0.1), transparent 32%),
-        linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.024)),
-        var(--surface);
-      color: var(--text);
-      font-size: 15px;
-      line-height: 1.9;
-      box-shadow: var(--shadow-sm);
+      font-size: 13px;
+      line-height: 1.85;
+      color: #94a3b8;
+      max-width: 640px;
     }
-
-    .summary::before {
-      content: '';
-      position: absolute;
-      top: 22px;
-      right: 22px;
-      width: 58px;
-      height: 58px;
-      border-top: 3px solid var(--amber);
-      border-right: 3px solid var(--amber);
-      opacity: .65;
-    }
-
-    .summary strong {
-      color: var(--text-hi);
-      font-weight: 650;
-    }
+    .summary strong { color: var(--text-hi); font-weight: 600; }
 
     /* ── NVIDIA ── */
     .nvidia-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
     }
 
     .nv-card {
-      position: relative;
-      min-height: 142px;
-      overflow: hidden;
-      padding: 18px;
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 22px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)),
-        var(--surface);
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
-    }
-
-    .nv-card:first-child {
-      grid-column: span 2;
-    }
-
-    .nv-card::before {
-      content: '';
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 4px;
-      background: linear-gradient(180deg, var(--cyan), var(--amber));
-      opacity: .9;
-    }
-
-    .nv-card::after {
-      content: '';
-      position: absolute;
-      right: -42px;
-      bottom: -42px;
-      width: 108px;
-      height: 108px;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      transform: rotate(18deg);
-      background: rgba(84, 244, 207, 0.05);
-      pointer-events: none;
-    }
-
-    .nv-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(84, 244, 207, 0.34);
-      box-shadow: var(--shadow-md);
+      border-left: 2px solid var(--cyan);
+      border-radius: 4px;
+      padding: 12px 14px;
     }
 
     .nv-name {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
       color: var(--text-hi);
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.04em;
+      margin-bottom: 3px;
+      font-weight: 500;
     }
 
     .nv-desc {
-      position: relative;
-      z-index: 1;
-      max-width: 32ch;
+      font-size: 10px;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.62;
+      line-height: 1.45;
     }
 
     /* ── EXPERIENCE ── */
-    #experience {
-      counter-reset: exp;
-    }
-
     .exp-item {
-      position: relative;
       display: grid;
-      grid-template-columns: 176px minmax(0, 1fr);
-      gap: 22px;
-      margin-bottom: 12px;
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)),
-        var(--surface);
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
-      counter-increment: exp;
+      grid-template-columns: 148px 1fr;
+      gap: 0 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
     }
-
-    .exp-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .exp-item::before {
-      content: '0' counter(exp);
-      position: absolute;
-      right: 18px;
-      top: 14px;
-      color: rgba(255,255,255,0.055);
-      font-family: var(--font-display);
-      font-size: 56px;
-      font-weight: 800;
-      letter-spacing: -0.075em;
-      text-wrap: balance;
-      line-height: 1;
-      pointer-events: none;
-    }
-
-    .exp-item:hover {
-      transform: translateY(-3px);
-      border-color: rgba(84, 244, 207, 0.28);
-      box-shadow: var(--shadow-md);
-    }
+    .exp-item:last-child { border-bottom: none; }
 
     .exp-period {
-      display: inline-flex;
-      min-width: 120px;
-      padding: 9px 11px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(3, 6, 8, 0.38);
-      color: var(--muted);
-      font-family: var(--font-mono);
+      font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
-      line-height: 1.55;
+      color: var(--muted);
+      line-height: 1.5;
+      padding-top: 2px;
     }
 
     .concurrent-tag {
       display: inline-block;
-      margin-top: 8px;
-      padding: 3px 7px;
-      border: 1px solid rgba(231, 181, 73, 0.28);
-      border-radius: 999px;
-      background: var(--amber-dim);
-      color: #f4d28a;
-      font-family: var(--font-mono);
+      margin-top: 4px;
       font-size: 9px;
-      letter-spacing: .07em;
-      text-transform: uppercase;
+      color: var(--amber);
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.2);
+      padding: 1px 5px;
+      border-radius: 2px;
     }
 
     .exp-role {
-      margin-bottom: 4px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
       color: var(--text-hi);
-      font-family: var(--font-display);
-      font-size: clamp(18px, 1.9vw, 24px);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.045em;
+      margin-bottom: 2px;
     }
 
     .exp-org {
-      margin-bottom: 12px;
-      color: var(--cyan);
-      font-family: var(--font-mono);
       font-size: 11px;
-      letter-spacing: .02em;
+      color: var(--cyan);
+      margin-bottom: 9px;
     }
 
     .bullets {
-      display: grid;
-      gap: 7px;
       list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
 
     .bullets li {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.62;
+      font-size: 12px;
+      color: #64748b;
+      padding-left: 13px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-size: 8px;
+      top: 3px;
     }
 
     /* ── PROJECTS ── */
     .tab-bar {
-      display: inline-flex;
-      gap: 5px;
-      margin-bottom: 18px;
-      padding: 5px;
+      display: flex;
+      gap: 3px;
+      margin-bottom: 20px;
+      background: var(--surface);
+      padding: 4px;
+      border-radius: 6px;
       border: 1px solid var(--border);
-      border-radius: 16px;
-      background: rgba(3, 6, 8, 0.45);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
-      backdrop-filter: blur(12px);
+      width: fit-content;
     }
 
     .tab-btn {
-      min-height: 38px;
-      padding: 0 16px;
-      border: 1px solid transparent;
-      border-radius: 12px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
       background: transparent;
       color: var(--muted);
-      cursor: pointer;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
     }
+    .tab-btn.active { background: var(--cyan); color: var(--bg); }
 
-    .tab-btn:hover {
-      color: var(--text-hi);
-      border-color: var(--border);
-    }
-
-    .tab-btn.active {
-      border-color: rgba(84, 244, 207, 0.38);
-      background: var(--cyan);
-      color: #06110e;
-      box-shadow: 0 10px 28px rgba(84, 244, 207, 0.14);
-    }
-
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.active {
-      display: block;
-      animation: panelIn 220ms var(--ease) both;
-    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
     .proj-grid {
       display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
 
     .proj-card {
-      position: relative;
-      grid-column: span 4;
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-      overflow: hidden;
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.024)),
-        var(--surface);
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+      border-radius: 6px;
+      padding: 20px;
+      transition: border-color 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
     }
-
-    .proj-card.featured {
-      grid-column: span 6;
+    .proj-card:hover {
+      border-color: rgba(0,212,255,0.35);
+      transform: translateY(-2px);
     }
-
-    .proj-card.wide {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr);
-      gap: 22px;
-      padding: clamp(20px, 2.2vw, 28px);
-    }
-
-    #tab-deliveries .proj-grid {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-    }
-
-    #tab-deliveries .proj-card {
-      grid-column: span 2;
-    }
-
-    #tab-deliveries .proj-card.featured {
-      grid-column: span 3;
-    }
-
-    #tab-deliveries .proj-card.wide {
-      grid-column: 1 / -1;
-    }
-
-    .proj-card.hilanco-spotlight {
-      background:
-        radial-gradient(circle at 100% 0%, rgba(231, 181, 73, 0.14), transparent 34%),
-        linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.024)),
-        var(--surface);
-      border-color: rgba(231, 181, 73, 0.22);
-    }
-
-    .proj-card.hilanco-spotlight::before {
-      height: 4px;
-      background: linear-gradient(90deg, var(--amber), var(--cyan), transparent 82%);
-      opacity: .95;
-    }
-
-    .proj-card.hilanco-spotlight .proj-name {
-      font-size: clamp(26px, 2.5vw, 34px);
-    }
-
-    .proj-card.hilanco-spotlight .proj-right {
-      justify-content: space-between;
-    }
-
     .proj-card::before {
       content: '';
       position: absolute;
-      inset: 0 0 auto;
-      z-index: 2;
-      height: 3px;
-      background: linear-gradient(90deg, var(--cyan), var(--amber), transparent 82%);
-      opacity: .76;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
     }
-
-    .proj-card::after {
-      content: '';
-      position: absolute;
-      right: -84px;
-      top: -84px;
-      width: 170px;
-      height: 170px;
-      border-radius: 50%;
-      background: rgba(84, 244, 207, 0.07);
-      filter: blur(4px);
-      pointer-events: none;
-      transition: opacity var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .proj-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(84, 244, 207, 0.32);
-      box-shadow: var(--shadow-md), var(--shadow-glow);
-    }
-
-    .proj-card:hover::after {
-      transform: scale(1.18);
-      opacity: 1;
-    }
-
-    .proj-media {
-      position: relative;
-      height: clamp(184px, 19vw, 230px);
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-      background:
-        linear-gradient(135deg, rgba(84, 244, 207, 0.08), rgba(231, 181, 73, 0.05)),
-        #070c10;
-    }
-
-    .proj-card:not(.featured) .proj-media {
-      height: 176px;
-    }
-
-    .proj-media::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(6,9,13,0.02), rgba(6,9,13,0.22) 54%, rgba(6,9,13,0.78)),
-        linear-gradient(90deg, rgba(84,244,207,0.05), transparent 54%);
-      pointer-events: none;
-    }
-
-    .proj-media img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 260ms var(--ease), filter 260ms var(--ease);
-    }
-
-    .proj-card:hover .proj-media img {
-      transform: scale(1.035);
-      filter: saturate(1.04) contrast(1.03);
-    }
-
-    .proj-body {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      padding: 20px;
-    }
-
-    .proj-card.featured .proj-body {
-      padding: 22px;
-    }
-
-    .proj-card.wide .proj-body {
-      padding: 0;
-    }
-
-    .proj-card.featured .proj-name {
-      font-size: clamp(23px, 2.2vw, 30px);
-    }
+    .proj-card:hover::before { opacity: 1; }
 
     .proj-type {
-      margin-bottom: 9px;
-      color: var(--amber);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .13em;
+      font-size: 9px;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 7px;
+      font-family: 'JetBrains Mono', monospace;
     }
 
     .proj-name {
-      margin-bottom: 9px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
       color: var(--text-hi);
-      font-family: var(--font-display);
-      font-size: clamp(20px, 1.8vw, 25px);
-      font-weight: 800;
-      letter-spacing: -0.05em;
-      line-height: 1.05;
+      margin-bottom: 6px;
+      line-height: 1.25;
     }
 
     .proj-desc {
-      margin-bottom: 14px;
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.72;
+      font-size: 11px;
+      color: #475569;
+      margin-bottom: 11px;
+      line-height: 1.6;
     }
 
     .proj-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 16px;
+      gap: 4px;
+      margin-bottom: 12px;
     }
 
     .proj-tag {
-      display: inline-flex;
-      align-items: center;
-      min-height: 24px;
-      padding: 3px 8px;
+      font-size: 9px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 2px 6px;
+      border-radius: 2px;
       border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(3, 6, 8, 0.34);
       color: var(--muted);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      line-height: 1;
+      background: var(--bg);
     }
 
     .proj-link {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: fit-content;
-      min-height: 36px;
-      margin-top: auto;
-      padding: 0 12px;
-      overflow: hidden;
-      border: 1px solid rgba(84, 244, 207, 0.24);
-      border-radius: 12px;
-      background: var(--cyan-dim);
-      color: var(--cyan-soft);
-      font-family: var(--font-mono);
       font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .08em;
+      color: var(--cyan);
       text-decoration: none;
-      transition: transform var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      opacity: 0.75;
+      transition: opacity 0.15s;
     }
+    .proj-link:hover { opacity: 1; }
 
-    .proj-link:hover {
-      transform: translateY(-2px);
-      border-color: rgba(84, 244, 207, 0.46);
-      background: rgba(84, 244, 207, 0.16);
-      color: var(--text-hi);
+    /* full-width research card */
+    .proj-card.wide {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
     }
 
     .proj-card.wide .proj-right {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      gap: 16px;
-    }
-
-    .proj-shot-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-bottom: 4px;
-    }
-
-    .proj-shot {
-      position: relative;
-      display: block;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: #070c10;
-      aspect-ratio: 16 / 10;
-      box-shadow: var(--shadow-sm);
-    }
-
-    a.proj-shot {
-      cursor: zoom-in;
-      transition: border-color var(--transition-fast), transform var(--transition-fast);
-    }
-
-    a.proj-shot:hover {
-      border-color: rgba(84, 244, 207, 0.4);
-      transform: translateY(-2px);
-    }
-
-    .proj-shot img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 260ms var(--ease);
-    }
-
-    .proj-shot:hover img {
-      transform: scale(1.025);
-    }
-
-    .proj-shot::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(6,9,13,0.02), rgba(6,9,13,0.2) 60%, rgba(6,9,13,0.62));
-      pointer-events: none;
-    }
-
-    .proj-shot-label {
-      position: absolute;
-      left: 12px;
-      bottom: 12px;
-      z-index: 1;
-      padding: 6px 8px;
-      border: 1px solid rgba(84, 244, 207, 0.24);
-      border-radius: 10px;
-      background: rgba(3, 6, 8, 0.66);
-      color: var(--text-hi);
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-      backdrop-filter: blur(8px);
-    }
-
-    .proj-shot.wide {
-      grid-column: 1 / -1;
-      aspect-ratio: 16 / 8.2;
     }
 
     /* ── EDUCATION ── */
     .edu-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 14px;
     }
 
     .edu-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 178px;
-      padding: 22px;
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)),
-        var(--surface);
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
-    }
-
-    .edu-card::before {
-      content: '';
-      position: absolute;
-      inset: auto 22px 18px auto;
-      width: 48px;
-      height: 48px;
-      border-right: 3px solid var(--cyan);
-      border-bottom: 3px solid var(--cyan);
-      opacity: .34;
-    }
-
-    .edu-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(231, 181, 73, 0.34);
-      box-shadow: var(--shadow-md);
+      border-radius: 6px;
+      padding: 18px 20px;
     }
 
     .edu-degree {
-      margin-bottom: 6px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
       color: var(--text-hi);
-      font-family: var(--font-display);
-      font-size: clamp(20px, 2vw, 27px);
-      font-weight: 800;
-      letter-spacing: -0.052em;
-      line-height: 1.06;
+      margin-bottom: 3px;
     }
 
-    .edu-inst {
-      margin-bottom: 4px;
-      color: var(--cyan);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      line-height: 1.45;
-    }
+    .edu-inst { font-size: 11px; color: var(--cyan); margin-bottom: 3px; }
 
     .edu-year {
-      margin-bottom: 11px;
-      color: var(--muted);
-      font-family: var(--font-mono);
+      font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 7px;
     }
 
-    .edu-thesis {
-      color: var(--muted);
-      font-size: 13px;
-      font-style: italic;
-      line-height: 1.62;
-    }
+    .edu-thesis { font-size: 11px; color: #475569; font-style: italic; line-height: 1.5; }
 
     /* Animations */
     @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: .5; transform: scale(.86); }
-    }
-
-    @keyframes ambientFloat {
-      0% { transform: translate3d(0, 0, 0) scale(1); opacity: .74; }
-      100% { transform: translate3d(-2.2vw, -2.8vh, 0) scale(1.08); opacity: .96; }
-    }
-
-    @keyframes ambientGrid {
-      0% {
-        transform: translate3d(0, 0, 0);
-        background-position: 0 0, 0 0, 0 0;
-        opacity: .82;
-      }
-      100% {
-        transform: translate3d(14px, 14px, 0);
-        background-position: 14px 14px, 14px 14px, 18px -12px;
-        opacity: 1;
-      }
-    }
-
-    @keyframes researchOrbit {
-      0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); opacity: .56; }
-      50% { transform: translate3d(-10px, 8px, 0) rotate(180deg) scale(1.03); opacity: .9; }
-      100% { transform: translate3d(0, 0, 0) rotate(360deg) scale(1); opacity: .56; }
-    }
-
-    @keyframes researchSweep {
-      0% { transform: translate3d(-4%, -2%, 0); opacity: .18; }
-      50% { transform: translate3d(3%, 2%, 0); opacity: .54; }
-      100% { transform: translate3d(8%, 4%, 0); opacity: .18; }
-    }
-
-    @keyframes widgetAura {
-      0% { background-position: 0% 20%, 100% 80%; }
-      100% { background-position: 100% 55%, 0% 30%; }
-    }
-
-    @keyframes widgetScan {
-      0% { transform: translate3d(-28px, 2px, 0) rotate(-9deg); opacity: .28; }
-      100% { transform: translate3d(28px, -16px, 0) rotate(-9deg); opacity: .9; }
-    }
-
-    @keyframes widgetFloatOne {
-      0% { transform: translate3d(0, 0, 0) scale(1); }
-      100% { transform: translate3d(-28px, 18px, 0) scale(1.08); }
-    }
-
-    @keyframes widgetFloatTwo {
-      0% { transform: translate3d(0, 0, 0) scale(.98); }
-      100% { transform: translate3d(24px, -20px, 0) scale(1.1); }
-    }
-
-    @keyframes panelIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 260ms var(--ease), transform 260ms var(--ease);
+      transform: translateY(14px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
     }
+    .reveal.visible { opacity: 1; transform: none; }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      border: 2px solid transparent;
-      border-radius: 999px;
-      background: var(--border-strong);
-      background-clip: padding-box;
-    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 1180px) {
-      :root {
-        --sidebar-w: 292px;
-      }
-
-      main {
-        padding-right: 34px;
-        padding-left: 34px;
-      }
-
-      .hero-shell {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-title {
-        max-width: 12ch;
-        font-size: clamp(40px, 6vw, 62px);
-      }
-
-      .proj-card,
-      .proj-card.featured {
-        grid-column: span 6;
-      }
-
-      #tab-deliveries .proj-card,
-      #tab-deliveries .proj-card.featured {
-        grid-column: span 3;
-      }
-
-      #tab-deliveries .proj-card.wide {
-        grid-column: 1 / -1;
-      }
-
-      .nvidia-grid,
-      .badge-row {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .nv-card:first-child {
-        grid-column: span 2;
-      }
-    }
-
     @media (max-width: 900px) {
-      html {
-        scroll-padding-top: 78px;
-      }
-
-      main::before,
-      main::after {
-        display: none;
-      }
-
-      body {
-        display: block;
-      }
-
-      body.menu-open {
-        overflow: hidden;
-      }
-
-      .mobile-topbar {
-        position: sticky;
-        top: 0;
-        z-index: 40;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 12px 16px;
-        border-bottom: 1px solid var(--border);
-        background: rgba(8, 12, 15, 0.78);
-        box-shadow: 0 14px 40px rgba(0,0,0,0.24);
-        backdrop-filter: blur(18px);
-      }
-
-      .mobile-brand {
-        min-width: 0;
-      }
-
-      .mobile-brand-name {
-        color: var(--text-hi);
-        font-family: var(--font-display);
-        font-size: 20px;
-        font-weight: 800;
-        line-height: 1;
-        letter-spacing: -0.05em;
-      }
-
-      .mobile-brand-role {
-        max-width: 240px;
-        margin-top: 5px;
-        overflow: hidden;
-        color: var(--cyan);
-        font-family: var(--font-mono);
-        font-size: 9px;
-        letter-spacing: .09em;
-        text-overflow: ellipsis;
-        text-transform: uppercase;
-        white-space: nowrap;
-      }
-
-      .menu-toggle {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        flex: 0 0 44px;
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        background: rgba(255,255,255,0.04);
-        color: var(--text-hi);
-        cursor: pointer;
-        transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
-      }
-
-      .menu-toggle:hover {
-        transform: translateY(-1px);
-        border-color: rgba(84, 244, 207, 0.34);
-        background: rgba(84, 244, 207, 0.08);
-      }
-
-      .menu-toggle-lines,
-      .menu-toggle-lines::before,
-      .menu-toggle-lines::after {
-        content: '';
-        display: block;
-        width: 18px;
-        height: 2px;
-        border-radius: 2px;
-        background: currentColor;
-        transition: transform 180ms var(--ease), opacity 180ms var(--ease);
-      }
-
-      .menu-toggle-lines {
-        position: relative;
-      }
-
-      .menu-toggle-lines::before,
-      .menu-toggle-lines::after {
-        position: absolute;
-        left: 0;
-      }
-
-      .menu-toggle-lines::before { top: -6px; }
-      .menu-toggle-lines::after { top: 6px; }
-
-      body.menu-open .menu-toggle-lines {
-        transform: rotate(45deg);
-      }
-
-      body.menu-open .menu-toggle-lines::before {
-        transform: translateY(6px) rotate(90deg);
-      }
-
-      body.menu-open .menu-toggle-lines::after {
-        opacity: 0;
-      }
-
-      .mobile-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 25;
-        display: block;
-        background: rgba(0, 0, 0, 0.62);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 180ms var(--ease);
-        backdrop-filter: blur(2px);
-      }
-
-      body.menu-open .mobile-overlay {
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      aside {
-        width: min(88vw, 356px);
-        min-width: 0;
-        z-index: 50;
-        padding: 28px 22px;
-        transform: translateX(-106%);
-        transition: transform 220ms var(--ease);
-        box-shadow: 26px 0 80px rgba(0,0,0,0.5);
-      }
-
-      body.menu-open aside {
-        transform: translateX(0);
-      }
-
-      .desktop-name {
-        display: none;
-      }
-
-      .side-mobile-head {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 14px;
-        margin-bottom: 20px;
-      }
-
-      .side-mobile-copy {
-        max-width: 24ch;
-        color: var(--muted);
-        font-size: 11px;
-        line-height: 1.55;
-      }
-
-      main {
-        width: 100%;
-        max-width: none;
-        margin-left: 0;
-        padding: 22px 16px 70px;
-      }
-
-      .hero {
-        margin-top: 2px;
-      }
-
-      .hero-shell,
-      .proj-card.wide {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-shell {
-        padding: 20px;
-        border-radius: 24px;
-      }
-
-      .hero-panel {
-        width: 100%;
-      }
-
-      .hero-shell::after {
-        opacity: .32;
-      }
-
-      .hero-title {
-        max-width: 100%;
-        font-size: clamp(34px, 10vw, 52px);
-        letter-spacing: -0.055em;
-      }
-
-      .hero-stats {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .hero-panel-card,
-      .hero-mini-card,
-      .hero-stat,
-      .summary,
-      .proj-card,
-      .edu-card,
-      .exp-item,
-      .nv-card {
-        border-radius: 20px;
-      }
-
-      .badge-row,
-      .nvidia-grid,
-      .edu-grid,
-      .proj-shot-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .nv-card:first-child,
-      .proj-shot.wide {
-        grid-column: auto;
-      }
-
-      .exp-item {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .proj-grid {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-      }
-
-      .proj-card,
-      .proj-card.featured,
-      .proj-card.wide,
-      #tab-deliveries .proj-card,
-      #tab-deliveries .proj-card.featured,
-      #tab-deliveries .proj-card.wide {
-        grid-column: 1 / -1;
-      }
-
-      .section {
-        margin-bottom: 62px;
-      }
-
-      .tab-bar {
-        display: flex;
-        width: 100%;
-        overflow-x: auto;
-      }
-
-      .tab-btn {
-        flex: 1 0 auto;
-        white-space: nowrap;
-      }
-    }
-
-    @media (max-width: 560px) {
-      body::before {
-        background-size: 42px 42px, 42px 42px, 16px 16px;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-      }
-
-      .hero-btn {
-        width: 100%;
-      }
-
-      .hero-stats,
-      .hero-mini-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-chip {
-        width: 100%;
-        justify-content: center;
-        white-space: normal;
-      }
-
-      .section-header {
-        align-items: flex-start;
-      }
-
-      .section-header::after {
-        margin-top: 14px;
-      }
-
-      .mobile-brand-role {
-        max-width: 180px;
-      }
-
-      .proj-media,
-      .proj-card:not(.featured) .proj-media {
-        height: 210px;
-      }
-    }
-
-    @media (hover: none) {
-      .proj-card:hover,
-      .exp-item:hover,
-      .nv-card:hover,
-      .edu-card:hover,
-      .honor:hover,
-      .hero-stat:hover,
-      .hero-mini-card:hover,
-      .hero-btn:hover,
-      .proj-link:hover,
-      nav a:hover,
-      .c-link:hover,
-      .tag:hover {
-        transform: none;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 1ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 1ms !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
+      body { display: block; }
+      aside { display: none; }
+      main { margin-left: 0; padding: 32px 20px 60px; max-width: 100%; }
+      .proj-grid, .nvidia-grid, .edu-grid { grid-template-columns: 1fr; }
+      .proj-card.wide { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 4px; }
     }
   </style>
 </head>
 <body>
-<div class="mobile-topbar">
-<div class="mobile-brand">
-<div class="mobile-brand-name">Adam Feldmann</div>
-<div class="mobile-brand-role">Senior LLM &amp; Enterprise AI Engineer</div>
-</div>
-<button aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation" class="menu-toggle" id="menuToggle">
-<span class="menu-toggle-lines"></span>
-</button>
-</div>
-<div class="mobile-overlay" id="mobileOverlay"></div>
+
 <!-- ══ SIDEBAR ══ -->
-<aside id="sidebar">
-<div class="sidebar-name desktop-name">Adam<br/>Feldmann</div>
-<div class="side-mobile-head">
-<div>
-<div class="sidebar-name">Adam<br/>Feldmann</div>
-<div class="side-mobile-copy">Quick navigation, contact links, and core technologies — now available on mobile too.</div>
-</div>
-<button aria-label="Close navigation" class="menu-toggle" id="menuClose">
-<span class="menu-toggle-lines"></span>
-</button>
-</div>
-<div class="sidebar-title">Senior LLM &amp; Enterprise AI Engineer</div>
-<div class="sidebar-location">PhD · Tenerife, Spain · EU Contractor</div>
-<div class="avail-pill">
-<span class="avail-dot"></span>
+<aside>
+  <div class="sidebar-name">Adam<br>Feldmann</div>
+  <div class="sidebar-title">Senior LLM &amp; Enterprise AI Engineer</div>
+  <div class="sidebar-location">PhD · Tenerife, Spain · EU Contractor</div>
+
+  <div class="avail-pill">
+    <span class="avail-dot"></span>
     Open to new projects
   </div>
-<nav id="snav">
-<a class="active" href="#home">Overview</a>
-<a href="#about">About</a>
-<a href="#case-study">Case Studies</a>
-<a href="#nvidia">NVIDIA Stack</a>
-<a href="#experience">Experience</a>
-<a href="#projects">Projects</a>
-<a href="#education">Education</a>
-</nav>
-<div class="s-label">Core Technologies</div>
-<div class="tag-cloud"><span class="tag tag-hi">Python</span>
-<span class="tag tag-hi">PyTorch</span>
-<span class="tag tag-hi">Hugging Face</span>
-<span class="tag tag-hi">Transformers</span>
-<span class="tag tag-hi">LangChain</span>
-<span class="tag">NeMo</span>
-<span class="tag">vLLM</span>
-<span class="tag">Triton</span>
-<span class="tag">TensorRT</span>
-<span class="tag">LoRA</span>
-<span class="tag">QLoRA</span>
-<span class="tag">Quantization</span>
-<span class="tag">DPO</span>
-<span class="tag">FSDP</span>
-<span class="tag">DeepSpeed</span>
-<span class="tag">Weaviate</span>
-<span class="tag">Pinecone</span>
-<span class="tag">FastAPI</span>
-<span class="tag">Docker</span>
-<span class="tag">Kubernetes</span>
-<span class="tag">Azure</span>
-<span class="tag">n8n</span>
-<span class="tag">Apache Spark</span>
-<span class="tag">FHIR</span>
-<span class="tag">GDPR</span>
-<span class="tag">EU AI Act</span>
-<span class="tag">AWS</span>
-<span class="tag">Terraform</span>
-<span class="tag">LangGraph</span>
-<span class="tag">LLM Evaluation</span>
-</div>
-<div class="s-label">Languages</div>
-<div class="tag-cloud">
-<span class="tag tag-amb">Hungarian — Native</span>
-<span class="tag">English — Advanced</span>
-<span class="tag">Spanish — Elementary</span>
-</div>
-<div class="sidebar-contact">
-<a class="c-link email-link" href="mailto:adam.feldmann.dr@gmail.com">
-<div class="c-icon">✉</div>
-<span>adam.feldmann.dr@gmail.com</span>
-</a>
-<a class="c-link" href="https://linkedin.com/in/adam-feldmann" rel="noopener" target="_blank">
-<div class="c-icon" style="font-family:'Inter';font-size:10px;font-weight:700;">in</div>
-<span>linkedin.com/in/adam-feldmann</span>
-</a>
-<a class="c-link" href="https://github.com/dataandai" rel="noopener" target="_blank">
-<div class="c-icon" style="font-family:'JetBrains Mono';font-size:10px;">gh</div>
-<span>github.com/dataandai</span>
-</a>
-</div>
+
+  <nav id="snav">
+    <a href="#about"      class="active">About</a>
+    <a href="#nvidia">NVIDIA Stack</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+  </nav>
+
+  <div class="s-label">Core Technologies</div>
+  <div class="tag-cloud">
+    <span class="tag tag-hi">Python</span>
+    <span class="tag tag-hi">PyTorch</span>
+    <span class="tag tag-hi">Hugging Face</span>
+    <span class="tag tag-hi">Transformers</span>
+    <span class="tag tag-hi">LangChain</span>
+    <span class="tag">NeMo</span>
+    <span class="tag">Triton</span>
+    <span class="tag">TensorRT</span>
+    <span class="tag">LoRA / QLoRA</span>
+    <span class="tag">FSDP</span>
+    <span class="tag">DeepSpeed</span>
+    <span class="tag">Weaviate</span>
+    <span class="tag">Pinecone</span>
+    <span class="tag">FastAPI</span>
+    <span class="tag">Docker</span>
+    <span class="tag">Kubernetes</span>
+    <span class="tag">Azure</span>
+    <span class="tag">n8n</span>
+    <span class="tag">Apache Spark</span>
+    <span class="tag">FHIR</span>
+    <span class="tag">GDPR</span>
+    <span class="tag">LLM Evaluation</span>
+  </div>
+
+  <div class="s-label">Languages</div>
+  <div class="tag-cloud">
+    <span class="tag tag-amb">Hungarian — Native</span>
+    <span class="tag">English — Advanced</span>
+    <span class="tag">Spanish — Elementary</span>
+  </div>
+
+  <div class="sidebar-contact">
+    <a class="c-link email-link" href="mailto:adam.feldmann.dr@gmail.com">
+      <div class="c-icon">✉</div>
+      <span>adam.feldmann.dr@gmail.com</span>
+    </a>
+    <a class="c-link" href="https://linkedin.com/in/adam-feldmann" target="_blank" rel="noopener">
+      <div class="c-icon" style="font-family:'Inter';font-size:10px;font-weight:700;">in</div>
+      <span>linkedin.com/in/adam-feldmann</span>
+    </a>
+    <a class="c-link" href="https://github.com/dataandai" target="_blank" rel="noopener">
+      <div class="c-icon" style="font-family:'JetBrains Mono';font-size:10px;">gh</div>
+      <span>github.com/dataandai</span>
+    </a>
+  </div>
 </aside>
+
 <!-- ══ MAIN ══ -->
 <main>
-<section class="hero section reveal" id="home">
-<div class="hero-shell">
-<div class="hero-copy">
-<div class="hero-kicker">Open to new senior AI builds</div>
-<h1 class="hero-title">Senior LLM engineering, governed agentic AI, and production delivery.</h1>
-<p class="hero-text">I build end-to-end AI systems across the stack — from pretraining LLMs from scratch on DGX A100 to production RAG, governed agentic workflows, and user-facing products. Since April 2024 I have delivered for 11+ companies across the EU and US, with a strong focus on on-premise, GDPR-compliant architecture and EU AI Act–aware governance: audit trails, human oversight, and tenant isolation designed in from the start.</p>
-<div class="hero-chip-row"><span class="hero-chip">DGX · NIM · Triton · TensorRT · vLLM</span>
-<span class="hero-chip">LoRA · QLoRA · Quantization</span>
-<span class="hero-chip">RAG · Agents · RLHF / DPO</span>
-<span class="hero-chip">On-prem · GDPR · EU AI Act</span>
-</div>
-<div class="hero-actions">
-<a class="hero-btn primary" href="#case-study">Read the Case Studies</a>
-<a class="hero-btn secondary" href="#projects">View Selected Projects</a>
-<a class="hero-btn secondary" href="mailto:adam.feldmann.dr@gmail.com">Start a Conversation</a>
-</div>
-<div class="hero-stats">
-<div class="hero-stat">
-<span class="hero-stat-value">15+</span>
-<span class="hero-stat-label">years across neuroscience, research, and production AI</span>
-</div>
-<div class="hero-stat">
-<span class="hero-stat-value">PhD</span>
-<span class="hero-stat-label">clinical neuroscience with strong product and data background</span>
-</div>
-<div class="hero-stat">
-<span class="hero-stat-value">6.7B</span>
-<span class="hero-stat-label">bilingual GPT pretraining led on NVIDIA DGX A100</span>
-</div>
-<div class="hero-stat">
-<span class="hero-stat-value">EU</span>
-<span class="hero-stat-label">remote contractor for privacy-conscious enterprise delivery</span>
-</div>
-</div>
-</div>
-<div class="hero-panel">
-<div class="hero-panel-card">
-<div class="hero-panel-label">Current product direction</div>
-<div class="hero-panel-title">Production AI systems with strong model and UX discipline</div>
-<p class="hero-panel-text">From enterprise LLM platforms to domain-specific self-help products, I focus on builds where model quality, inference architecture, reliability, and user clarity all matter.</p>
-<ul class="hero-list"><li>Production-grade LLM platforms, agentic flows, RAG systems, and API-first delivery</li><li>Serving patterns across NVIDIA NIM, Triton, TensorRT, and vLLM with on-prem options</li><li>EU AI Act–aware control layers: tamper-evident audit, human approval, scoped kill switches, tenant policy</li></ul>
-</div>
-<div class="hero-mini-grid">
-<div class="hero-mini-card">
-<span class="hero-mini-title">Flagship LLM build</span>
-<span class="hero-mini-text">HILANCO GPTX — 6.7B bilingual GPT-NeoX, pretrained from scratch in 2022 on NVIDIA DGX A100.</span>
-</div>
-<div class="hero-mini-card">
-<span class="hero-mini-title">Infrastructure comfort zone</span>
-<span class="hero-mini-text">NVIDIA stack, vLLM, LoRA / QLoRA, quantisation, FastAPI services, and cloud or on-prem delivery.</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 01 ABOUT -->
-<section class="section reveal" id="about">
-<div class="section-header">
-<span class="sec-num">01</span>
-<h2 class="sec-title">About</h2>
-</div>
-<div class="badge-row"><div class="honor"><span class="honor-star">★</span> Microsoft Ignite · ML Prague Speaker</div>
-<div class="honor"><span class="honor-star">★</span> IEEE Journal Reviewer</div>
-<div class="honor"><span class="honor-star">★</span> PhD Summa Cum Laude</div>
-<div class="honor"><span class="honor-star">★</span> Hungarian AI Coalition Recognition (2021) — National AI Strategy</div>
-</div>
-<p class="summary">Senior AI engineer with <strong>15+ years</strong> spanning clinical neuroscience, academic research, and production AI systems. In early 2022 — months before ChatGPT — I led the pretraining of <strong>HILANCO GPTX</strong>, a 6.7B-parameter bilingual English-Hungarian transformer (GPT-NeoX) pretrained from scratch on NVIDIA DGX A100.<br/><br/>Deep hands-on expertise across the full <strong>NVIDIA AI stack</strong>: DGX A100 &amp; H200, NIM, Triton Inference Server, TensorRT, NeMo, and end-to-end RLHF / DPO pipelines. I also work extensively with <strong>vLLM</strong>, <strong>LoRA</strong>, <strong>QLoRA</strong>, and <strong>quantisation</strong> solutions. Since April 2024 I have delivered production RAG systems, on-prem AI and agentic products for <strong>11+ companies</strong> across the EU and US, including regulated financial-sector and public-sector organizations, and advise clients on GPU hardware sizing for LLM serving and fine-tuning. Every build carries the same thesis: the model may remain probabilistic; the operational boundary around it must be deterministic.</p>
-</section>
-<!-- 02 CASE STUDIES -->
-<section class="section reveal" id="case-study">
-<div class="section-header">
-<span class="sec-num">02</span>
-<h2 class="sec-title">Case Studies</h2>
-</div>
-<p class="summary">One thesis, three layers. <strong>MACI</strong> governs agents, the <strong>AIBrix Tenant Gateway</strong> governs serving, and the <strong>Governed Text-to-SQL Agent</strong> governs analytics access — each an open, deployable replica of control patterns from NDA-covered client work in regulated environments.</p>
-<div class="cs-block">
-<div class="cs-sub">01 · MACI — governing the agent layer</div>
-<div class="badge-row">
-<div class="honor"><span class="honor-star">★</span> 44 tests incl. adversarial tenant-isolation cases</div>
-<div class="honor"><span class="honor-star">★</span> Terraform-first · one-command deploy &amp; destroy</div>
-<div class="honor"><span class="honor-star">★</span> EU AI Act–aligned control patterns</div>
-</div>
-<p class="summary">My consulting work is concentrated in environments where client identity cannot be disclosed: regulated financial institutions and public-sector organizations in the EU. What these engagements share is not a model problem — it is a <strong>control problem</strong>. Every enterprise team can call an LLM; what blocks agentic workflows from production are the questions security, legal and audit keep asking: can we <strong>prove</strong> Tenant A never touched Tenant B's knowledge base? Can an operator shut an agent down — per tenant, per agent, per tool — before an incident becomes a compliance event? Can every model, tool and policy decision be audited tamper-evidently after the fact?<br/><br/><strong>MACI</strong> (Minimal Agent Control Infrastructure) is my answer to that problem class, rebuilt in the open on AWS-native primitives so the patterns can be inspected, deployed and challenged without touching any client system or data. Where NDAs prevent me from showing the systems, MACI shows the engineering.</p>
-<div class="cs-thesis">"The model can remain probabilistic; the operational boundary around it must be deterministic." — tenant identity, tool access, budgets, audit and failure handling are enforced by software policy, never by prompt instructions.</div>
-<div class="cs-block">
-<div class="cs-sub">Design decisions</div>
-<ul class="bullets">
-<li><strong>Identity from the trust boundary, not the model</strong> — tenant context derives exclusively from validated JWT claims and Bedrock <code>sessionAttributes</code>; a model asked to "act as tenant B" has no code path to do so</li>
-<li><strong>Fail-closed contracts everywhere</strong> — strict Pydantic schemas with <code>extra="forbid"</code> on every request and tool; unknown fields are rejected, not ignored</li>
-<li><strong>Per-operation authorization, not just tool allowlisting</strong> — an allowed tool still cannot touch another tenant's resources</li>
-<li><strong>Humans own the high-risk path</strong> — financial actions route through an approval queue; kill switches exist at global, tenant, agent and tool scope; every agent has a revocable identity with a named human custodian</li>
-<li><strong>Audit that survives an incident review</strong> — hashed, tamper-evident events with optional S3 Object Lock archive; OTel-shaped traces exported back into evaluation sets</li>
-</ul>
-</div>
-<div class="cs-block">
-<div class="cs-sub">Regulatory alignment — engineering view</div>
-<div class="nvidia-grid">
-<div class="nv-card"><div class="nv-name">Record-keeping &amp; traceability</div><div class="nv-desc">Hash-chained audit trail with immutable S3 Object Lock archive — the engineering counterpart of EU AI Act logging obligations</div></div>
-<div class="nv-card"><div class="nv-name">Human oversight</div><div class="nv-desc">Approval workflow, agent custodianship and scoped kill switches map to effective-intervention requirements</div></div>
-<div class="nv-card"><div class="nv-name">Robustness &amp; cybersecurity</div><div class="nv-desc">Per-step guardrail checks on input, retrieved context and output; fail-closed schema validation throughout</div></div>
-<div class="nv-card"><div class="nv-name">Risk management</div><div class="nv-desc">Documented threat model plus adversarial tests for tenant impersonation, tool misuse and RAG isolation</div></div>
-<div class="nv-card"><div class="nv-name">Data governance</div><div class="nv-desc">Per-tenant policy engine, resource-ownership checks and knowledge-base isolation gateway — GDPR-aware separation by construction</div></div>
-<div class="nv-card"><div class="nv-name">Operational resilience</div><div class="nv-desc">Usage ledger, budget caps and tenant-scoped circuit breakers, in line with DORA-style expectations for financial clients</div></div>
-</div>
-<p class="summary" style="margin-top:var(--space-4);font-size:14px;color:var(--muted);">Engineering interpretation, not legal advice — compliance certification remains the deployer's responsibility, a distinction I also insist on with clients.</p>
-</div>
-<div class="cs-block">
-<div class="cs-sub">Evidence</div>
-<ul class="bullets">
-<li><strong>44 passing tests</strong> covering tenant impersonation, tool tenant-override, RAG isolation, approval-bypass attempts, guardrail intervention, graph safe-stop and idempotency — runnable with zero AWS credentials, since every cloud call sits behind a mockable gateway</li>
-<li><strong>Guided first-deploy lab</strong>: from empty AWS account to smoke-tested API — plan/apply, demo tenant seeding, Cognito user + JWT, API smoke test — and a one-command destroy</li>
-<li><strong>Honest limitations, documented</strong>: threat model, production-readiness gates and environment-specific gaps are stated explicitly, because a reference that overclaims is worse than none</li>
-</ul>
-<a class="proj-link" href="https://github.com/dataandai/Maci-minimal-agent-control-infrastructure" rel="noopener" target="_blank">Read the code on GitHub ↗</a>
-</div>
-</div>
-<div class="cs-block" id="cs-gateway">
-<div class="cs-sub">02 · AIBrix Tenant Gateway — governing the serving layer</div>
-<p class="summary">High-throughput serving stacks like AIBrix/vLLM solve scheduling and GPU utilization; they do not solve tenancy. For clients running private or sovereign LLM infrastructure, the recurring question is the same one MACI answers at the agent layer, asked at the serving layer: <strong>can an adversarial client cross a tenant boundary?</strong> This gateway is the open replica of that boundary: dual tenant resolution (Host domain + JWT claim — both must agree), fail-closed model and LoRA adapter policy, spoofed-header stripping with trusted server-side re-injection, tokenizer-backed Redis sliding-window quotas, tamper-evident billing references, and a TTFT-metered streaming proxy — deployable in three modes from laptop to full GPU EKS stack, with the production gaps documented instead of hidden.</p>
-<ul class="bullets">
-<li>Spoofed routing headers (<code>x-tenant-id</code>, <code>external-filter</code>, <code>config-profile</code>) are stripped and re-derived from validated identity — a tenant-A token on a tenant-B domain is denied</li>
-<li>Quota estimation uses a real tokenizer and ZSET sliding-window Lua scripts — no <code>len(text)//4</code> heuristics in production-like modes</li>
-<li>Strict Pydantic contracts reject unknown and vendor-specific fields fail-closed before anything reaches the serving pool</li>
-</ul>
-<a class="proj-link" href="https://github.com/dataandai/aibrix-tenant-gateway" rel="noopener" target="_blank">Read the code on GitHub ↗</a>
-</div>
-<div class="cs-block" id="cs-analytics">
-<div class="cs-sub">03 · Governed Text-to-SQL Agent — governing analytics access</div>
-<p class="summary">Letting an LLM write SQL against a warehouse is easy; letting a <strong>non-technical manager</strong> do it safely is an engineering problem. This agent answers plain-language business questions over public BigQuery retail data under the same thesis — the model may be probabilistic, the boundary must be deterministic: sqlglot-validated single-SELECT SQL against allow-listed tables, PII blocked at three layers before it can reach a prompt or a report, server-side byte-billing caps, owner-scoped deletes behind exact-token human confirmation, bounded self-healing, an execution-based eval suite with p95 latency and error rates from live telemetry, and a production N8N automation workflow wrapping the agent for event-driven and scheduled operation.</p>
-<ul class="bullets">
-<li><strong>94 passing tests · 10/10 execution-based evals</strong> — runnable locally with a deterministic stub LLM and mock BigQuery, no cloud credentials required</li>
-<li>PII defense in depth: generation-time instruction → SQL projection rejection (incl. <code>SELECT *</code>) → deterministic row masking → regex safety net on final prose</li>
-<li>Destructive operations are previewed, owner-scoped and expire — replying "yes" cancels; only the exact token <code>CONFIRM DELETE</code> executes</li>
-</ul>
-<a class="proj-link" href="https://github.com/dataandai/governed-text-to-sql-agent" rel="noopener" target="_blank">Read the code on GitHub ↗</a>
-</div>
-</section>
-<!-- 03 NVIDIA STACK -->
-<section class="section reveal" id="nvidia">
-<div class="section-header">
-<span class="sec-num">03</span>
-<h2 class="sec-title">NVIDIA Deep Stack</h2>
-</div>
-<div class="nvidia-grid"><div class="nv-card"><div class="nv-name">DGX A100 &amp; H200</div><div class="nv-desc">HPC cluster pretraining, full-stack fine-tuning, and large-scale experimentation</div></div>
-<div class="nv-card"><div class="nv-name">NVIDIA NIM</div><div class="nv-desc">Production-ready model microservices for enterprise inference deployment</div></div>
-<div class="nv-card"><div class="nv-name">Triton Inference Server</div><div class="nv-desc">Scalable multi-model serving, dynamic batching, and GPU utilisation control</div></div>
-<div class="nv-card"><div class="nv-name">TensorRT</div><div class="nv-desc">Model optimisation, latency reduction, and deployment acceleration</div></div>
-<div class="nv-card"><div class="nv-name">NVIDIA NeMo</div><div class="nv-desc">Training, fine-tuning, alignment workflows, and prompt adaptation</div></div>
-<div class="nv-card"><div class="nv-name">vLLM</div><div class="nv-desc">High-throughput open-weight LLM serving with efficient batching and token streaming</div></div>
-<div class="nv-card"><div class="nv-name">RLHF / DPO</div><div class="nv-desc">Reward modeling, preference optimisation, and alignment pipelines on DGX/H200</div></div>
-<div class="nv-card"><div class="nv-name">LoRA · QLoRA · Quantisation</div><div class="nv-desc">Parameter-efficient adaptation and memory-aware deployment for real production constraints</div></div>
-</div>
-</section>
-<!-- 04 EXPERIENCE -->
-<section class="section reveal" id="experience">
-<div class="section-header">
-<span class="sec-num">04</span>
-<h2 class="sec-title">Experience</h2>
-</div>
-<div class="exp-item">
-<div>
-<div class="exp-period">Apr 2024<br/>Present</div>
-</div>
-<div>
-<div class="exp-role">Senior LLM &amp; AI Infrastructure Consultant</div>
-<div class="exp-org">Independent EU Contractor · Tenerife, Spain (Remote)</div>
-<ul class="bullets"><li>Delivered RAG, on-prem AI and agentic product systems for <strong>11+ companies since April 2024</strong>, including regulated financial-sector and public-sector organizations in the EU and US</li><li>Design EU AI Act–aware control layers for agentic AI: tamper-evident audit trails, human-approval workflows, scoped kill switches, per-tenant policy enforcement</li><li>Production RAG systems via NVIDIA NIM, Triton, TensorRT, and vLLM — on-premise for GDPR compliance</li><li>Large-scale Spark ingestion pipelines feeding Weaviate/Pinecone with hallucination &amp; retrieval evaluation</li><li>RLHF / DPO pipelines with NeMo on DGX/H200 infrastructure, plus LoRA / QLoRA adaptation flows</li><li>Advise clients on GPU hardware sizing: workload profiling (TTFT, throughput, KV-cache), model-to-hardware fit, on-prem capacity planning</li></ul>
-</div>
-</div>
-<div class="exp-item">
-<div>
-<div class="exp-period">Nov 2019<br/>Jul 2023</div>
-<div class="concurrent-tag">concurrent</div>
-</div>
-<div>
-<div class="exp-role">Group Leader, Applied Data Science &amp; AI</div>
-<div class="exp-org">University of Pécs · Hungary</div>
-<ul class="bullets">
-<li>Led pretraining of HILANCO GPTX: 6.7B-parameter bilingual GPT-NeoX on NVIDIA DGX A100</li>
-<li>Collaborated with Microsoft Hungary on Hungarian BERT Large (Azure); presented at Microsoft Ignite</li>
-<li>Computer vision-based drug recognition system for pharmaceutical identification</li>
-<li>Published prompt engineering research June 2022 — predating ChatGPT; presented at ML Prague</li>
-</ul>
-</div>
-</div>
-<div class="exp-item">
-<div>
-<div class="exp-period">Apr 2022<br/>Nov 2024</div>
-<div class="concurrent-tag">concurrent</div>
-</div>
-<div>
-<div class="exp-role">Generative AI Lecturer &amp; Research Group Lead</div>
-<div class="exp-org">Óbuda University · Remote</div>
-<ul class="bullets">
-<li>Launched and taught the first Generative AI course for MSc computer-science students on the AI specialization — <strong>200+ engineering students and enterprise participants</strong> trained in RAG, prompting, model behavior and evaluation</li>
-<li>Led industry-project-oriented student teams in hands-on practical sessions on the BSc AI specialization</li>
-<li>Led an applied Generative AI research group translating frontier LLM capabilities into engineering education and enterprise-facing material</li>
-</ul>
-</div>
-</div>
-<div class="exp-item">
-<div>
-<div class="exp-period">May 2009<br/>Nov 2019</div>
-</div>
-<div>
-<div class="exp-role">Assistant Professor — Medical Statistics &amp; AI</div>
-<div class="exp-org">University of Pécs, Medical School · Hungary</div>
-<ul class="bullets">
-<li>Advanced statistical methods and MRI data processing for clinical research and diagnostics</li>
-<li>Taught biostatistics, voxel-based morphometry, and clinical trial methodology</li>
-<li>Applied early machine learning to clinical neuroscience and diagnostic imaging</li>
-</ul>
-</div>
-</div>
-</section>
-<!-- 05 PROJECTS -->
-<section class="section reveal" id="projects">
-<div class="section-header">
-<span class="sec-num">05</span>
-<h2 class="sec-title">Projects</h2>
-</div>
-<div class="tab-bar">
-<button class="tab-btn active" data-tab="deliveries">2026 Deliverables</button>
-<button class="tab-btn" data-tab="research">Research, LLMs &amp; Open Repos</button>
-</div>
-<!-- TAB: 2026 Deliverables -->
-<div class="tab-panel active" id="tab-deliveries">
-<div class="proj-grid">
 
-<div class="proj-card wide hilanco-spotlight">
-<div>
-<div class="proj-type">Open Source · Governed Agent Control Plane</div>
-<div class="proj-name">MACI — Minimal Agent Control Infrastructure</div>
-<div class="proj-desc">AWS-native control-plane foundation for putting AI agents inside deterministic software boundaries: identity binding, per-operation authorization, policy pre-checks, guardrails, human approval gates, circuit breaker / kill switch, immutable hash-chained audit trail, cost and budget controls, and a self-healing recovery daemon — deployable end-to-end with Terraform.</div>
-<div class="proj-tags"><span class="proj-tag">AWS Lambda</span><span class="proj-tag">Amazon Bedrock</span><span class="proj-tag">DynamoDB</span><span class="proj-tag">Terraform</span><span class="proj-tag">Pydantic v2</span><span class="proj-tag">Red-Team Evals</span></div>
-<ul class="bullets">
-<li>Stops cross-tenant data access with strong identity binding and per-operation policy enforcement</li>
-<li>Blocks hallucinated tool arguments through strict schemas and fail-closed validation</li>
-<li>Makes high-risk agent actions reviewable, auditable, and recoverable by design</li>
-</ul>
-</div>
-<div class="proj-right">
-<div class="proj-shot-grid">
-<a class="proj-shot" href="https://raw.githubusercontent.com/dataandai/Maci-minimal-agent-control-infrastructure/master/maci_agents.png" rel="noopener" target="_blank">
-<img alt="MACI deterministic agent execution — governed agent workflow diagram" loading="lazy" src="https://raw.githubusercontent.com/dataandai/Maci-minimal-agent-control-infrastructure/master/maci_agents.png"/>
-<span class="proj-shot-label">Deterministic Agent Graph</span>
-</a>
-<a class="proj-shot" href="https://raw.githubusercontent.com/dataandai/Maci-minimal-agent-control-infrastructure/master/maci_aws.png" rel="noopener" target="_blank">
-<img alt="MACI AWS production architecture diagram with recovery daemon, WAF, and PII redaction" loading="lazy" src="https://raw.githubusercontent.com/dataandai/Maci-minimal-agent-control-infrastructure/master/maci_aws.png"/>
-<span class="proj-shot-label">AWS Production Architecture</span>
-</a>
-</div>
-<a class="proj-link" href="https://github.com/dataandai/Maci-minimal-agent-control-infrastructure" rel="noopener" target="_blank">GitHub ↗</a>
-<a class="proj-link" href="#case-study" style="margin-left:var(--space-3);">Case Study ↓</a>
-</div>
-</div>
+  <!-- 01 ABOUT -->
+  <section class="section reveal" id="about">
+    <div class="section-header">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">About</h2>
+    </div>
 
+    <div class="badge-row">
+      <div class="honor"><span class="honor-star">★</span> State AI Award — Hungary</div>
+      <div class="honor"><span class="honor-star">★</span> Microsoft Ignite · ML Prague Speaker</div>
+      <div class="honor"><span class="honor-star">★</span> IEEE Journal Reviewer</div>
+      <div class="honor"><span class="honor-star">★</span> PhD Summa Cum Laude</div>
+    </div>
 
-<div class="proj-card wide">
-<div>
-<div class="proj-type">Open Source · Multi-Tenant LLM Serving</div>
-<div class="proj-name">AIBrix Tenant Gateway</div>
-<div class="proj-desc">Audit-hardened AWS/EKS reference implementation that places a tenant policy gateway in front of AIBrix/vLLM: OIDC/JWT tenant identity, model and LoRA adapter policy enforcement, spoofed-header stripping, Redis sliding-window quotas, strict fail-closed request contracts, audit and metering events, and a streaming proxy with TTFT metrics.</div>
-<div class="proj-tags"><span class="proj-tag">FastAPI</span><span class="proj-tag">AIBrix</span><span class="proj-tag">vLLM</span><span class="proj-tag">Kubernetes · EKS</span><span class="proj-tag">Redis</span><span class="proj-tag">OIDC / JWT</span></div>
-<ul class="bullets">
-<li>Treats AIBrix/vLLM as the serving substrate — tenancy, policy, and quota live in a hardened gateway in front of it</li>
-<li>Tokenizer-backed quota estimation and ZSET sliding-window rate limiting instead of loose heuristics</li>
-<li>Three run modes: local demo, CPU-only EKS smoke test, and full GPU AIBrix/vLLM stack on AWS</li>
-</ul>
-</div>
-<div class="proj-right">
-<div class="proj-shot-grid">
-<a class="proj-shot wide" href="https://github.com/dataandai/aibrix-tenant-gateway" rel="noopener" target="_blank">
-<img alt="AIBrix tenant gateway repository preview" loading="lazy" src="https://opengraph.githubassets.com/1/dataandai/aibrix-tenant-gateway"/>
-<span class="proj-shot-label">Tenant Policy Gateway</span>
-</a>
-</div>
-<a class="proj-link" href="https://github.com/dataandai/aibrix-tenant-gateway" rel="noopener" target="_blank">GitHub ↗</a>
-<a class="proj-link" href="#cs-gateway" style="margin-left:var(--space-3);">Case Study ↓</a>
-</div>
-</div>
+    <p class="summary">
+      Senior AI engineer with <strong>15+ years</strong> spanning clinical neuroscience, academic research, and production AI systems.
+      In early 2022 — months before ChatGPT — I led the pretraining of <strong>HILANCO GPTX</strong>, a 6.7B-parameter bilingual English-Hungarian transformer on a government-backed NVIDIA DGX A100 cluster.
+      <br><br>
+      Deep hands-on expertise across the full <strong>NVIDIA AI stack</strong>: DGX A100 &amp; H200, NIM, Triton Inference Server, TensorRT, NeMo, and complete RLHF pipelines. I deliver production RAG systems, agentic AI pipelines, and workflow automations for European and US clients — with a strong focus on on-premise, GDPR-compliant architecture.
+    </p>
+  </section>
 
+  <!-- 02 NVIDIA STACK -->
+  <section class="section reveal" id="nvidia">
+    <div class="section-header">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">NVIDIA Deep Stack</h2>
+    </div>
+    <div class="nvidia-grid">
+      <div class="nv-card">
+        <div class="nv-name">DGX A100 &amp; H200</div>
+        <div class="nv-desc">HPC cluster pretraining and large-scale fine-tuning</div>
+      </div>
+      <div class="nv-card">
+        <div class="nv-name">NVIDIA NIM</div>
+        <div class="nv-desc">End-to-end optimised model microservices for production inference</div>
+      </div>
+      <div class="nv-card">
+        <div class="nv-name">Triton Inference Server</div>
+        <div class="nv-desc">Scalable multi-model serving with dynamic batching</div>
+      </div>
+      <div class="nv-card">
+        <div class="nv-name">TensorRT</div>
+        <div class="nv-desc">Model optimisation and latency reduction for production</div>
+      </div>
+      <div class="nv-card">
+        <div class="nv-name">NVIDIA NeMo</div>
+        <div class="nv-desc">Model development, fine-tuning, and RLHF orchestration</div>
+      </div>
+      <div class="nv-card">
+        <div class="nv-name">RLHF Pipelines</div>
+        <div class="nv-desc">Reward modeling, PPO, full alignment stack on DGX/H200</div>
+      </div>
+    </div>
+  </section>
 
-<div class="proj-card">
-<div class="proj-media">
-<img alt="B2B AI Outreach Agent dashboard preview" src="https://raw.githubusercontent.com/dataandai/B2B-AI-Outreach-Agent/main/assets/dashboard-overview.png"/>
-</div>
-<div class="proj-body">
-<div class="proj-type">Client Delivery · Agentic B2B AI</div>
-<div class="proj-name">B2B AI Outreach Agent</div>
-<div class="proj-desc">Autonomous prospecting and email-management workflow with campaign KPIs, AI inbox triage, lead scoring, and compliance guardrails for high-volume outbound operations.</div>
-<div class="proj-tags"><span class="proj-tag">Autonomous Agents</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Dashboard UI</span><span class="proj-tag">Lead Scoring</span></div>
-<a class="proj-link" href="https://github.com/dataandai/b2b-ai-outreach-agent" rel="noopener" target="_blank">GitHub ↗</a>
-</div>
-</div>
+  <!-- 03 EXPERIENCE -->
+  <section class="section reveal" id="experience">
+    <div class="section-header">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Experience</h2>
+    </div>
 
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">Apr 2024<br>Present</div>
+      </div>
+      <div>
+        <div class="exp-role">Senior LLM &amp; Enterprise AI Engineer</div>
+        <div class="exp-org">Independent EU Contractor · Tenerife, Spain (Remote)</div>
+        <ul class="bullets">
+          <li>Production RAG systems via NVIDIA NIM, Triton, and TensorRT — on-premise for GDPR compliance</li>
+          <li>Agentic tool layers with multi-step reasoning and query orchestration on NIM microservices</li>
+          <li>Large-scale Spark ingestion pipelines feeding Weaviate/Pinecone with hallucination &amp; retrieval evaluation</li>
+          <li>RLHF pipelines with NeMo: reward modeling, PPO, alignment stack on DGX/H200 infrastructure</li>
+          <li>n8n workflow automations for European SME and enterprise clients</li>
+        </ul>
+      </div>
+    </div>
 
-<div class="proj-card">
-<div class="proj-body">
-<div class="proj-type">Open Source · Governed Analytics Agent</div>
-<div class="proj-name">Governed Text-to-SQL Agent</div>
-<div class="proj-desc">Natural-language BI agent for non-technical managers over BigQuery: sqlglot-validated single-SELECT SQL on allow-listed tables, three-layer PII masking, server-side byte-billing caps, owner-scoped destructive ops behind exact-token confirmation, bounded self-healing, and an execution-based eval suite — 94 tests, 10/10 evals.</div>
-<div class="proj-tags"><span class="proj-tag">LangGraph</span><span class="proj-tag">N8N</span><span class="proj-tag">BigQuery</span><span class="proj-tag">sqlglot</span><span class="proj-tag">PII Guardrails</span><span class="proj-tag">Evals</span></div>
-<a class="proj-link" href="https://github.com/dataandai/governed-text-to-sql-agent" rel="noopener" target="_blank">GitHub ↗</a>
-<a class="proj-link" href="#cs-analytics" style="margin-left:var(--space-3);">Case Study ↓</a>
-</div>
-</div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">Nov 2019<br>Jul 2023</div>
+        <div class="concurrent-tag">concurrent</div>
+      </div>
+      <div>
+        <div class="exp-role">Group Leader, Applied Data Science &amp; AI</div>
+        <div class="exp-org">University of Pécs · Hungary</div>
+        <ul class="bullets">
+          <li>Led pretraining of HILANCO GPTX: 6.7B-parameter bilingual GPT-NeoX on NVIDIA DGX A100</li>
+          <li>Collaborated with Microsoft Hungary on Hungarian BERT Large (Azure); presented at Microsoft Ignite</li>
+          <li>Computer vision-based drug recognition system for pharmaceutical identification</li>
+          <li>Published prompt engineering research June 2022 — predating ChatGPT; presented at ML Prague</li>
+        </ul>
+      </div>
+    </div>
 
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">Apr 2022<br>Nov 2024</div>
+        <div class="concurrent-tag">concurrent</div>
+      </div>
+      <div>
+        <div class="exp-role">Lecturer — Generative AI</div>
+        <div class="exp-org">Óbuda University · Remote</div>
+        <ul class="bullets">
+          <li>Led practical sessions on Generative AI for BSc students</li>
+          <li>Contributed to curriculum development integrating LLM and NLP in MSc engineering education</li>
+        </ul>
+      </div>
+    </div>
 
-<div class="proj-card">
-<div class="proj-body">
-<div class="proj-type">Client Delivery · Agentic Marketing AI</div>
-<div class="proj-name">AI Content Strategy Engine</div>
-<div class="proj-desc">Agentic pipeline for market research, gap analysis, editorial planning, SEO prioritisation, and KPI-aware content strategy in a modular API-first architecture.</div>
-<div class="proj-tags"><span class="proj-tag">Agentic</span><span class="proj-tag">Python</span><span class="proj-tag">RAG</span><span class="proj-tag">REST API</span></div>
-<a class="proj-link" href="https://github.com/dataandai/ai-content-strategy-engine" rel="noopener" target="_blank">GitHub ↗</a>
-</div>
-</div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">May 2009<br>Nov 2019</div>
+      </div>
+      <div>
+        <div class="exp-role">Lecturer — Neuropsychology &amp; Medical Statistics</div>
+        <div class="exp-org">University of Pécs, Medical School · Hungary</div>
+        <ul class="bullets">
+          <li>Advanced statistical methods and MRI data processing for clinical research and diagnostics</li>
+          <li>Taught biostatistics, voxel-based morphometry, and clinical trial methodology</li>
+          <li>Applied early machine learning to clinical neuroscience and diagnostic imaging</li>
+        </ul>
+      </div>
+    </div>
 
+  </section>
 
-<div class="proj-card">
-<div class="proj-body">
-<div class="proj-type">Open Source · Agent Framework</div>
-<div class="proj-name">Sovereign Agent Framework</div>
-<div class="proj-desc">Model-agnostic autonomous agent SDK for Moltbook with dynamic role assembly, peer skill discovery, team orchestration, and self-modifying strategy patterns.</div>
-<div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Autonomous Agents</span><span class="proj-tag">Docker</span><span class="proj-tag">MIT License</span></div>
-<a class="proj-link" href="https://github.com/dataandai/sovereign-agent-moltbook-python-sdk" rel="noopener" target="_blank">GitHub ↗</a>
-</div>
-</div>
+  <!-- 04 PROJECTS -->
+  <section class="section reveal" id="projects">
+    <div class="section-header">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Projects</h2>
+    </div>
 
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="deliveries">2026 Deliverables</button>
+      <button class="tab-btn" data-tab="research">Research &amp; Personal</button>
+    </div>
 
-</div>
-</div>
-<!-- TAB: Research & Personal -->
-<div class="tab-panel" id="tab-research">
-<div class="proj-grid">
+    <!-- TAB: 2026 Deliverables -->
+    <div class="tab-panel active" id="tab-deliveries">
+      <div class="proj-grid">
 
-<div class="proj-card wide">
-<div>
-<div class="proj-type">National LLM Initiative · Hungary · 2021–2022</div>
-<div class="proj-name">HILANCO GPTX — National LLM Initiative</div>
-<div class="proj-desc">6.7B-parameter bilingual English-Hungarian transformer (GPT-NeoX), pretrained from scratch on NVIDIA DGX A100. One of the earliest large-scale LLM initiatives for a low-resource EU language.</div>
-<div class="proj-tags"><span class="proj-tag">GPT-NeoX</span><span class="proj-tag">DGX A100</span><span class="proj-tag">Bilingual NLU</span><span class="proj-tag">Prompt Engineering</span><span class="proj-tag">NeMo</span></div>
-</div>
-<div class="proj-right">
-<ul class="bullets">
-<li>Pretrained from scratch in 2022 on NVIDIA DGX A100 as a 6.7B bilingual English-Hungarian transformer</li>
-<li>Prompt engineering wiki published June 2022 — 5 months before ChatGPT</li>
-<li>Presented at national government AI conference</li>
-</ul>
-<a class="proj-link" href="https://github.com/dataandai/Hungarian-gpt-3/wiki" rel="noopener" target="_blank">GitHub Wiki ↗</a>
-</div>
-</div>
+        <div class="proj-card">
+          <div class="proj-type">Client Delivery · B2B AI</div>
+          <div class="proj-name">B2B AI Outreach Agent</div>
+          <div class="proj-desc">Autonomous prospecting and outbound email management with AI lead qualification (Cold/Warm/Hot) and GDPR-compliant compliance guardrails.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">FastAPI</span>
+            <span class="proj-tag">Docker</span>
+            <span class="proj-tag">NLP</span>
+            <span class="proj-tag">SQLAlchemy</span>
+          </div>
+          <a class="proj-link" href="https://github.com/dataandai/b2b-ai-outreach-agent" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
 
+        <div class="proj-card">
+          <div class="proj-type">Open Source · Python SDK</div>
+          <div class="proj-name">Sovereign Agent Framework</div>
+          <div class="proj-desc">Model-agnostic autonomous agent SDK (Gemini / Claude / ChatGPT) with dynamic self-modifying strategy and real-time peer skill discovery.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">Multi-LLM</span>
+            <span class="proj-tag">Docker</span>
+            <span class="proj-tag">MIT License</span>
+          </div>
+          <a class="proj-link" href="https://github.com/dataandai/sovereign-agent-moltbook-python-sdk" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
 
-<div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Compression Research</div><div class="proj-name">ICA-Based Second-Pass Pruning Scan for LLMs</div><div class="proj-desc">Minimal diagnostic prototype testing whether ICA-derived activation structure can provide a useful second-pass pruning signal after standard LLM compression methods such as Wanda, SparseGPT, or low-rank pruning.</div><div class="proj-tags"><span class="proj-tag">ICA</span><span class="proj-tag">LLM Compression</span><span class="proj-tag">SparseGPT</span><span class="proj-tag">Research</span></div><a class="proj-link" href="https://github.com/dataandai/Second-pass-analysis-for-pruned-LLMs-using-Independent-Component-Analysis" rel="noopener" target="_blank">GitHub ↗</a></div></div>
+        <div class="proj-card">
+          <div class="proj-type">Client Delivery · Social AI</div>
+          <div class="proj-name">Multi-Brand AI Content Engine</div>
+          <div class="proj-desc">Topic prompt to published post with DALL-E 3 image — fully automated via Make.com across multiple brand profiles from a single interface.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">GPT-4o</span>
+            <span class="proj-tag">DALL-E 3</span>
+            <span class="proj-tag">Make.com</span>
+            <span class="proj-tag">Google Sheets</span>
+          </div>
+          <a class="proj-link" href="https://github.com/dataandai/multi-brand-ai-content-engine" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
 
+        <div class="proj-card">
+          <div class="proj-type">Client Delivery · HR AI</div>
+          <div class="proj-name">AI Recruitment Intelligence Platform</div>
+          <div class="proj-desc">Resume scoring engine, AI-generated interview questions, and visual hiring funnel analytics. Next.js dark-mode UI backed by FastAPI.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Next.js</span>
+            <span class="proj-tag">FastAPI</span>
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">LLM Scoring</span>
+          </div>
+          <a class="proj-link" href="https://github.com/dataandai/ai-recruitment-intelligence-platform" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
 
-<div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Pruning Demo</div><div class="proj-name">TinyQwen Evolutionary Pruning Demo</div><div class="proj-desc">Compact Colab/Jupyter demo showing evolutionary structured pruning on a small decoder-only transformer with RoPE, RMSNorm, SwiGLU, elastic FFN widths, optional block skipping, and loss-tolerance-based architecture search.</div><div class="proj-tags"><span class="proj-tag">Qwen</span><span class="proj-tag">Pruning</span><span class="proj-tag">RoPE</span><span class="proj-tag">Evolutionary Search</span></div><a class="proj-link" href="https://github.com/dataandai/TinyQwen-Evolutionary-Pruning-Demo" rel="noopener" target="_blank">GitHub ↗</a></div></div>
+        <div class="proj-card">
+          <div class="proj-type">Client Delivery · Marketing AI</div>
+          <div class="proj-name">AI Content Strategy Engine</div>
+          <div class="proj-desc">Agentic pipeline: market research → gap analysis → editorial calendar with SEO priorities and KPI targets. Modular API-first design.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Agentic</span>
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">RAG</span>
+            <span class="proj-tag">REST API</span>
+          </div>
+          <a class="proj-link" href="https://github.com/dataandai/ai-content-strategy-engine" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
 
+      </div>
+    </div>
 
-<div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Adaptive LoRA Research</div><div class="proj-name">GC-LoRA: Gain-Controlled LoRA Expert Pool</div><div class="proj-desc">Controlled notebook prototype for online adapter adaptation with a frozen Qwen backbone, a gain-weighted pool of parallel LoRA experts, and a garbage-collection loop that removes weak experts and clones or perturbs stronger ones.</div><div class="proj-tags"><span class="proj-tag">LoRA</span><span class="proj-tag">Qwen2.5-0.5B</span><span class="proj-tag">Online Adaptation</span><span class="proj-tag">Expert Pool</span></div><a class="proj-link" href="https://github.com/dataandai/gc-lora-expert-pool" rel="noopener" target="_blank">GitHub ↗</a></div></div>
+    <!-- TAB: Research & Personal -->
+    <div class="tab-panel" id="tab-research">
+      <div class="proj-grid">
 
+        <div class="proj-card wide">
+          <div>
+            <div class="proj-type">Government-Backed · Hungary · 2021–2022</div>
+            <div class="proj-name">HILANCO GPTX — National LLM Initiative</div>
+            <div class="proj-desc">6.7B-parameter bilingual English-Hungarian transformer (GPT-NeoX), pretrained from scratch on NVIDIA DGX A100. One of the first state-sponsored LLMs for a low-resource EU language.</div>
+            <div class="proj-tags">
+              <span class="proj-tag">GPT-NeoX</span>
+              <span class="proj-tag">DGX A100</span>
+              <span class="proj-tag">Bilingual NLU</span>
+              <span class="proj-tag">Prompt Engineering</span>
+              <span class="proj-tag">NeMo</span>
+            </div>
+          </div>
+          <div class="proj-right">
+            <ul class="bullets">
+              <li>Prompt engineering wiki published June 2022 — 5 months before ChatGPT</li>
+              <li>Presented at national government AI conference</li>
+              <li>Contributed to Hungary's strategic AI roadmap</li>
+            </ul>
+            <a class="proj-link" href="https://github.com/dataandai/Hungarian-gpt-3/wiki" target="_blank" rel="noopener">GitHub Wiki ↗</a>
+          </div>
+        </div>
 
-<div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Mechanistic Interpretability</div><div class="proj-name">LLM-fMRI / Tiny LLM Residual Patching</div><div class="proj-desc">Functional imaging and causal source patching for a tiny HuggingFace language model, mapping where information is carried inside a transformer during token generation and exporting residual attribution graphs for prompt-specific causal hypotheses.</div><div class="proj-tags"><span class="proj-tag">Residual Patching</span><span class="proj-tag">Interpretability</span><span class="proj-tag">Activation Patching</span><span class="proj-tag">Causal Graphs</span></div><a class="proj-link" href="https://github.com/dataandai/tiny-llm-residual-patching" rel="noopener" target="_blank">GitHub ↗</a></div></div>
+        <div class="proj-card wide">
+          <div>
+            <div class="proj-type">Personal Project · 2026 · In Active Development</div>
+            <div class="proj-name">The AI News Hub</div>
+            <div class="proj-desc">Agentic AI publishing platform transforming peer-reviewed scientific papers into accessible articles for neurodivergent readers, with knowledge graph visualisation connecting concepts beyond the article.</div>
+            <div class="proj-tags">
+              <span class="proj-tag">Agentic Pipeline</span>
+              <span class="proj-tag">Knowledge Graph</span>
+              <span class="proj-tag">RAG</span>
+              <span class="proj-tag">GDPR</span>
+              <span class="proj-tag">Accessibility</span>
+            </div>
+          </div>
+          <div class="proj-right">
+            <ul class="bullets">
+              <li>AI agents autonomously retrieve, summarise, and adapt tone of scientific papers</li>
+              <li>Zero user data collection — privacy-first by architectural design</li>
+              <li>Knowledge graph generation for complex concept navigation</li>
+            </ul>
+            <a class="proj-link" href="https://theainewshub.com" target="_blank" rel="noopener">theainewshub.com ↗</a>
+          </div>
+        </div>
 
+      </div>
+    </div>
+  </section>
 
-<div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Representation Research</div><div class="proj-name">Transformer Subspace Diagnostics</div><div class="proj-desc">Tiny Qwen Subspace Observatory — an experimental research platform for studying how internal representations emerge, evolve, stabilise, reorganise, and interact during transformer training.</div><div class="proj-tags"><span class="proj-tag">Tiny Qwen</span><span class="proj-tag">Subspace Analysis</span><span class="proj-tag">Representation Dynamics</span><span class="proj-tag">Diagnostics</span></div><a class="proj-link" href="https://github.com/dataandai/transformer-subspace-diagnostics" rel="noopener" target="_blank">GitHub ↗</a></div></div>
+  <!-- 05 EDUCATION -->
+  <section class="section reveal" id="education">
+    <div class="section-header">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">Education</h2>
+    </div>
 
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-degree">PhD — Summa Cum Laude</div>
+        <div class="edu-inst">University of Pécs, Medical School</div>
+        <div class="edu-year">2000 – 2005 · Pécs, Hungary</div>
+        <div class="edu-thesis">Dissertation: Voxel-Based Morphometry in Clinical Neuroscience</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">MSc — Psychology</div>
+        <div class="edu-inst">University of Pécs, Institute of Psychology</div>
+        <div class="edu-year">2010 – 2015 · Pécs, Hungary</div>
+        <div class="edu-thesis">Dissertation: Feature-Based Image Classification in Early Machine Learning</div>
+      </div>
+    </div>
+  </section>
 
-<div class="proj-card wide"><div><div class="proj-type">Live Product · Self-Help Science Website</div><div class="proj-name">The AI News Hub</div><div class="proj-desc">Evidence-based self-help website that turns scientific articles into clear, supportive explanations for neurodivergent readers — helping people better understand recurring behaviour patterns, anxiety responses, and practical regulation strategies without paywalls, signups, or diagnostic framing.</div><div class="proj-tags"><span class="proj-tag">Live Website</span><span class="proj-tag">Neurodivergence</span><span class="proj-tag">Science Translation</span><span class="proj-tag">Knowledge Graph</span><span class="proj-tag">Neurocolor</span></div></div><div class="proj-right"><ul class="bullets"><li>Makes scientific papers understandable and emotionally usable for neurodivergent people in plain language</li><li>Explains behaviour patterns and internal states with supportive, non-pathologising framing instead of labels or gatekeeping</li><li>Includes an interactive knowledge graph and Neurocolor self-reflection flow to surface patterns visually</li></ul><a class="proj-link" href="https://theainewshub.com" rel="noopener" target="_blank">theainewshub.com ↗</a></div></div>
-
-
-</div>
-</div>
-</section>
-<!-- 06 EDUCATION -->
-<section class="section reveal" id="education">
-<div class="section-header">
-<span class="sec-num">06</span>
-<h2 class="sec-title">Education</h2>
-</div>
-<div class="edu-grid">
-<div class="edu-card">
-<div class="edu-degree">PhD — Summa Cum Laude</div>
-<div class="edu-inst">University of Pécs, Medical School</div>
-<div class="edu-year">2000 – 2005 · Pécs, Hungary</div>
-<div class="edu-thesis">Dissertation: Voxel-Based Morphometry in Clinical Neuroscience</div>
-</div>
-<div class="edu-card">
-<div class="edu-degree">MSc — Psychology</div>
-<div class="edu-inst">University of Pécs, Institute of Psychology</div>
-<div class="edu-year">2010 – 2015 · Pécs, Hungary</div>
-<div class="edu-thesis">Dissertation: Feature-Based Image Classification in Early Machine Learning</div>
-</div>
-</div>
-</section>
 </main>
+
 <script>
-  const body = document.body;
-  const menuToggle = document.getElementById('menuToggle');
-  const menuClose = document.getElementById('menuClose');
-  const mobileOverlay = document.getElementById('mobileOverlay');
-
-  const closeMenu = () => {
-    body.classList.remove('menu-open');
-    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-  };
-
-  const toggleMenu = () => {
-    const isOpen = body.classList.toggle('menu-open');
-    if (menuToggle) menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  };
-
-  if (menuToggle) menuToggle.addEventListener('click', toggleMenu);
-  if (menuClose) menuClose.addEventListener('click', closeMenu);
-  if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
-
   // Tabs
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2660,14 +912,6 @@
   // Active nav highlight on scroll
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('#snav a');
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeMenu();
-  });
 
   const navObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
