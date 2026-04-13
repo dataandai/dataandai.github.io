@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adam Feldmann · Senior LLM & RAG Engineer</title>
+  <title>Adam Feldmann · Senior LLM & Enterprise AI Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #080c12;
-      --bg2:      #0d1320;
-      --bg3:      #111827;
-      --cyan:     #00d4ff;
-      --cyan-dim: #00d4ff33;
-      --amber:    #f59e0b;
-      --text:     #e2e8f0;
-      --muted:    #64748b;
-      --border:   #1e293b;
-      --card:     #0f1929;
+      --bg:        #080c12;
+      --surface:   #0d1320;
+      --surface2:  #111b2e;
+      --cyan:      #00d4ff;
+      --cyan-dim:  rgba(0,212,255,0.12);
+      --amber:     #f59e0b;
+      --text:      #cbd5e1;
+      --text-hi:   #f1f5f9;
+      --muted:     #475569;
+      --border:    #1e293b;
+      --sidebar-w: 300px;
     }
 
     html { scroll-behavior: smooth; }
@@ -29,1081 +29,909 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'Inter', sans-serif;
       font-size: 14px;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* ── CANVAS BACKGROUND ── */
-    #neural-canvas {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.35;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
+      line-height: 1.6;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 48px;
-      background: rgba(8,12,18,0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 17px;
-      color: var(--cyan);
-      letter-spacing: 0.05em;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 32px;
-    }
-
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    nav a:hover { color: var(--cyan); }
-
-    /* ── SECTIONS ── */
-    section {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 120px 48px;
-    }
-
-    section:first-of-type { padding-top: 160px; }
-
-    /* ── HERO ── */
-    #hero {
       min-height: 100vh;
+    }
+
+    /* ══ SIDEBAR ══ */
+    aside {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding-top: 120px;
+      padding: 40px 28px;
+      overflow-y: auto;
+      z-index: 10;
     }
 
-    .hero-eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 24px;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.2s forwards;
-    }
-
-    h1 {
+    .sidebar-name {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(48px, 7vw, 88px);
+      font-size: 23px;
       font-weight: 800;
-      line-height: 1.0;
-      letter-spacing: -0.02em;
-      color: #fff;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.4s forwards;
+      color: var(--text-hi);
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      margin-bottom: 7px;
     }
 
-    h1 span { color: var(--cyan); }
-
-    .hero-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(16px, 2.5vw, 22px);
-      font-weight: 600;
-      color: var(--amber);
-      margin-top: 16px;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.55s forwards;
-    }
-
-    .hero-sub {
-      max-width: 620px;
-      margin-top: 28px;
-      color: #94a3b8;
-      font-size: 13px;
-      line-height: 1.8;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.7s forwards;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 36px;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.85s forwards;
-    }
-
-    .badge {
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--muted);
-      padding: 6px 14px;
+    .sidebar-title {
       font-size: 11px;
+      color: var(--cyan);
       letter-spacing: 0.08em;
-      border-radius: 2px;
-    }
-
-    .badge-cyan { border-color: var(--cyan); color: var(--cyan); }
-    .badge-amber { border-color: var(--amber); color: var(--amber); }
-
-    .hero-cta {
-      display: flex;
-      gap: 16px;
-      margin-top: 40px;
-      opacity: 0;
-      animation: fadeUp 0.7s 1.0s forwards;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 28px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-decoration: none;
       text-transform: uppercase;
-      border-radius: 2px;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: var(--cyan);
-      color: var(--bg);
-      border: 1px solid var(--cyan);
       font-weight: 500;
-    }
-    .btn-primary:hover { background: transparent; color: var(--cyan); }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
-
-    /* ── SECTION HEADINGS ── */
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 12px;
+      margin-bottom: 4px;
     }
 
-    h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.02em;
-      margin-bottom: 48px;
-    }
-
-    .divider {
-      width: 48px;
-      height: 2px;
-      background: var(--cyan);
-      margin: 16px 0 48px;
-    }
-
-    /* ── AWARDS ── */
-    .awards-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
-
-    .award-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 28px;
-      border-radius: 4px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .award-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
-
-    .award-star { color: var(--amber); font-size: 20px; margin-bottom: 12px; }
-    .award-title { font-family: 'Syne', sans-serif; font-weight: 700; color: #fff; font-size: 14px; margin-bottom: 8px; }
-    .award-desc { color: var(--muted); font-size: 12px; line-height: 1.7; }
-
-    /* ── SKILLS ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-
-    .skill-block {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 24px;
-      border-radius: 4px;
-    }
-
-    .skill-block-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 13px;
-      color: var(--cyan);
-      margin-bottom: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .skill-tag {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 4px 10px;
-      font-size: 11px;
-      border-radius: 2px;
-    }
-
-    /* ── NVIDIA STACK ── */
-    .nvidia-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
-    .nvidia-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--cyan);
-      padding: 18px 20px;
-      border-radius: 2px;
-      transition: background 0.2s;
-    }
-    .nvidia-item:hover { background: #111827; }
-
-    .nvidia-icon {
-      color: var(--cyan);
-      font-size: 18px;
-      margin-top: 2px;
-      flex-shrink: 0;
-    }
-
-    .nvidia-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      color: #fff;
-      font-size: 13px;
-    }
-    .nvidia-desc { color: var(--muted); font-size: 11px; margin-top: 3px; }
-
-    /* ── TIMELINE / EXPERIENCE ── */
-    .timeline {
-      position: relative;
-      padding-left: 28px;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 8px; bottom: 0;
-      width: 1px;
-      background: var(--border);
-    }
-
-    .tl-item {
-      position: relative;
-      padding-bottom: 44px;
-    }
-
-    .tl-item::before {
-      content: '';
-      position: absolute;
-      left: -33px;
-      top: 8px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 2px solid var(--cyan);
-    }
-
-    .tl-period {
+    .sidebar-location {
       font-size: 11px;
       color: var(--muted);
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
+      margin-bottom: 24px;
     }
-
-    .tl-role {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 17px;
-      color: #fff;
-      margin-bottom: 2px;
-    }
-
-    .tl-company {
-      color: var(--cyan);
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
-
-    .tl-points {
-      list-style: none;
-      color: #94a3b8;
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    .tl-points li::before {
-      content: '▸ ';
-      color: var(--cyan);
-    }
-
-    /* ── PROJECTS ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-      gap: 24px;
-    }
-
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 36px;
-      transition: border-color 0.2s, transform 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--cyan), var(--amber));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .project-card:hover { border-color: var(--cyan-dim); transform: translateY(-4px); }
-    .project-card:hover::after { opacity: 1; }
-
-    .project-year {
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      margin-bottom: 12px;
-    }
-
-    .project-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 20px;
-      color: #fff;
-      margin-bottom: 8px;
-      line-height: 1.2;
-    }
-
-    .project-sub {
-      color: var(--amber);
-      font-size: 11px;
-      letter-spacing: 0.05em;
-      margin-bottom: 18px;
-    }
-
-    .project-points {
-      list-style: none;
-      color: #94a3b8;
-      font-size: 12px;
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .project-points li::before { content: '▸ '; color: var(--cyan); }
-
-    .project-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--cyan);
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-decoration: none;
-      text-transform: uppercase;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s;
-    }
-    .project-link:hover { border-color: var(--cyan); }
-
-    /* ── CONTACT ── */
-    #contact { text-align: center; }
-
-    .contact-grid {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
-
-    .contact-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 24px 36px;
-      border-radius: 4px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 12px;
-      transition: border-color 0.2s, transform 0.2s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      min-width: 160px;
-    }
-    .contact-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
-
-    .contact-icon { font-size: 24px; }
-    .contact-label { color: var(--muted); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; }
-    .contact-value { color: var(--cyan); }
 
     .avail-pill {
-      display: inline-block;
-      background: rgba(0, 212, 255, 0.08);
-      border: 1px solid var(--cyan-dim);
-      color: var(--cyan);
-      padding: 8px 20px;
-      font-size: 11px;
-      letter-spacing: 0.12em;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(34,197,94,0.07);
+      border: 1px solid rgba(34,197,94,0.2);
+      color: #4ade80;
+      font-size: 10px;
+      letter-spacing: 0.07em;
+      padding: 5px 11px;
       border-radius: 100px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
+      width: fit-content;
     }
 
     .avail-dot {
-      display: inline-block;
-      width: 7px; height: 7px;
+      width: 6px; height: 6px;
       background: #22c55e;
       border-radius: 50%;
-      margin-right: 8px;
       animation: pulse 2s infinite;
     }
 
-    /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 32px;
-      border-top: 1px solid var(--border);
+    nav { margin-bottom: 28px; }
+
+    nav a {
+      display: block;
+      padding: 7px 10px;
+      margin-bottom: 1px;
       color: var(--muted);
+      text-decoration: none;
       font-size: 11px;
       letter-spacing: 0.08em;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.4; }
-    }
-
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ── YEAR BANNER ── */
-    .year-banner {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-      background: linear-gradient(90deg, rgba(0,212,255,0.06), transparent);
-      border: 1px solid var(--cyan-dim);
-      border-left: 3px solid var(--cyan);
-      padding: 24px 28px;
+      text-transform: uppercase;
+      font-weight: 500;
       border-radius: 4px;
-      margin-bottom: 36px;
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
     }
-
-    .year-badge {
-      display: inline-block;
-      background: rgba(0,212,255,0.1);
+    nav a:hover, nav a.active {
       color: var(--cyan);
-      border: 1px solid var(--cyan-dim);
-      padding: 5px 14px;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      border-radius: 2px;
-      white-space: nowrap;
-      margin-bottom: 10px;
+      border-left-color: var(--cyan);
+      background: var(--cyan-dim);
+      padding-left: 14px;
     }
 
-    .year-desc {
+    .s-label {
+      font-size: 9px;
       color: var(--muted);
-      font-size: 12px;
-      line-height: 1.7;
-      margin-top: 4px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-weight: 600;
     }
 
-    /* ── FEATURED CARD ACCENT ── */
-    .project-card.featured {
-      border-color: #1a2540;
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 22px;
     }
-    .project-card.featured::before {
-      content: '2026';
-      position: absolute;
-      top: 14px; right: 16px;
+
+    .tag {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--bg);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .tag-hi  { border-color: rgba(0,212,255,0.3); color: var(--cyan); }
+    .tag-amb { border-color: rgba(245,158,11,0.3); color: var(--amber); }
+
+    .sidebar-contact {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .c-link {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 10px;
+      padding: 5px 0;
+      transition: color 0.15s;
+      overflow: hidden;
+    }
+    .c-link:hover { color: var(--text-hi); }
+
+    .c-icon {
+      width: 26px; height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .c-link.email-link { color: var(--cyan); }
+    .c-link.email-link:hover { color: #fff; }
+
+    /* ══ MAIN ══ */
+    main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      padding: 56px 56px 80px;
+      max-width: 840px;
+    }
+
+    .section { margin-bottom: 64px; }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sec-num {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
       color: var(--cyan);
-      letter-spacing: 0.15em;
-      opacity: 0.5;
+      opacity: 0.6;
     }
 
-    /* ── FLAGSHIP HEADER ── */
-    .flagship-header {
-      margin-top: 80px;
+    .sec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-hi);
+      letter-spacing: -0.02em;
     }
 
-    /* ── CODE TAG ── */
-    code {
-      background: var(--bg2);
-      color: var(--cyan);
-      padding: 2px 6px;
-      border-radius: 2px;
+    /* ── ABOUT ── */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .honor {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 5px 11px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: var(--text);
+    }
+    .honor-star { color: var(--amber); font-size: 9px; }
+
+    .summary {
+      font-size: 13px;
+      line-height: 1.85;
+      color: #94a3b8;
+      max-width: 640px;
+    }
+    .summary strong { color: var(--text-hi); font-weight: 600; }
+
+    /* ── NVIDIA ── */
+    .nvidia-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .nv-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--cyan);
+      border-radius: 4px;
+      padding: 12px 14px;
+    }
+
+    .nv-name {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
+      color: var(--text-hi);
+      margin-bottom: 3px;
+      font-weight: 500;
     }
 
+    .nv-desc {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-item {
+      display: grid;
+      grid-template-columns: 148px 1fr;
+      gap: 0 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.5;
+      padding-top: 2px;
+    }
+
+    .concurrent-tag {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 9px;
+      color: var(--amber);
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.2);
+      padding: 1px 5px;
+      border-radius: 2px;
+    }
+
+    .exp-role {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-hi);
+      margin-bottom: 2px;
+    }
+
+    .exp-org {
+      font-size: 11px;
+      color: var(--cyan);
+      margin-bottom: 9px;
+    }
+
+    .bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .bullets li {
+      font-size: 12px;
+      color: #64748b;
+      padding-left: 13px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-size: 8px;
+      top: 3px;
+    }
+
+    /* ── PROJECTS ── */
+    .tab-bar {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 20px;
+      background: var(--surface);
+      padding: 4px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      width: fit-content;
+    }
+
+    .tab-btn {
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
+    }
+    .tab-btn.active { background: var(--cyan); color: var(--bg); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .proj-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+      transition: border-color 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .proj-card:hover {
+      border-color: rgba(0,212,255,0.35);
+      transform: translateY(-2px);
+    }
+    .proj-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .proj-card:hover::before { opacity: 1; }
+
+    .proj-type {
+      font-size: 9px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 7px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .proj-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-hi);
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+
+    .proj-desc {
+      font-size: 11px;
+      color: #475569;
+      margin-bottom: 11px;
+      line-height: 1.6;
+    }
+
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    .proj-tag {
+      font-size: 9px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 2px 6px;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--bg);
+    }
+
+    .proj-link {
+      font-size: 10px;
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      opacity: 0.75;
+      transition: opacity 0.15s;
+    }
+    .proj-link:hover { opacity: 1; }
+
+    /* full-width research card */
+    .proj-card.wide {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .proj-card.wide .proj-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 20px;
+    }
+
+    .edu-degree {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-hi);
+      margin-bottom: 3px;
+    }
+
+    .edu-inst { font-size: 11px; color: var(--cyan); margin-bottom: 3px; }
+
+    .edu-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+
+    .edu-thesis { font-size: 11px; color: #475569; font-style: italic; line-height: 1.5; }
+
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
     /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
-      nav ul { gap: 20px; }
-      section { padding: 80px 24px; }
-      .projects-grid { grid-template-columns: 1fr; }
-      h1 { font-size: 40px; }
+    @media (max-width: 900px) {
+      body { display: block; }
+      aside { display: none; }
+      main { margin-left: 0; padding: 32px 20px 60px; max-width: 100%; }
+      .proj-grid, .nvidia-grid, .edu-grid { grid-template-columns: 1fr; }
+      .proj-card.wide { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 4px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Neural network background canvas -->
-<canvas id="neural-canvas"></canvas>
+<!-- ══ SIDEBAR ══ -->
+<aside>
+  <div class="sidebar-name">Adam<br>Feldmann</div>
+  <div class="sidebar-title">Senior LLM &amp; Enterprise AI Engineer</div>
+  <div class="sidebar-location">PhD · Tenerife, Spain · EU Contractor</div>
 
-<!-- ── NAV ── -->
-<nav>
-  <div class="nav-logo">AF<span style="color:#64748b">·</span>portfolio</div>
-  <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- ── HERO ── -->
-<section id="hero">
-  <p class="hero-eyebrow">// PhD · Senior LLM &amp; Enterprise AI Expert · Medical AI Consultant</p>
-  <h1>Adam<br /><span>Feldmann</span></h1>
-  <p class="hero-title">Senior LLM &amp; Enterprise AI Expert</p>
-  <p class="hero-sub">
-    15+ years at the intersection of clinical neuroscience, NLP research, and production AI systems.
-    I build RAG pipelines, agentic architectures, and LLMs that ship — including one of the first
-    bilingual European LLMs, months before ChatGPT existed.
-  </p>
-  <div class="hero-badges">
-    <span class="badge badge-cyan">NVIDIA Deep Stack</span>
-    <span class="badge badge-amber">PhD Summa Cum Laude</span>
-    <span class="badge">State AI Award · Hungary</span>
-    <span class="badge">IEEE Reviewer</span>
-    <span class="badge">Microsoft Ignite Speaker</span>
-    <span class="badge">EU Contractor · Remote</span>
-  </div>
-  <div class="hero-cta">
-    <a class="btn btn-primary" href="#contact">Get in touch</a>
-    <a class="btn btn-ghost" href="https://github.com/dataandai" target="_blank" rel="noopener">GitHub ↗</a>
-    <a class="btn btn-ghost" href="https://linkedin.com/in/adam-feldmann" target="_blank" rel="noopener">LinkedIn ↗</a>
-  </div>
-</section>
-
-<!-- ── AWARDS ── -->
-<section id="about">
-  <div class="reveal">
-    <p class="section-label">// Recognition</p>
-    <h2>Honors &amp; Awards</h2>
-  </div>
-  <div class="awards-row reveal">
-    <div class="award-card">
-      <div class="award-star">★</div>
-      <div class="award-title">State Award — Hungary</div>
-      <div class="award-desc">Outstanding contributions to the advancement of artificial intelligence, pioneering LLM development and application within the national AI landscape.</div>
-    </div>
-    <div class="award-card">
-      <div class="award-star">★</div>
-      <div class="award-title">International Public Speaker</div>
-      <div class="award-desc">Presented at Microsoft Ignite and ML Prague, representing Hungarian AI research on the international stage.</div>
-    </div>
-    <div class="award-card">
-      <div class="award-star">★</div>
-      <div class="award-title">IEEE Journal Reviewer</div>
-      <div class="award-desc">Regularly reviews submissions for high-impact IEEE journals focused on large language models and natural language processing.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ── SKILLS ── -->
-<section id="skills">
-  <div class="reveal">
-    <p class="section-label">// Expertise</p>
-    <h2>Core Skills</h2>
+  <div class="avail-pill">
+    <span class="avail-dot"></span>
+    Open to new projects
   </div>
 
-  <div class="reveal" style="margin-bottom: 48px;">
-    <p style="color: var(--muted); font-size: 12px; margin-bottom: 24px; letter-spacing: 0.05em; text-transform: uppercase;">NVIDIA Deep Stack</p>
-    <div class="nvidia-grid">
-      <div class="nvidia-item">
-        <div class="nvidia-icon">⬡</div>
-        <div>
-          <div class="nvidia-name">DGX A100 &amp; H200</div>
-          <div class="nvidia-desc">HPC cluster pretraining and large-scale fine-tuning</div>
-        </div>
-      </div>
-      <div class="nvidia-item">
-        <div class="nvidia-icon">⬡</div>
-        <div>
-          <div class="nvidia-name">NVIDIA NIM</div>
-          <div class="nvidia-desc">End-to-end optimised model microservices for production inference</div>
-        </div>
-      </div>
-      <div class="nvidia-item">
-        <div class="nvidia-icon">⬡</div>
-        <div>
-          <div class="nvidia-name">Triton Inference Server</div>
-          <div class="nvidia-desc">Scalable multi-model serving with dynamic batching</div>
-        </div>
-      </div>
-      <div class="nvidia-item">
-        <div class="nvidia-icon">⬡</div>
-        <div>
-          <div class="nvidia-name">TensorRT</div>
-          <div class="nvidia-desc">Model optimisation and latency reduction for production</div>
-        </div>
-      </div>
-      <div class="nvidia-item">
-        <div class="nvidia-icon">⬡</div>
-        <div>
-          <div class="nvidia-name">NVIDIA NeMo</div>
-          <div class="nvidia-desc">Model development, fine-tuning, and RLHF pipeline orchestration</div>
-        </div>
-      </div>
-      <div class="nvidia-item">
-        <div class="nvidia-icon">⬡</div>
-        <div>
-          <div class="nvidia-name">RLHF Pipelines</div>
-          <div class="nvidia-desc">Reward modeling, PPO, full alignment stack via NeMo</div>
-        </div>
-      </div>
-    </div>
+  <nav id="snav">
+    <a href="#about"      class="active">About</a>
+    <a href="#nvidia">NVIDIA Stack</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+  </nav>
+
+  <div class="s-label">Core Technologies</div>
+  <div class="tag-cloud">
+    <span class="tag tag-hi">Python</span>
+    <span class="tag tag-hi">PyTorch</span>
+    <span class="tag tag-hi">Hugging Face</span>
+    <span class="tag tag-hi">Transformers</span>
+    <span class="tag tag-hi">LangChain</span>
+    <span class="tag">NeMo</span>
+    <span class="tag">Triton</span>
+    <span class="tag">TensorRT</span>
+    <span class="tag">LoRA / QLoRA</span>
+    <span class="tag">FSDP</span>
+    <span class="tag">DeepSpeed</span>
+    <span class="tag">Weaviate</span>
+    <span class="tag">Pinecone</span>
+    <span class="tag">FastAPI</span>
+    <span class="tag">Docker</span>
+    <span class="tag">Kubernetes</span>
+    <span class="tag">Azure</span>
+    <span class="tag">n8n</span>
+    <span class="tag">Apache Spark</span>
+    <span class="tag">FHIR</span>
+    <span class="tag">GDPR</span>
+    <span class="tag">LLM Evaluation</span>
   </div>
 
-  <div class="skills-grid reveal">
-    <div class="skill-block">
-      <div class="skill-block-title">LLM Pretraining</div>
-      <div class="skill-tags">
-        <span class="skill-tag">DGX A100/H200</span>
-        <span class="skill-tag">NeMo</span>
-        <span class="skill-tag">FSDP</span>
-        <span class="skill-tag">DeepSpeed</span>
-        <span class="skill-tag">GPT-NeoX</span>
-      </div>
-    </div>
-    <div class="skill-block">
-      <div class="skill-block-title">RAG Architecture</div>
-      <div class="skill-tags">
-        <span class="skill-tag">NIM</span>
-        <span class="skill-tag">Weaviate</span>
-        <span class="skill-tag">Pinecone</span>
-        <span class="skill-tag">LangChain</span>
-        <span class="skill-tag">Apache Spark</span>
-      </div>
-    </div>
-    <div class="skill-block">
-      <div class="skill-block-title">RLHF &amp; Fine-tuning</div>
-      <div class="skill-tags">
-        <span class="skill-tag">NeMo</span>
-        <span class="skill-tag">LoRA</span>
-        <span class="skill-tag">QLoRA</span>
-        <span class="skill-tag">PPO</span>
-        <span class="skill-tag">Reward Modeling</span>
-      </div>
-    </div>
-    <div class="skill-block">
-      <div class="skill-block-title">AI Agents</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Agentic Pipelines</span>
-        <span class="skill-tag">n8n</span>
-        <span class="skill-tag">Tool Routing</span>
-        <span class="skill-tag">Multi-step Reasoning</span>
-      </div>
-    </div>
-    <div class="skill-block">
-      <div class="skill-block-title">Medical AI</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Clinical NLP</span>
-        <span class="skill-tag">GDPR</span>
-        <span class="skill-tag">FHIR</span>
-        <span class="skill-tag">Biostatistics</span>
-        <span class="skill-tag">VBM</span>
-      </div>
-    </div>
-    <div class="skill-block">
-      <div class="skill-block-title">Cloud &amp; Infra</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Azure</span>
-        <span class="skill-tag">IBM Cloud</span>
-        <span class="skill-tag">Kubernetes</span>
-        <span class="skill-tag">Docker</span>
-        <span class="skill-tag">On-premise</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── EXPERIENCE ── -->
-<section id="experience">
-  <div class="reveal">
-    <p class="section-label">// Career</p>
-    <h2>Experience</h2>
-  </div>
-  <div class="timeline reveal">
-
-    <div class="tl-item">
-      <div class="tl-period">APR 2024 — PRESENT</div>
-      <div class="tl-role">Senior AI Engineer &amp; Consultant</div>
-      <div class="tl-company">Independent / EU Contractor · Tenerife, Spain (Remote)</div>
-      <ul class="tl-points">
-        <li>Production RAG systems using NVIDIA NIM, Triton, and TensorRT — fully on-premise for GDPR compliance</li>
-        <li>Agentic tool layers with multi-step reasoning and query orchestration on NIM microservices</li>
-        <li>Large-scale Spark ingestion pipelines feeding Weaviate/Pinecone with hallucination &amp; retrieval eval</li>
-        <li>RLHF and fine-tuning via NeMo: reward modeling, PPO, alignment stack on DGX/H200</li>
-        <li>n8n workflow automations for European SME and enterprise clients</li>
-        <li>Built &amp; operate The AI News Hub — agentic publishing platform for neurodivergent readers</li>
-      </ul>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-period">APR 2022 — NOV 2024</div>
-      <div class="tl-role">Assistant Professor — Generative AI</div>
-      <div class="tl-company">Óbuda University · Remote</div>
-      <ul class="tl-points">
-        <li>Led practical sessions on Generative AI for BSc students</li>
-        <li>Contributed to curriculum development integrating LLM and NLP in MSc engineering education</li>
-      </ul>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-period">NOV 2019 — JUL 2023</div>
-      <div class="tl-role">Group Leader, Applied Data Science &amp; AI</div>
-      <div class="tl-company">University of Pécs · Hungary</div>
-      <ul class="tl-points">
-        <li>Led pretraining of HILANCO GPTX: 6.7B-parameter bilingual GPT-NeoX on NVIDIA DGX A100</li>
-        <li>Collaborated with Microsoft Hungary on Hungarian BERT Large; presented at Microsoft Ignite</li>
-        <li>Led medical AI: computer vision-based drug recognition system</li>
-        <li>Published prompt engineering research (Jun 2022) — predating ChatGPT; presented at ML Prague</li>
-      </ul>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-period">MAY 2009 — NOV 2019</div>
-      <div class="tl-role">Assistant Professor — Neuropsychology</div>
-      <div class="tl-company">University of Pécs, Medical School · Hungary</div>
-      <ul class="tl-points">
-        <li>Delivered training in advanced statistical methods and MRI data processing</li>
-        <li>Taught biostatistics, voxel-based morphometry, and clinical trial methodology</li>
-        <li>Applied early machine learning to clinical neuroscience and diagnostic imaging</li>
-      </ul>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── PROJECTS ── -->
-<section id="projects">
-  <div class="reveal">
-    <p class="section-label">// Selected Work</p>
-    <h2>Featured Projects</h2>
+  <div class="s-label">Languages</div>
+  <div class="tag-cloud">
+    <span class="tag tag-amb">Hungarian — Native</span>
+    <span class="tag">English — Advanced</span>
+    <span class="tag">Spanish — Elementary</span>
   </div>
 
-  <!-- 2026 BANNER -->
-  <div class="reveal year-banner">
-    <div>
-      <span class="year-badge">⬡ 2026 Deliverables</span>
-      <p class="year-desc">A selection of production-grade AI systems and POC builds shipped in 2026 — spanning autonomous agents, social automation, B2B AI, and medical AI infrastructure.</p>
-    </div>
+  <div class="sidebar-contact">
+    <a class="c-link email-link" href="mailto:adam.feldmann.dr@gmail.com">
+      <div class="c-icon">✉</div>
+      <span>adam.feldmann.dr@gmail.com</span>
+    </a>
+    <a class="c-link" href="https://linkedin.com/in/adam-feldmann" target="_blank" rel="noopener">
+      <div class="c-icon" style="font-family:'Inter';font-size:10px;font-weight:700;">in</div>
+      <span>linkedin.com/in/adam-feldmann</span>
+    </a>
+    <a class="c-link" href="https://github.com/dataandai" target="_blank" rel="noopener">
+      <div class="c-icon" style="font-family:'JetBrains Mono';font-size:10px;">gh</div>
+      <span>github.com/dataandai</span>
+    </a>
   </div>
+</aside>
 
-  <div class="projects-grid reveal">
+<!-- ══ MAIN ══ -->
+<main>
 
-    <!-- 1. Customer AI Agent MVP -->
-    <div class="project-card featured">
-      <div class="project-year">2026 · B2B AI AGENT · MVP</div>
-      <div class="project-title">Customer AI Agent MVP</div>
-      <div class="project-sub">Autonomous B2B prospecting and outbound email management agent</div>
-      <ul class="project-points">
-        <li>Multi-campaign dashboard with live outreach KPIs and lead qualification (Cold / Warm / Hot scoring)</li>
-        <li>AI inbound reply intent classification — automatically detects interest, objections, or opt-outs</li>
-        <li>Built-in compliance guardrails: opt-out handling, unsubscribe logic, and full audit event logging</li>
-        <li>FastAPI + Docker stack; demo-ready UI for client presentations and stakeholder walkthroughs</li>
-      </ul>
-      <a class="project-link" href="https://github.com/dataandai/customer-ai-agent-mvp" target="_blank" rel="noopener">View on GitHub ↗</a>
+  <!-- 01 ABOUT -->
+  <section class="section reveal" id="about">
+    <div class="section-header">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">About</h2>
     </div>
 
-    <!-- 2. Sovereign Agent Moltbook SDK -->
-    <div class="project-card featured">
-      <div class="project-year">2026 · PYTHON SDK · OPEN SOURCE</div>
-      <div class="project-title">Sovereign Agent Framework</div>
-      <div class="project-sub">Professional-grade autonomous agent SDK for the Moltbook network</div>
-      <ul class="project-points">
-        <li>Model-agnostic sovereign runtime supporting Gemini, Claude, and ChatGPT as interchangeable backends</li>
-        <li>Dynamic self-modifying strategy via <code>SOVEREIGN_META.md</code> — agents autonomously evolve their own operational profiles</li>
-        <li>Skill discovery protocol: agents query peer capabilities and delegate tasks to specialists in real time</li>
-        <li>Docker-ready for 24/7 production deployment; covers SDLC leadership, community coordination, and team assembly use cases</li>
-      </ul>
-      <a class="project-link" href="https://github.com/dataandai/sovereign-agent-moltbook-python-sdk" target="_blank" rel="noopener">View on GitHub ↗</a>
+    <div class="badge-row">
+      <div class="honor"><span class="honor-star">★</span> State AI Award — Hungary</div>
+      <div class="honor"><span class="honor-star">★</span> Microsoft Ignite · ML Prague Speaker</div>
+      <div class="honor"><span class="honor-star">★</span> IEEE Journal Reviewer</div>
+      <div class="honor"><span class="honor-star">★</span> PhD Summa Cum Laude</div>
     </div>
 
-    <!-- 3. Multi-Brand Social Automation -->
-    <div class="project-card featured">
-      <div class="project-year">2026 · SOCIAL AI · AUTOMATION</div>
-      <div class="project-title">Multi-Brand Social Automation System</div>
-      <div class="project-sub">End-to-end AI content generation and publishing automation for multiple brands from a single interface</div>
-      <ul class="project-points">
-        <li>One short topic prompt → full Facebook post, first comment, and a unique DALL-E 3 image, respecting each brand's tone and persona</li>
-        <li>Centralized Manager UI: brand profile management, drag-and-drop flyer/PDF ingestion with AI data extraction, inline schedule editing synced to Google Sheets</li>
-        <li>Make.com automation pipeline watches the sheet and posts content autonomously — including image and comment — the moment a new row appears</li>
-        <li>Self-healing reliability: auto-corrects misaligned sheet headers and filters empty rows to prevent failed posts</li>
-      </ul>
-      <a class="project-link" href="https://github.com/dataandai/balanceshop-multi" target="_blank" rel="noopener">View on GitHub ↗</a>
-    </div>
-
-    <!-- 4. AI SaaS Dashboard for Recruitment -->
-    <div class="project-card featured">
-      <div class="project-year">2026 · HR AI · POC</div>
-      <div class="project-title">AI SaaS Dashboard for Recruitment</div>
-      <div class="project-sub">AI-powered hiring intelligence platform for HR teams</div>
-      <ul class="project-points">
-        <li>Automated resume scoring engine surfaces the strongest candidates from large applicant pools</li>
-        <li>AI-generated interview question sets tailored to the role and candidate profile</li>
-        <li>Visual hiring funnel analytics — tracks pipeline health from application to offer in real time</li>
-        <li>Next.js dark-mode interface backed by FastAPI; designed for clean client demos and rapid iteration</li>
-      </ul>
-      <a class="project-link" href="https://github.com/dataandai/scalable-ivf-management-platform-poc-" target="_blank" rel="noopener">View on GitHub ↗</a>
-    </div>
-
-    <!-- 5. AI Content Strategy Planner -->
-    <div class="project-card featured">
-      <div class="project-year">2026 · POC · SHOWCASE</div>
-      <div class="project-title">AI Content Strategy Planner</div>
-      <div class="project-sub">Agentic content intelligence platform for marketing and editorial teams</div>
-      <ul class="project-points">
-        <li>Autonomous agents research market trends, competitor signals, and audience behaviour to generate structured strategy briefs</li>
-        <li>Multi-step reasoning pipeline: discovery → gap analysis → content calendar with channel and format recommendations</li>
-        <li>Outputs actionable editorial plans with SEO priorities, publish cadence, and measurable KPI targets</li>
-        <li>Modular API-first design — integrates into existing CMS and marketing stacks without friction</li>
-      </ul>
-      <a class="project-link" href="https://github.com/dataandai/ai-content-strategy-planner-poc" target="_blank" rel="noopener">View on GitHub ↗</a>
-    </div>
-
-  </div>
-
-  <!-- FLAGSHIP / RESEARCH PROJECTS -->
-  <div class="reveal flagship-header">
-    <p class="section-label">// Flagship Research &amp; Personal Projects</p>
-    <div class="divider"></div>
-  </div>
-
-  <div class="projects-grid reveal">
-
-    <div class="project-card">
-      <div class="project-year">HUNGARY · 2021–2022 · GOVERNMENT-BACKED</div>
-      <div class="project-title">HILANCO GPTX</div>
-      <div class="project-sub">First bilingual LLM for a low-resource European language · National AI Initiative</div>
-      <ul class="project-points">
-        <li>6.7B-parameter autoregressive transformer (GPT-NeoX), pretrained from scratch on NVIDIA DGX A100</li>
-        <li>Bilingual English-Hungarian — one of the first state-sponsored LLMs for a low-resource EU language</li>
-        <li>Prompt engineering wiki published June 2022 — 5 months before ChatGPT — covering few-shot learning, NER, chain-of-thought, bilingual NLU</li>
-        <li>Presented at a national government AI conference; contributed to Hungary's strategic AI roadmap</li>
-      </ul>
-      <a class="project-link" href="https://github.com/dataandai/Hungarian-gpt-3/wiki" target="_blank" rel="noopener">GitHub Wiki ↗</a>
-    </div>
-
-    <div class="project-card">
-      <div class="project-year">PERSONAL PROJECT · 2026 · UNDER CONSTRUCTION</div>
-      <div class="project-title">The AI News Hub</div>
-      <div class="project-sub">Agentic AI Publishing Platform for Neurodivergent Readers</div>
-      <ul class="project-points">
-        <li>AI journalist agents autonomously transform peer-reviewed scientific papers into accessible everyday-language articles on pre-defined topics</li>
-        <li>Autism-friendly UX: no sensory overload, knowledge graph visualisation connects concepts beyond the article itself</li>
-        <li>End-to-end agentic pipeline: retrieval → summarisation → tone adaptation → knowledge graph generation</li>
-        <li>Privacy-first by design: zero user data collection, fully GDPR-compliant architecture</li>
-      </ul>
-      <a class="project-link" href="https://theainewshub.com" target="_blank" rel="noopener">theainewshub.com ↗</a>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── CONTACT ── -->
-<section id="contact">
-  <div class="reveal">
-    <p class="section-label">// Let's work together</p>
-    <h2>Get in Touch</h2>
-    <div class="avail-pill">
-      <span class="avail-dot"></span>
-      Available for new projects · CET timezone
-    </div>
-    <p style="color: var(--muted); font-size: 13px; max-width: 460px; margin: 0 auto;">
-      EU contractor · Clean invoicing for European and US clients · Immediate availability.
+    <p class="summary">
+      Senior AI engineer with <strong>15+ years</strong> spanning clinical neuroscience, academic research, and production AI systems.
+      In early 2022 — months before ChatGPT — I led the pretraining of <strong>HILANCO GPTX</strong>, a 6.7B-parameter bilingual English-Hungarian transformer on a government-backed NVIDIA DGX A100 cluster.
+      <br><br>
+      Deep hands-on expertise across the full <strong>NVIDIA AI stack</strong>: DGX A100 &amp; H200, NIM, Triton Inference Server, TensorRT, NeMo, and complete RLHF pipelines. I deliver production RAG systems, agentic AI pipelines, and workflow automations for European and US clients — with a strong focus on on-premise, GDPR-compliant architecture.
     </p>
-  </div>
-  <div class="contact-grid reveal">
-    <a class="contact-card" href="https://linkedin.com/in/adam-feldmann" target="_blank" rel="noopener">
-      <div class="contact-icon">💼</div>
-      <div class="contact-label">LinkedIn</div>
-      <div class="contact-value">adam-feldmann</div>
-    </a>
-    <a class="contact-card" href="https://github.com/dataandai" target="_blank" rel="noopener">
-      <div class="contact-icon">⌥</div>
-      <div class="contact-label">GitHub</div>
-      <div class="contact-value">dataandai</div>
-    </a>
-    <a class="contact-card" href="https://theainewshub.com" target="_blank" rel="noopener">
-      <div class="contact-icon">◈</div>
-      <div class="contact-label">Project</div>
-      <div class="contact-value">theainewshub.com</div>
-    </a>
-    <div class="contact-card">
-      <div class="contact-icon">📍</div>
-      <div class="contact-label">Location</div>
-      <div class="contact-value">Tenerife, Spain</div>
+  </section>
+
+  <!-- 02 NVIDIA STACK -->
+  <section class="section reveal" id="nvidia">
+    <div class="section-header">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">NVIDIA Deep Stack</h2>
     </div>
-  </div>
-</section>
+    <div class="nvidia-grid">
+      <div class="nv-card">
+        <div class="nv-name">DGX A100 &amp; H200</div>
+        <div class="nv-desc">HPC cluster pretraining and large-scale fine-tuning</div>
+      </div>
+      <div class="nv-card">
+        <div class="nv-name">NVIDIA NIM</div>
+        <div class="nv-desc">End-to-end optimised model microservices for production inference</div>
+      </div>
+      <div class="nv-card">
+        <div class="nv-name">Triton Inference Server</div>
+        <div class="nv-desc">Scalable multi-model serving with dynamic batching</div>
+      </div>
+      <div class="nv-card">
+        <div class="nv-name">TensorRT</div>
+        <div class="nv-desc">Model optimisation and latency reduction for production</div>
+      </div>
+      <div class="nv-card">
+        <div class="nv-name">NVIDIA NeMo</div>
+        <div class="nv-desc">Model development, fine-tuning, and RLHF orchestration</div>
+      </div>
+      <div class="nv-card">
+        <div class="nv-name">RLHF Pipelines</div>
+        <div class="nv-desc">Reward modeling, PPO, full alignment stack on DGX/H200</div>
+      </div>
+    </div>
+  </section>
 
-<footer>
-  © 2026 Adam Feldmann · PhD · Senior LLM &amp; RAG Engineer · Built with purpose, deployed on GitHub Pages
-</footer>
+  <!-- 03 EXPERIENCE -->
+  <section class="section reveal" id="experience">
+    <div class="section-header">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Experience</h2>
+    </div>
 
-<!-- ── NEURAL CANVAS SCRIPT ── -->
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">Apr 2024<br>Present</div>
+      </div>
+      <div>
+        <div class="exp-role">Senior LLM &amp; Enterprise AI Engineer</div>
+        <div class="exp-org">Independent EU Contractor · Tenerife, Spain (Remote)</div>
+        <ul class="bullets">
+          <li>Production RAG systems via NVIDIA NIM, Triton, and TensorRT — on-premise for GDPR compliance</li>
+          <li>Agentic tool layers with multi-step reasoning and query orchestration on NIM microservices</li>
+          <li>Large-scale Spark ingestion pipelines feeding Weaviate/Pinecone with hallucination &amp; retrieval evaluation</li>
+          <li>RLHF pipelines with NeMo: reward modeling, PPO, alignment stack on DGX/H200 infrastructure</li>
+          <li>n8n workflow automations for European SME and enterprise clients</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">Nov 2019<br>Jul 2023</div>
+        <div class="concurrent-tag">concurrent</div>
+      </div>
+      <div>
+        <div class="exp-role">Group Leader, Applied Data Science &amp; AI</div>
+        <div class="exp-org">University of Pécs · Hungary</div>
+        <ul class="bullets">
+          <li>Led pretraining of HILANCO GPTX: 6.7B-parameter bilingual GPT-NeoX on NVIDIA DGX A100</li>
+          <li>Collaborated with Microsoft Hungary on Hungarian BERT Large (Azure); presented at Microsoft Ignite</li>
+          <li>Computer vision-based drug recognition system for pharmaceutical identification</li>
+          <li>Published prompt engineering research June 2022 — predating ChatGPT; presented at ML Prague</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">Apr 2022<br>Nov 2024</div>
+        <div class="concurrent-tag">concurrent</div>
+      </div>
+      <div>
+        <div class="exp-role">Lecturer — Generative AI</div>
+        <div class="exp-org">Óbuda University · Remote</div>
+        <ul class="bullets">
+          <li>Led practical sessions on Generative AI for BSc students</li>
+          <li>Contributed to curriculum development integrating LLM and NLP in MSc engineering education</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">May 2009<br>Nov 2019</div>
+      </div>
+      <div>
+        <div class="exp-role">Lecturer — Neuropsychology &amp; Medical Statistics</div>
+        <div class="exp-org">University of Pécs, Medical School · Hungary</div>
+        <ul class="bullets">
+          <li>Advanced statistical methods and MRI data processing for clinical research and diagnostics</li>
+          <li>Taught biostatistics, voxel-based morphometry, and clinical trial methodology</li>
+          <li>Applied early machine learning to clinical neuroscience and diagnostic imaging</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 04 PROJECTS -->
+  <section class="section reveal" id="projects">
+    <div class="section-header">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Projects</h2>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="deliveries">2026 Deliverables</button>
+      <button class="tab-btn" data-tab="research">Research &amp; Personal</button>
+    </div>
+
+    <!-- TAB: 2026 Deliverables -->
+    <div class="tab-panel active" id="tab-deliveries">
+      <div class="proj-grid">
+
+        <div class="proj-card">
+          <div class="proj-type">Client Delivery · B2B AI</div>
+          <div class="proj-name">B2B AI Outreach Agent</div>
+          <div class="proj-desc">Autonomous prospecting and outbound email management with AI lead qualification (Cold/Warm/Hot) and GDPR-compliant compliance guardrails.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">FastAPI</span>
+            <span class="proj-tag">Docker</span>
+            <span class="proj-tag">NLP</span>
+            <span class="proj-tag">SQLAlchemy</span>
+          </div>
+          <a class="proj-link" href="https://github.com/dataandai/b2b-ai-outreach-agent" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-type">Open Source · Python SDK</div>
+          <div class="proj-name">Sovereign Agent Framework</div>
+          <div class="proj-desc">Model-agnostic autonomous agent SDK (Gemini / Claude / ChatGPT) with dynamic self-modifying strategy and real-time peer skill discovery.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">Multi-LLM</span>
+            <span class="proj-tag">Docker</span>
+            <span class="proj-tag">MIT License</span>
+          </div>
+          <a class="proj-link" href="https://github.com/dataandai/sovereign-agent-moltbook-python-sdk" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-type">Client Delivery · Social AI</div>
+          <div class="proj-name">Multi-Brand AI Content Engine</div>
+          <div class="proj-desc">Topic prompt to published post with DALL-E 3 image — fully automated via Make.com across multiple brand profiles from a single interface.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">GPT-4o</span>
+            <span class="proj-tag">DALL-E 3</span>
+            <span class="proj-tag">Make.com</span>
+            <span class="proj-tag">Google Sheets</span>
+          </div>
+          <a class="proj-link" href="https://github.com/dataandai/multi-brand-ai-content-engine" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-type">Client Delivery · HR AI</div>
+          <div class="proj-name">AI Recruitment Intelligence Platform</div>
+          <div class="proj-desc">Resume scoring engine, AI-generated interview questions, and visual hiring funnel analytics. Next.js dark-mode UI backed by FastAPI.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Next.js</span>
+            <span class="proj-tag">FastAPI</span>
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">LLM Scoring</span>
+          </div>
+          <a class="proj-link" href="https://github.com/dataandai/ai-recruitment-intelligence-platform" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-type">Client Delivery · Marketing AI</div>
+          <div class="proj-name">AI Content Strategy Engine</div>
+          <div class="proj-desc">Agentic pipeline: market research → gap analysis → editorial calendar with SEO priorities and KPI targets. Modular API-first design.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Agentic</span>
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">RAG</span>
+            <span class="proj-tag">REST API</span>
+          </div>
+          <a class="proj-link" href="https://github.com/dataandai/ai-content-strategy-engine" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB: Research & Personal -->
+    <div class="tab-panel" id="tab-research">
+      <div class="proj-grid">
+
+        <div class="proj-card wide">
+          <div>
+            <div class="proj-type">Government-Backed · Hungary · 2021–2022</div>
+            <div class="proj-name">HILANCO GPTX — National LLM Initiative</div>
+            <div class="proj-desc">6.7B-parameter bilingual English-Hungarian transformer (GPT-NeoX), pretrained from scratch on NVIDIA DGX A100. One of the first state-sponsored LLMs for a low-resource EU language.</div>
+            <div class="proj-tags">
+              <span class="proj-tag">GPT-NeoX</span>
+              <span class="proj-tag">DGX A100</span>
+              <span class="proj-tag">Bilingual NLU</span>
+              <span class="proj-tag">Prompt Engineering</span>
+              <span class="proj-tag">NeMo</span>
+            </div>
+          </div>
+          <div class="proj-right">
+            <ul class="bullets">
+              <li>Prompt engineering wiki published June 2022 — 5 months before ChatGPT</li>
+              <li>Presented at national government AI conference</li>
+              <li>Contributed to Hungary's strategic AI roadmap</li>
+            </ul>
+            <a class="proj-link" href="https://github.com/dataandai/Hungarian-gpt-3/wiki" target="_blank" rel="noopener">GitHub Wiki ↗</a>
+          </div>
+        </div>
+
+        <div class="proj-card wide">
+          <div>
+            <div class="proj-type">Personal Project · 2026 · In Active Development</div>
+            <div class="proj-name">The AI News Hub</div>
+            <div class="proj-desc">Agentic AI publishing platform transforming peer-reviewed scientific papers into accessible articles for neurodivergent readers, with knowledge graph visualisation connecting concepts beyond the article.</div>
+            <div class="proj-tags">
+              <span class="proj-tag">Agentic Pipeline</span>
+              <span class="proj-tag">Knowledge Graph</span>
+              <span class="proj-tag">RAG</span>
+              <span class="proj-tag">GDPR</span>
+              <span class="proj-tag">Accessibility</span>
+            </div>
+          </div>
+          <div class="proj-right">
+            <ul class="bullets">
+              <li>AI agents autonomously retrieve, summarise, and adapt tone of scientific papers</li>
+              <li>Zero user data collection — privacy-first by architectural design</li>
+              <li>Knowledge graph generation for complex concept navigation</li>
+            </ul>
+            <a class="proj-link" href="https://theainewshub.com" target="_blank" rel="noopener">theainewshub.com ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 EDUCATION -->
+  <section class="section reveal" id="education">
+    <div class="section-header">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">Education</h2>
+    </div>
+
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-degree">PhD — Summa Cum Laude</div>
+        <div class="edu-inst">University of Pécs, Medical School</div>
+        <div class="edu-year">2000 – 2005 · Pécs, Hungary</div>
+        <div class="edu-thesis">Dissertation: Voxel-Based Morphometry in Clinical Neuroscience</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">MSc — Psychology</div>
+        <div class="edu-inst">University of Pécs, Institute of Psychology</div>
+        <div class="edu-year">2010 – 2015 · Pécs, Hungary</div>
+        <div class="edu-thesis">Dissertation: Feature-Based Image Classification in Early Machine Learning</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
 <script>
-  const canvas = document.getElementById('neural-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, nodes = [];
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
 
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('#snav a');
 
-  function initNodes(n = 55) {
-    nodes = [];
-    for (let i = 0; i < n; i++) {
-      nodes.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 2 + 1,
-      });
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    const DIST = 160;
-    for (let i = 0; i < nodes.length; i++) {
-      const a = nodes[i];
-      a.x += a.vx; a.y += a.vy;
-      if (a.x < 0 || a.x > W) a.vx *= -1;
-      if (a.y < 0 || a.y > H) a.vy *= -1;
-
-      for (let j = i + 1; j < nodes.length; j++) {
-        const b = nodes[j];
-        const dx = a.x - b.x, dy = a.y - b.y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < DIST) {
-          const alpha = (1 - d / DIST) * 0.5;
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(0,212,255,${alpha})`;
-          ctx.lineWidth = 0.6;
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-
-      ctx.beginPath();
-      ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0,212,255,0.6)';
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize', () => { resize(); initNodes(); });
-  resize(); initNodes(); draw();
-
-  // ── SCROLL REVEAL ──
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
-        observer.unobserve(entry.target);
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`#snav a[href="#${entry.target.id}"]`);
+        if (link) link.classList.add('active');
       }
     });
-  }, { threshold: 0.12 });
+  }, { rootMargin: '-25% 0px -65% 0px' });
 
-  reveals.forEach(el => observer.observe(el));
+  sections.forEach(s => navObserver.observe(s));
+
+  // Scroll reveal
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 </script>
-
 </body>
 </html>
