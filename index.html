@@ -887,6 +887,10 @@
       display: none;
     }
 
+    .desktop-name {
+      display: block;
+    }
+
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -1008,6 +1012,10 @@
         transform: translateX(0);
       }
 
+      .desktop-name {
+        display: none;
+      }
+
       .side-mobile-head {
         display: flex;
         align-items: flex-start;
@@ -1107,6 +1115,7 @@
 
 <!-- ══ SIDEBAR ══ -->
 <aside id="sidebar">
+  <div class="sidebar-name desktop-name">Adam<br>Feldmann</div>
   <div class="side-mobile-head">
     <div>
       <div class="sidebar-name">Adam<br>Feldmann</div>
