@@ -1,978 +1,2519 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Adam Feldmann · Senior LLM & AI Systems Engineer</title>
-  <meta name="description" content="Senior LLM engineer building RAG, agent workflows, and model-serving systems for enterprise and regulated environments." />
-  <meta property="og:title" content="Adam Feldmann · Senior LLM & AI Systems Engineer" />
-  <meta property="og:description" content="RAG systems, agent workflows, NVIDIA inference infrastructure, and applied AI products for enterprise teams." />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#111827" />
-  <style>
-    :root {
-      --bg: #070b16;
-      --bg2: #0e1628;
-      --card: rgba(255,255,255,.065);
-      --card2: rgba(255,255,255,.105);
-      --text: #f8fafc;
-      --muted: #cbd5e1;
-      --soft: #94a3b8;
-      --line: rgba(255,255,255,.14);
-      --accent: #7dd3fc;
-      --accent2: #c4b5fd;
-      --green: #86efac;
-      --yellow: #fde68a;
-      --max: 1160px;
-      --radius: 24px;
-      --shadow: 0 26px 80px rgba(0,0,0,.38);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Adam Feldmann · Senior LLM &amp; Enterprise AI Engineer</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<style>
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
+      padding: 0;
+    }
+
+    :root {
+      color-scheme: dark;
+      --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-display: 'Syne', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+
+      --bg: #06090d;
+      --bg-deep: #030507;
+      --surface: rgba(14, 20, 25, 0.82);
+      --surface2: rgba(21, 29, 35, 0.88);
+      --surface3: rgba(28, 39, 46, 0.78);
+      --cyan: #54f4cf;
+      --cyan-soft: #8fffe4;
+      --cyan-dim: rgba(84, 244, 207, 0.12);
+      --amber: #e7b549;
+      --amber-dim: rgba(231, 181, 73, 0.14);
+      --green: #73e3a2;
+      --text: #d6ddde;
+      --text-hi: #f4f7f5;
+      --muted: #8b989d;
+      --muted-2: #5e6b72;
+      --border: rgba(142, 160, 166, 0.18);
+      --border-strong: rgba(142, 160, 166, 0.34);
+      --sidebar-w: 320px;
+      --content-w: 1240px;
+
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-7: 32px;
+      --space-8: 40px;
+      --space-9: 56px;
+      --space-10: 72px;
+
+      --radius-xs: 6px;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 34px;
+      --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.22);
+      --shadow-md: 0 24px 70px rgba(0, 0, 0, 0.34);
+      --shadow-glow: 0 0 34px rgba(84, 244, 207, 0.11);
+      --ease: cubic-bezier(.2, .8, .2, 1);
+      --transition-fast: 160ms var(--ease);
+      --transition-med: 240ms var(--ease);
+    }
+
+    :root[data-theme='light'] {
+      color-scheme: light;
+      --bg: #f4f1ea;
+      --bg-deep: #ebe4d9;
+      --surface: rgba(255, 252, 245, 0.9);
+      --surface2: rgba(246, 241, 231, 0.92);
+      --surface3: rgba(236, 229, 216, 0.78);
+      --cyan: #087c6c;
+      --cyan-soft: #0f9c87;
+      --cyan-dim: rgba(8, 124, 108, 0.1);
+      --amber: #9b6412;
+      --amber-dim: rgba(155, 100, 18, 0.12);
+      --green: #17884b;
+      --text: #273137;
+      --text-hi: #11171a;
+      --muted: #5e6970;
+      --muted-2: #7b858b;
+      --border: rgba(27, 38, 44, 0.16);
+      --border-strong: rgba(27, 38, 44, 0.28);
+      --shadow-sm: 0 10px 30px rgba(27, 38, 44, 0.09);
+      --shadow-md: 0 24px 70px rgba(27, 38, 44, 0.14);
+      --shadow-glow: 0 0 34px rgba(8, 124, 108, 0.09);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 28px;
+      background: var(--bg);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
       background:
-        radial-gradient(circle at 8% 0%, rgba(125,211,252,.19), transparent 33%),
-        radial-gradient(circle at 94% 5%, rgba(196,181,253,.19), transparent 33%),
-        linear-gradient(180deg, #050814 0%, var(--bg) 42%, #090d18 100%);
-      line-height: 1.55;
+        radial-gradient(circle at 16% -12%, rgba(84, 244, 207, 0.12), transparent 34vw),
+        radial-gradient(circle at 88% 12%, rgba(231, 181, 73, 0.1), transparent 28vw),
+        linear-gradient(135deg, var(--bg-deep), var(--bg) 42%, #08100f 100%);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.68;
     }
 
-    a { color: inherit; text-decoration: none; }
-    a:hover { color: var(--accent); }
-
-    .wrap {
-      width: min(var(--max), calc(100% - 40px));
-      margin: 0 auto;
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px),
+        radial-gradient(circle, rgba(84, 244, 207, 0.12) 1px, transparent 1.8px);
+      background-size: 56px 56px, 56px 56px, 18px 18px;
+      background-position: 0 0, 0 0, 0 0;
+      mask-image: linear-gradient(90deg, rgba(0,0,0,0.42), rgba(0,0,0,0.12));
+      animation: ambientGrid 30s linear infinite;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      border-bottom: 1px solid var(--line);
-      background: rgba(5,8,20,.78);
+    body::after {
+      content: '';
+      position: fixed;
+      inset: auto -12vw -22vh auto;
+      width: 42vw;
+      height: 42vw;
+      min-width: 420px;
+      min-height: 420px;
+      background:
+        radial-gradient(circle, rgba(84, 244, 207, 0.09), transparent 68%),
+        radial-gradient(circle at 35% 35%, rgba(231, 181, 73, 0.055), transparent 58%);
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(4px);
+      animation: ambientFloat 18s ease-in-out infinite alternate;
+      will-change: transform, opacity;
+    }
+
+    a, button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+      border-radius: var(--radius-xs);
+    }
+
+    ::selection {
+      color: #02110d;
+      background: var(--cyan);
+    }
+
+    /* ══ SIDEBAR ══ */
+    aside {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 42px 26px 30px;
+      background:
+        linear-gradient(180deg, rgba(15, 22, 27, 0.92), rgba(8, 12, 15, 0.9)),
+        radial-gradient(circle at 0 8%, rgba(84, 244, 207, 0.12), transparent 36%);
+      border-right: 1px solid var(--border);
+      box-shadow: 16px 0 70px rgba(0, 0, 0, 0.24);
       backdrop-filter: blur(18px);
     }
 
-    nav {
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
+    aside::before {
+      content: '';
+      position: absolute;
+      inset: 20px 14px auto auto;
+      width: 52px;
+      height: 52px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transform: rotate(10deg);
+      background: linear-gradient(135deg, rgba(84, 244, 207, 0.08), transparent 62%);
+      pointer-events: none;
     }
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+    .sidebar-name {
+      margin-bottom: 10px;
+      color: var(--text-hi);
+      font-family: var(--font-display);
+      font-size: clamp(26px, 2.1vw, 34px);
       font-weight: 800;
-      letter-spacing: -.025em;
-      line-height: 1.1;
+      line-height: .92;
+      letter-spacing: -0.055em;
     }
 
-    .brand span:last-child {
-      color: var(--soft);
-      font-weight: 520;
-      font-size: .86rem;
-      letter-spacing: 0;
+    .sidebar-title {
+      max-width: 22ch;
+      margin-bottom: 8px;
+      color: var(--cyan);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .09em;
+      line-height: 1.55;
+      text-transform: uppercase;
     }
 
-    .navlinks {
-      display: flex;
-      gap: 17px;
-      align-items: center;
-      justify-content: flex-end;
+    .sidebar-location {
+      margin-bottom: 24px;
       color: var(--muted);
-      font-size: .94rem;
-      flex-wrap: wrap;
+      font-size: 12px;
     }
 
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      padding: 10px 15px;
-      font-weight: 720;
-      border: 1px solid rgba(255,255,255,.20);
-      background: rgba(255,255,255,.075);
-      color: var(--text);
-      white-space: nowrap;
-      transition: transform .18s ease, border .18s ease, background .18s ease;
-    }
-
-    .button:hover {
-      color: var(--text);
-      transform: translateY(-1px);
-      border-color: rgba(125,211,252,.42);
-      background: rgba(125,211,252,.13);
-    }
-
-    .button.primary {
-      color: #06111f;
-      border: 0;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 16px 42px rgba(125,211,252,.18);
-    }
-
-    .hero {
-      padding: 92px 0 62px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.22fr) minmax(320px, .78fr);
-      gap: 34px;
-      align-items: stretch;
-    }
-
-    .eyebrow {
+    .avail-pill {
+      position: relative;
       display: inline-flex;
       align-items: center;
       gap: 9px;
+      width: fit-content;
+      margin-bottom: 30px;
       padding: 8px 12px;
+      border: 1px solid rgba(115, 227, 162, 0.26);
       border-radius: 999px;
-      border: 1px solid rgba(134,239,172,.24);
-      background: rgba(134,239,172,.08);
-      color: #dcfce7;
-      font-weight: 760;
-      font-size: .92rem;
-      margin-bottom: 23px;
+      background: rgba(115, 227, 162, 0.08);
+      color: #a8ffc7;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      box-shadow: 0 0 28px rgba(115, 227, 162, 0.06);
     }
 
-    h1 {
-      margin: 0;
-      max-width: 880px;
-      font-size: clamp(2.75rem, 6vw, 5.65rem);
-      line-height: .95;
-      letter-spacing: -.07em;
+    .avail-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(115, 227, 162, 0.12);
+      animation: pulse 2.2s var(--ease) infinite;
     }
 
-    .lead {
-      margin: 26px 0 0;
-      max-width: 820px;
+    nav {
+      display: grid;
+      gap: 4px;
+      margin-bottom: 32px;
+    }
+
+    nav a {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 12px 0 18px;
+      overflow: hidden;
+      border: 1px solid transparent;
+      border-radius: 12px;
       color: var(--muted);
-      font-size: clamp(1.08rem, 2vw, 1.30rem);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: .55;
+      transition: transform var(--transition-fast), opacity var(--transition-fast), background var(--transition-fast);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      background: linear-gradient(90deg, var(--cyan-dim), transparent);
+      transition: width var(--transition-med);
+      pointer-events: none;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--text-hi);
+      border-color: rgba(84, 244, 207, 0.22);
+      background: rgba(84, 244, 207, 0.06);
+      transform: translateX(3px);
+    }
+
+    nav a:hover::before,
+    nav a.active::before {
+      background: var(--cyan);
+      opacity: 1;
+      transform: scale(1.6);
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    .s-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .s-label::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: var(--amber);
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 28px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1;
+      transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .tag:hover {
+      border-color: var(--border-strong);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .tag-hi {
+      border-color: rgba(84, 244, 207, 0.28);
+      background: var(--cyan-dim);
+      color: var(--cyan-soft);
+    }
+
+    .tag-amb {
+      border-color: rgba(231, 181, 73, 0.34);
+      background: var(--amber-dim);
+      color: #f7d27b;
+    }
+
+    .sidebar-contact {
+      display: grid;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+
+    .c-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 7px 8px;
+      overflow: hidden;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 11px;
+      text-decoration: none;
+      transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .c-link:hover {
+      color: var(--text-hi);
+      border-color: var(--border);
+      background: rgba(255, 255, 255, 0.035);
+      transform: translateY(-1px);
+    }
+
+    .c-icon {
+      display: flex;
+      flex: 0 0 30px;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-hi);
+      font-size: 12px;
+    }
+
+    .c-link.email-link {
+      color: var(--cyan);
+    }
+
+    .c-link.email-link:hover {
+      color: var(--text-hi);
+    }
+
+    .side-mobile-head {
+      display: none;
+    }
+
+    .desktop-name {
+      display: block;
+    }
+
+    /* ══ MAIN ══ */
+    main {
+      position: relative;
+      isolation: isolate;
+      flex: 1;
+      width: calc(100% - var(--sidebar-w));
+      max-width: var(--content-w);
+      margin-left: var(--sidebar-w);
+      padding: 48px clamp(28px, 5vw, 72px) 96px;
+    }
+
+    main::before,
+    main::after {
+      content: '';
+      position: fixed;
+      pointer-events: none;
+      z-index: -1;
+      inset: 0 0 0 calc(var(--sidebar-w) - 20px);
+    }
+
+    main::before {
+      background:
+        radial-gradient(circle at 22% 24%, rgba(84, 244, 207, 0.2) 0 2px, transparent 3px),
+        radial-gradient(circle at 31% 46%, rgba(84, 244, 207, 0.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 43% 34%, rgba(84, 244, 207, 0.18) 0 1.8px, transparent 3px),
+        radial-gradient(circle at 66% 22%, rgba(231, 181, 73, 0.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 73% 56%, rgba(84, 244, 207, 0.2) 0 2px, transparent 3px),
+        radial-gradient(circle at 58% 72%, rgba(231, 181, 73, 0.12) 0 2px, transparent 3px),
+        repeating-radial-gradient(circle at 74% 22%, rgba(84, 244, 207, 0) 0 24px, rgba(84, 244, 207, 0.055) 24px 25px, transparent 25px 48px),
+        repeating-radial-gradient(circle at 22% 78%, rgba(231, 181, 73, 0) 0 20px, rgba(231, 181, 73, 0.04) 20px 21px, transparent 21px 40px);
+      opacity: .8;
+      mix-blend-mode: screen;
+      animation: researchOrbit 34s linear infinite;
+    }
+
+    main::after {
+      inset: 0 0 0 calc(var(--sidebar-w) - 12px);
+      background:
+        linear-gradient(116deg, transparent 0 44%, rgba(84, 244, 207, 0.09) 48%, rgba(84, 244, 207, 0.03) 50%, transparent 54%),
+        linear-gradient(116deg, transparent 0 61%, rgba(231, 181, 73, 0.06) 63%, transparent 66%);
+      opacity: .56;
+      animation: researchSweep 18s ease-in-out infinite;
+    }
+
+    .section {
+      position: relative;
+      margin-bottom: clamp(58px, 7vw, 92px);
+    }
+
+    .section-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .section-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border-strong), transparent);
+    }
+
+    .sec-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 28px;
+      border: 1px solid rgba(231, 181, 73, 0.32);
+      border-radius: 999px;
+      background: rgba(231, 181, 73, 0.08);
+      color: #f4d28a;
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+
+    .sec-title {
+      color: var(--text-hi);
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.7vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.055em;
+      line-height: 1;
+    }
+
+    /* ── HERO / UX LAYER ── */
+    .mobile-topbar,
+    .mobile-overlay {
+      display: none;
+    }
+
+    .hero {
+      margin-bottom: clamp(66px, 8vw, 110px);
+    }
+
+    .hero-shell {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.74fr);
+      align-items: start;
+      gap: clamp(22px, 2.4vw, 34px);
+      overflow: hidden;
+      padding: clamp(22px, 3vw, 38px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(84, 244, 207, 0.13), transparent 32%),
+        radial-gradient(circle at 94% 0%, rgba(231, 181, 73, 0.13), transparent 32%),
+        linear-gradient(135deg, rgba(18, 26, 31, 0.92), rgba(9, 13, 17, 0.86));
+      box-shadow: var(--shadow-md), var(--shadow-glow);
+      isolation: isolate;
+    }
+
+    .hero-shell::before {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      z-index: -1;
+      border-radius: calc(var(--radius-xl) - 1px);
+      background:
+        linear-gradient(120deg, rgba(255,255,255,0.08), transparent 28%, rgba(84,244,207,0.06) 52%, transparent 74%),
+        linear-gradient(180deg, rgba(255,255,255,0.045), transparent);
+      pointer-events: none;
+    }
+
+    .hero-shell::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: 24%;
+      width: 220px;
+      height: 180%;
+      background: linear-gradient(180deg, transparent, rgba(84, 244, 207, 0.1), transparent);
+      transform: rotate(26deg);
+      opacity: .52;
+      pointer-events: none;
+      animation: heroBeam 14s ease-in-out infinite alternate;
+    }
+
+    .hero-copy,
+    .hero-panel {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(84, 244, 207, 0.24);
+      border-radius: 999px;
+      background: rgba(3, 6, 8, 0.42);
+      color: var(--cyan-soft);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-kicker::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(115, 227, 162, 0.13), 0 0 22px rgba(115, 227, 162, 0.3);
+    }
+
+    .hero-title {
+      max-width: 100%;
+      margin-bottom: 20px;
+      color: var(--text-hi);
+      font-family: var(--font-display);
+      font-size: clamp(36px, 3.9vw, 54px);
+      font-weight: 800;
+      line-height: .96;
+      letter-spacing: -0.055em;
+      text-wrap: balance;
+      word-break: normal;
+      overflow-wrap: normal;
+      hyphens: none;
+    }
+
+    .hero-text {
+      max-width: 68ch;
+      margin-bottom: 24px;
+      color: var(--text);
+      font-size: clamp(15px, 1.25vw, 17px);
+      line-height: 1.82;
+    }
+
+    .hero-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 24px;
+    }
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 7px 11px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1;
+      white-space: nowrap;
+      backdrop-filter: blur(8px);
     }
 
     .hero-actions {
       display: flex;
-      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 31px;
-    }
-
-    .proof-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin-top: 32px;
+      margin-bottom: 28px;
     }
 
-    .proof {
-      padding: 17px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.052);
-      border-radius: 18px;
-    }
-
-    .proof strong {
-      display: block;
-      line-height: 1.23;
-      font-size: 1.04rem;
-    }
-
-    .proof span {
-      display: block;
-      color: var(--soft);
-      margin-top: 6px;
-      font-size: .92rem;
-    }
-
-    .side-card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.045));
-      box-shadow: var(--shadow);
-      padding: 26px;
-      min-height: 100%;
-    }
-
-    .side-card h2 {
-      font-size: 1.18rem;
-      margin: 0 0 10px;
-      letter-spacing: -.02em;
-    }
-
-    .side-card p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .availability {
-      border: 1px solid rgba(134,239,172,.24);
-      background: rgba(134,239,172,.08);
-      border-radius: 18px;
-      padding: 15px;
-      margin-bottom: 18px;
-      color: #dcfce7;
-    }
-
-    .availability span {
-      display: block;
-      color: #bbf7d0;
-      font-size: .94rem;
-      margin-top: 3px;
-    }
-
-    .focus-list {
-      display: grid;
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .focus-list div {
-      border-top: 1px solid var(--line);
-      padding-top: 14px;
-    }
-
-    .focus-list strong { display: block; }
-    .focus-list span {
-      display: block;
-      color: var(--soft);
-      font-size: .94rem;
-      margin-top: 3px;
-    }
-
-    section {
-      padding: 64px 0;
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-
-    .section-head {
-      display: grid;
-      grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
-      gap: 24px;
-      align-items: start;
-      margin-bottom: 30px;
-    }
-
-    .kicker {
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: .14em;
-      font-size: .76rem;
-      font-weight: 850;
-      margin-bottom: 12px;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 3.2rem);
+    .hero-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 18px;
+      overflow: hidden;
+      border-radius: 14px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
       line-height: 1;
-      letter-spacing: -.055em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
     }
 
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1.05rem;
+    .hero-btn::after,
+    .proj-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.18) 45%, transparent 70%);
+      transform: translateX(-120%);
+      transition: transform 420ms var(--ease);
+      pointer-events: none;
     }
 
-    .grid-3 {
+    .hero-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-btn:hover::after,
+    .proj-link:hover::after {
+      transform: translateX(120%);
+    }
+
+    .hero-btn.primary {
+      border: 1px solid rgba(84, 244, 207, 0.55);
+      background: linear-gradient(135deg, var(--cyan), #b6ffe8);
+      color: #06110e;
+      box-shadow: 0 14px 36px rgba(84, 244, 207, 0.18);
+    }
+
+    .hero-btn.secondary {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-hi);
+    }
+
+    .hero-btn.secondary:hover {
+      border-color: rgba(231, 181, 73, 0.42);
+      background: rgba(231, 181, 73, 0.08);
+    }
+
+    .hero-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .card {
-      border: 1px solid var(--line);
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 24px;
-    }
-
-    .card.emph {
-      background:
-        radial-gradient(circle at 10% 0%, rgba(125,211,252,.16), transparent 44%),
-        linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.055));
-      border-color: rgba(125,211,252,.25);
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 1.15rem;
-      letter-spacing: -.025em;
-    }
-
-    .card p, .card li {
-      color: var(--muted);
-    }
-
-    .card p { margin: 0; }
-    .card ul {
-      margin: 14px 0 0;
-      padding-left: 18px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .tag {
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--muted);
-      border-radius: 999px;
-      padding: 6px 9px;
-      font-size: .82rem;
-      white-space: nowrap;
-    }
-
-    .case-grid {
-      display: grid;
-      grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr);
-      gap: 16px;
-    }
-
-    .case-big {
-      border: 1px solid rgba(125,211,252,.25);
-      border-radius: 30px;
-      background:
-        radial-gradient(circle at 12% 6%, rgba(125,211,252,.18), transparent 40%),
-        linear-gradient(180deg, rgba(255,255,255,.115), rgba(255,255,255,.055));
-      padding: 30px;
-    }
-
-    .case-big h3 {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      line-height: 1.05;
-      letter-spacing: -.045em;
-      margin: 0 0 12px;
-    }
-
-    .case-big p {
-      color: var(--muted);
-      margin: 0 0 14px;
-    }
-
-    .metric-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 18px;
     }
 
-    .metric {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.055);
-      border-radius: 16px;
-      padding: 14px;
+    .hero-stat {
+      min-height: 112px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025)),
+        rgba(3, 6, 8, 0.42);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
     }
 
-    .metric strong {
+    .hero-stat:hover {
+      transform: translateY(-3px);
+      border-color: rgba(84, 244, 207, 0.28);
+      background: rgba(84, 244, 207, 0.055);
+    }
+
+    .hero-stat-value {
       display: block;
-      font-size: 1.25rem;
-      letter-spacing: -.03em;
+      margin-bottom: 8px;
+      color: var(--text-hi);
+      font-family: var(--font-display);
+      font-size: clamp(25px, 2vw, 34px);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -0.055em;
     }
 
-    .metric span {
-      color: var(--soft);
-      font-size: .88rem;
+    .hero-stat-label {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
     }
 
-    .project-card {
+    .hero-panel {
       display: flex;
       flex-direction: column;
       gap: 12px;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: 4px;
+      border-radius: 28px;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 30% 38%, rgba(84, 244, 207, 0.13), transparent 32%),
+        radial-gradient(circle at 74% 72%, rgba(231, 181, 73, 0.11), transparent 30%);
+      background-size: 140% 140%, 150% 150%;
+      animation: widgetAura 8s ease-in-out infinite alternate;
     }
 
-    .project-meta {
-      color: var(--accent);
-      font-size: .82rem;
-      font-weight: 780;
-      letter-spacing: .08em;
+    .hero-panel::before,
+    .hero-panel::after {
+      content: '';
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(18px);
+      opacity: .42;
+    }
+
+    .hero-panel::before {
+      inset: 18% 8% auto auto;
+      width: 190px;
+      height: 190px;
+      background:
+        radial-gradient(circle, rgba(84, 244, 207, 0.42), rgba(84, 244, 207, 0.11) 42%, rgba(84, 244, 207, 0) 70%);
+      animation: widgetFloatOne 7.5s ease-in-out infinite alternate;
+    }
+
+    .hero-panel::after {
+      inset: auto auto 4% 10%;
+      width: 210px;
+      height: 210px;
+      background:
+        radial-gradient(circle, rgba(231, 181, 73, 0.34), rgba(231, 181, 73, 0.1) 44%, rgba(231, 181, 73, 0) 72%);
+      animation: widgetFloatTwo 9.5s ease-in-out infinite alternate;
+    }
+
+    .hero-panel-card,
+    .hero-mini-grid,
+    .hero-mini-card {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-panel-card,
+    .hero-mini-card {
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)),
+        rgba(3, 6, 8, 0.42);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.045);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-panel-card {
+      padding: clamp(18px, 2vw, 24px);
+      border-radius: 22px;
+    }
+
+    .hero-panel-label {
+      margin-bottom: 10px;
+      color: var(--amber);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .13em;
       text-transform: uppercase;
     }
 
-    .labs {
+    .hero-panel-title {
+      margin-bottom: 12px;
+      color: var(--text-hi);
+      font-family: var(--font-display);
+      font-size: clamp(19px, 1.55vw, 25px);
+      font-weight: 800;
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+      text-wrap: balance;
+    }
+
+    .hero-panel-text {
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.76;
+    }
+
+    .hero-list {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 10px;
+      margin-top: 14px;
+      list-style: none;
     }
 
-    .lab-card {
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 20px;
-      background: rgba(255,255,255,.052);
-      padding: 20px;
-      min-height: 100%;
-    }
-
-    .lab-card h3 {
-      margin: 0 0 9px;
-      font-size: 1.04rem;
-      letter-spacing: -.02em;
-    }
-
-    .lab-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: .95rem;
-    }
-
-    .lab-card a {
-      display: inline-flex;
-      margin-top: 13px;
-      color: var(--accent);
-      font-weight: 740;
-      font-size: .92rem;
-    }
-
-    .timeline {
-      display: grid;
-      gap: 16px;
-    }
-
-    .role {
-      display: grid;
-      grid-template-columns: 170px minmax(0, 1fr);
-      gap: 18px;
-      padding: 24px;
-      border: 1px solid var(--line);
-      background: var(--card);
-      border-radius: var(--radius);
-    }
-
-    .date {
-      color: var(--soft);
-      font-weight: 740;
-      font-size: .94rem;
-    }
-
-    .role h3 {
-      margin: 0 0 6px;
-      font-size: 1.15rem;
-    }
-
-    .role .org {
-      color: var(--accent);
-      margin-bottom: 10px;
-      font-weight: 720;
-    }
-
-    .role ul {
-      margin: 0;
+    .hero-list li,
+    .bullets li {
+      position: relative;
       padding-left: 18px;
-      color: var(--muted);
     }
 
-    .stack-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
+    .hero-list li {
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.62;
     }
 
-    .stack-cloud span {
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
+    .hero-list li::before,
+    .bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .68em;
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      background: var(--cyan);
+      transform: rotate(45deg);
+      box-shadow: 0 0 14px rgba(84, 244, 207, 0.34);
+    }
+
+    .hero-mini-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .hero-mini-grid::before {
+      content: '';
+      position: absolute;
+      inset: -42px 12% auto 12%;
+      height: 2px;
       border-radius: 999px;
-      padding: 8px 10px;
+      background: linear-gradient(90deg, transparent, rgba(84, 244, 207, 0.5), rgba(231, 181, 73, 0.4), transparent);
+      box-shadow: 0 0 24px rgba(84, 244, 207, 0.26);
+      transform: rotate(-9deg);
+      animation: widgetScan 5.8s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-mini-card {
+      padding: 16px;
+      border-radius: 18px;
+      transition: transform var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .hero-mini-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(231, 181, 73, 0.36);
+    }
+
+    .hero-mini-title {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text-hi);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hero-mini-text {
       color: var(--muted);
-      font-size: .9rem;
+      font-size: 12px;
+      line-height: 1.58;
     }
 
-    .contact {
-      text-align: center;
-      padding: 82px 0;
+    @media (min-width: 1181px) and (max-width: 1460px) {
+      .hero-shell {
+        grid-template-columns: minmax(0, 1fr) minmax(350px, .74fr);
+      }
+
+      .hero-title {
+        max-width: 100%;
+        font-size: clamp(34px, 3.55vw, 48px);
+      }
+
+      .hero-panel-title {
+        font-size: clamp(18px, 1.35vw, 23px);
+      }
     }
 
-    .contact h2 {
-      max-width: 760px;
-      margin: 0 auto;
+    /* ── ABOUT ── */
+    .badge-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
     }
 
-    .contact p {
-      color: var(--muted);
-      max-width: 720px;
-      margin: 18px auto 0;
-      font-size: 1.08rem;
-    }
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 28px 0;
-      color: var(--soft);
-      font-size: .92rem;
-    }
-
-    footer .wrap {
+    .honor {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 58px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)),
+        var(--surface);
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1.35;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
     }
 
-    .footer-links {
-      display: flex;
+    .honor:hover {
+      transform: translateY(-2px);
+      border-color: rgba(231, 181, 73, 0.36);
+      background: rgba(231, 181, 73, 0.055);
+    }
+
+    .honor-star {
+      flex: 0 0 auto;
+      color: var(--amber);
+      font-size: 11px;
+    }
+
+    .summary {
+      position: relative;
+      max-width: none;
+      padding: clamp(20px, 2.6vw, 30px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(84, 244, 207, 0.1), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.024)),
+        var(--surface);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.9;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .summary::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      width: 58px;
+      height: 58px;
+      border-top: 3px solid var(--amber);
+      border-right: 3px solid var(--amber);
+      opacity: .65;
+    }
+
+    .summary strong {
+      color: var(--text-hi);
+      font-weight: 650;
+    }
+
+    /* ── NVIDIA ── */
+    .nvidia-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
+    }
+
+    .nv-card {
+      position: relative;
+      min-height: 142px;
+      overflow: hidden;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)),
+        var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+    }
+
+    .nv-card:first-child {
+      grid-column: span 2;
+    }
+
+    .nv-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--cyan), var(--amber));
+      opacity: .9;
+    }
+
+    .nv-card::after {
+      content: '';
+      position: absolute;
+      right: -42px;
+      bottom: -42px;
+      width: 108px;
+      height: 108px;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      transform: rotate(18deg);
+      background: rgba(84, 244, 207, 0.05);
+      pointer-events: none;
+    }
+
+    .nv-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(84, 244, 207, 0.34);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nv-name {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 10px;
+      color: var(--text-hi);
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .nv-desc {
+      position: relative;
+      z-index: 1;
+      max-width: 32ch;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.62;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience {
+      counter-reset: exp;
+    }
+
+    .exp-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 176px minmax(0, 1fr);
+      gap: 22px;
+      margin-bottom: 12px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)),
+        var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+      counter-increment: exp;
+    }
+
+    .exp-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .exp-item::before {
+      content: '0' counter(exp);
+      position: absolute;
+      right: 18px;
+      top: 14px;
+      color: rgba(255,255,255,0.055);
+      font-family: var(--font-display);
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -0.075em;
+      text-wrap: balance;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .exp-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(84, 244, 207, 0.28);
+      box-shadow: var(--shadow-md);
+    }
+
+    .exp-period {
+      display: inline-flex;
+      min-width: 120px;
+      padding: 9px 11px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(3, 6, 8, 0.38);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    .concurrent-tag {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 3px 7px;
+      border: 1px solid rgba(231, 181, 73, 0.28);
+      border-radius: 999px;
+      background: var(--amber-dim);
+      color: #f4d28a;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .exp-role {
+      margin-bottom: 4px;
+      color: var(--text-hi);
+      font-family: var(--font-display);
+      font-size: clamp(18px, 1.9vw, 24px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+    }
+
+    .exp-org {
+      margin-bottom: 12px;
+      color: var(--cyan);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .02em;
+    }
+
+    .bullets {
+      display: grid;
+      gap: 7px;
+      list-style: none;
+    }
+
+    .bullets li {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.62;
+    }
+
+    /* ── PROJECTS ── */
+    .tab-bar {
+      display: inline-flex;
+      gap: 5px;
+      margin-bottom: 18px;
+      padding: 5px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(3, 6, 8, 0.45);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
+      backdrop-filter: blur(12px);
+    }
+
+    .tab-btn {
+      min-height: 38px;
+      padding: 0 16px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .tab-btn:hover {
+      color: var(--text-hi);
+      border-color: var(--border);
+    }
+
+    .tab-btn.active {
+      border-color: rgba(84, 244, 207, 0.38);
+      background: var(--cyan);
+      color: #06110e;
+      box-shadow: 0 10px 28px rgba(84, 244, 207, 0.14);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: panelIn 220ms var(--ease) both;
+    }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .proj-card {
+      position: relative;
+      grid-column: span 4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.024)),
+        var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+    }
+
+    .proj-card.featured {
+      grid-column: span 6;
+    }
+
+    .proj-card.wide {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr);
+      gap: 22px;
+      padding: clamp(20px, 2.2vw, 28px);
+    }
+
+    #tab-deliveries .proj-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    #tab-deliveries .proj-card {
+      grid-column: span 2;
+    }
+
+    #tab-deliveries .proj-card.featured {
+      grid-column: span 3;
+    }
+
+    .proj-card.hilanco-spotlight {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(231, 181, 73, 0.14), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.024)),
+        var(--surface);
+      border-color: rgba(231, 181, 73, 0.22);
+    }
+
+    .proj-card.hilanco-spotlight::before {
+      height: 4px;
+      background: linear-gradient(90deg, var(--amber), var(--cyan), transparent 82%);
+      opacity: .95;
+    }
+
+    .proj-card.hilanco-spotlight .proj-name {
+      font-size: clamp(26px, 2.5vw, 34px);
+    }
+
+    .proj-card.hilanco-spotlight .proj-right {
+      justify-content: space-between;
+    }
+
+    .proj-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 2;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--amber), transparent 82%);
+      opacity: .76;
+    }
+
+    .proj-card::after {
+      content: '';
+      position: absolute;
+      right: -84px;
+      top: -84px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: rgba(84, 244, 207, 0.07);
+      filter: blur(4px);
+      pointer-events: none;
+      transition: opacity var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .proj-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(84, 244, 207, 0.32);
+      box-shadow: var(--shadow-md), var(--shadow-glow);
+    }
+
+    .proj-card:hover::after {
+      transform: scale(1.18);
+      opacity: 1;
+    }
+
+    .proj-media {
+      position: relative;
+      height: clamp(184px, 19vw, 230px);
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(84, 244, 207, 0.08), rgba(231, 181, 73, 0.05)),
+        #070c10;
+    }
+
+    .proj-card:not(.featured) .proj-media {
+      height: 176px;
+    }
+
+    .proj-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(6,9,13,0.02), rgba(6,9,13,0.22) 54%, rgba(6,9,13,0.78)),
+        linear-gradient(90deg, rgba(84,244,207,0.05), transparent 54%);
+      pointer-events: none;
+    }
+
+    .proj-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 260ms var(--ease), filter 260ms var(--ease);
+    }
+
+    .proj-card:hover .proj-media img {
+      transform: scale(1.035);
+      filter: saturate(1.04) contrast(1.03);
+    }
+
+    .proj-body {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .proj-card.featured .proj-body {
+      padding: 22px;
+    }
+
+    .proj-card.wide .proj-body {
+      padding: 0;
+    }
+
+    .proj-card.featured .proj-name {
+      font-size: clamp(23px, 2.2vw, 30px);
+    }
+
+    .proj-type {
+      margin-bottom: 9px;
+      color: var(--amber);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .proj-name {
+      margin-bottom: 9px;
+      color: var(--text-hi);
+      font-family: var(--font-display);
+      font-size: clamp(20px, 1.8vw, 25px);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1.05;
+    }
+
+    .proj-desc {
+      margin-bottom: 14px;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.72;
+    }
+
+    .proj-tags {
+      display: flex;
       flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .proj-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(3, 6, 8, 0.34);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1;
+    }
+
+    .proj-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 36px;
+      margin-top: auto;
+      padding: 0 12px;
+      overflow: hidden;
+      border: 1px solid rgba(84, 244, 207, 0.24);
+      border-radius: 12px;
+      background: var(--cyan-dim);
+      color: var(--cyan-soft);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-decoration: none;
+      transition: transform var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .proj-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(84, 244, 207, 0.46);
+      background: rgba(84, 244, 207, 0.16);
+      color: var(--text-hi);
+    }
+
+    .proj-card.wide .proj-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 16px;
+    }
+
+    .proj-shot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .proj-shot {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #070c10;
+      aspect-ratio: 16 / 10;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .proj-shot img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 260ms var(--ease);
+    }
+
+    .proj-shot:hover img {
+      transform: scale(1.025);
+    }
+
+    .proj-shot::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(6,9,13,0.02), rgba(6,9,13,0.2) 60%, rgba(6,9,13,0.62));
+      pointer-events: none;
+    }
+
+    .proj-shot-label {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      z-index: 1;
+      padding: 6px 8px;
+      border: 1px solid rgba(84, 244, 207, 0.24);
+      border-radius: 10px;
+      background: rgba(3, 6, 8, 0.66);
+      color: var(--text-hi);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .proj-shot.wide {
+      grid-column: 1 / -1;
+      aspect-ratio: 16 / 8.2;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .edu-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 178px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)),
+        var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      inset: auto 22px 18px auto;
+      width: 48px;
+      height: 48px;
+      border-right: 3px solid var(--cyan);
+      border-bottom: 3px solid var(--cyan);
+      opacity: .34;
+    }
+
+    .edu-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(231, 181, 73, 0.34);
+      box-shadow: var(--shadow-md);
+    }
+
+    .edu-degree {
+      margin-bottom: 6px;
+      color: var(--text-hi);
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2vw, 27px);
+      font-weight: 800;
+      letter-spacing: -0.052em;
+      line-height: 1.06;
+    }
+
+    .edu-inst {
+      margin-bottom: 4px;
+      color: var(--cyan);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .edu-year {
+      margin-bottom: 11px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+
+    .edu-thesis {
+      color: var(--muted);
+      font-size: 13px;
+      font-style: italic;
+      line-height: 1.62;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(.86); }
+    }
+
+    @keyframes ambientFloat {
+      0% { transform: translate3d(0, 0, 0) scale(1); opacity: .74; }
+      100% { transform: translate3d(-2.2vw, -2.8vh, 0) scale(1.08); opacity: .96; }
+    }
+
+    @keyframes ambientGrid {
+      0% {
+        transform: translate3d(0, 0, 0);
+        background-position: 0 0, 0 0, 0 0;
+        opacity: .82;
+      }
+      100% {
+        transform: translate3d(14px, 14px, 0);
+        background-position: 14px 14px, 14px 14px, 18px -12px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes researchOrbit {
+      0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); opacity: .56; }
+      50% { transform: translate3d(-10px, 8px, 0) rotate(180deg) scale(1.03); opacity: .9; }
+      100% { transform: translate3d(0, 0, 0) rotate(360deg) scale(1); opacity: .56; }
+    }
+
+    @keyframes researchSweep {
+      0% { transform: translate3d(-4%, -2%, 0); opacity: .18; }
+      50% { transform: translate3d(3%, 2%, 0); opacity: .54; }
+      100% { transform: translate3d(8%, 4%, 0); opacity: .18; }
+    }
+
+    @keyframes widgetAura {
+      0% { background-position: 0% 20%, 100% 80%; }
+      100% { background-position: 100% 55%, 0% 30%; }
+    }
+
+    @keyframes widgetScan {
+      0% { transform: translate3d(-28px, 2px, 0) rotate(-9deg); opacity: .28; }
+      100% { transform: translate3d(28px, -16px, 0) rotate(-9deg); opacity: .9; }
+    }
+
+    @keyframes widgetFloatOne {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(-28px, 18px, 0) scale(1.08); }
+    }
+
+    @keyframes widgetFloatTwo {
+      0% { transform: translate3d(0, 0, 0) scale(.98); }
+      100% { transform: translate3d(24px, -20px, 0) scale(1.1); }
+    }
+
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 260ms var(--ease), transform 260ms var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border: 2px solid transparent;
+      border-radius: 999px;
+      background: var(--border-strong);
+      background-clip: padding-box;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1180px) {
+      :root {
+        --sidebar-w: 292px;
+      }
+
+      main {
+        padding-right: 34px;
+        padding-left: 34px;
+      }
+
+      .hero-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        max-width: 12ch;
+        font-size: clamp(40px, 6vw, 62px);
+      }
+
+      .proj-card,
+      .proj-card.featured {
+        grid-column: span 6;
+      }
+
+      .nvidia-grid,
+      .badge-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .nv-card:first-child {
+        grid-column: span 2;
+      }
     }
 
     @media (max-width: 900px) {
-      .hero-grid, .section-head, .case-grid, .grid-3, .grid-2, .labs {
-        grid-template-columns: 1fr;
+      html {
+        scroll-padding-top: 78px;
       }
 
-      .proof-strip, .metric-row {
-        grid-template-columns: 1fr;
+      main::before,
+      main::after {
+        display: none;
       }
 
-      .role {
-        grid-template-columns: 1fr;
+      body {
+        display: block;
       }
 
-      nav {
+      body.menu-open {
+        overflow: hidden;
+      }
+
+      .mobile-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(8, 12, 15, 0.78);
+        box-shadow: 0 14px 40px rgba(0,0,0,0.24);
+        backdrop-filter: blur(18px);
+      }
+
+      .mobile-brand {
+        min-width: 0;
+      }
+
+      .mobile-brand-name {
+        color: var(--text-hi);
+        font-family: var(--font-display);
+        font-size: 20px;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.05em;
+      }
+
+      .mobile-brand-role {
+        max-width: 240px;
+        margin-top: 5px;
+        overflow: hidden;
+        color: var(--cyan);
+        font-family: var(--font-mono);
+        font-size: 9px;
+        letter-spacing: .09em;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        flex: 0 0 44px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.04);
+        color: var(--text-hi);
+        cursor: pointer;
+        transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+      }
+
+      .menu-toggle:hover {
+        transform: translateY(-1px);
+        border-color: rgba(84, 244, 207, 0.34);
+        background: rgba(84, 244, 207, 0.08);
+      }
+
+      .menu-toggle-lines,
+      .menu-toggle-lines::before,
+      .menu-toggle-lines::after {
+        content: '';
+        display: block;
+        width: 18px;
+        height: 2px;
+        border-radius: 2px;
+        background: currentColor;
+        transition: transform 180ms var(--ease), opacity 180ms var(--ease);
+      }
+
+      .menu-toggle-lines {
+        position: relative;
+      }
+
+      .menu-toggle-lines::before,
+      .menu-toggle-lines::after {
+        position: absolute;
+        left: 0;
+      }
+
+      .menu-toggle-lines::before { top: -6px; }
+      .menu-toggle-lines::after { top: 6px; }
+
+      body.menu-open .menu-toggle-lines {
+        transform: rotate(45deg);
+      }
+
+      body.menu-open .menu-toggle-lines::before {
+        transform: translateY(6px) rotate(90deg);
+      }
+
+      body.menu-open .menu-toggle-lines::after {
+        opacity: 0;
+      }
+
+      .mobile-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 25;
+        display: block;
+        background: rgba(0, 0, 0, 0.62);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms var(--ease);
+        backdrop-filter: blur(2px);
+      }
+
+      body.menu-open .mobile-overlay {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      aside {
+        width: min(88vw, 356px);
+        min-width: 0;
+        z-index: 50;
+        padding: 28px 22px;
+        transform: translateX(-106%);
+        transition: transform 220ms var(--ease);
+        box-shadow: 26px 0 80px rgba(0,0,0,0.5);
+      }
+
+      body.menu-open aside {
+        transform: translateX(0);
+      }
+
+      .desktop-name {
+        display: none;
+      }
+
+      .side-mobile-head {
+        display: flex;
         align-items: flex-start;
-        flex-direction: column;
-        padding: 14px 0;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 20px;
       }
 
-      .navlinks {
-        justify-content: flex-start;
+      .side-mobile-copy {
+        max-width: 24ch;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.55;
+      }
+
+      main {
+        width: 100%;
+        max-width: none;
+        margin-left: 0;
+        padding: 22px 16px 70px;
       }
 
       .hero {
-        padding-top: 58px;
+        margin-top: 2px;
+      }
+
+      .hero-shell,
+      .proj-card.wide {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-shell {
+        padding: 20px;
+        border-radius: 24px;
+      }
+
+      .hero-panel {
+        width: 100%;
+      }
+
+      .hero-shell::after {
+        opacity: .32;
+      }
+
+      .hero-title {
+        max-width: 100%;
+        font-size: clamp(34px, 10vw, 52px);
+        letter-spacing: -0.055em;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-panel-card,
+      .hero-mini-card,
+      .hero-stat,
+      .summary,
+      .proj-card,
+      .edu-card,
+      .exp-item,
+      .nv-card {
+        border-radius: 20px;
+      }
+
+      .badge-row,
+      .nvidia-grid,
+      .edu-grid,
+      .proj-shot-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nv-card:first-child,
+      .proj-shot.wide {
+        grid-column: auto;
+      }
+
+      .exp-item {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .proj-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+
+      .proj-card,
+      .proj-card.featured,
+      .proj-card.wide {
+        grid-column: 1 / -1;
+      }
+
+      .section {
+        margin-bottom: 62px;
+      }
+
+      .tab-bar {
+        display: flex;
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .tab-btn {
+        flex: 1 0 auto;
+        white-space: nowrap;
       }
     }
 
     @media (max-width: 560px) {
-      .wrap {
-        width: min(100% - 28px, var(--max));
+      body::before {
+        background-size: 42px 42px, 42px 42px, 16px 16px;
       }
 
-      .navlinks a:not(.button) {
-        display: none;
+      .hero-actions {
+        flex-direction: column;
       }
 
-      h1 {
-        font-size: clamp(2.45rem, 14vw, 3.4rem);
+      .hero-btn {
+        width: 100%;
       }
 
-      section {
-        padding: 52px 0;
+      .hero-stats,
+      .hero-mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-chip {
+        width: 100%;
+        justify-content: center;
+        white-space: normal;
+      }
+
+      .section-header {
+        align-items: flex-start;
+      }
+
+      .section-header::after {
+        margin-top: 14px;
+      }
+
+      .mobile-brand-role {
+        max-width: 180px;
+      }
+
+      .proj-media,
+      .proj-card:not(.featured) .proj-media {
+        height: 210px;
+      }
+    }
+
+    @media (hover: none) {
+      .proj-card:hover,
+      .exp-item:hover,
+      .nv-card:hover,
+      .edu-card:hover,
+      .honor:hover,
+      .hero-stat:hover,
+      .hero-mini-card:hover,
+      .hero-btn:hover,
+      .proj-link:hover,
+      nav a:hover,
+      .c-link:hover,
+      .tag:hover {
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <nav aria-label="Main navigation">
-        <a class="brand" href="#top" aria-label="Adam Feldmann home">
-          <span>Adam Feldmann</span>
-          <span>Senior LLM & AI Systems Engineer</span>
-        </a>
-        <div class="navlinks">
-          <a href="#services">Services</a>
-          <a href="#work">Work</a>
-          <a href="#labs">LLM lab</a>
-          <a href="#experience">Experience</a>
-          <a class="button" href="mailto:adam.feldmann.dr@gmail.com">Contact</a>
-        </div>
-      </nav>
-    </div>
-  </header>
+<div class="mobile-topbar">
+<div class="mobile-brand">
+<div class="mobile-brand-name">Adam Feldmann</div>
+<div class="mobile-brand-role">Senior LLM &amp; Enterprise AI Engineer</div>
+</div>
+<button aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation" class="menu-toggle" id="menuToggle">
+<span class="menu-toggle-lines"></span>
+</button>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<!-- ══ SIDEBAR ══ -->
+<aside id="sidebar">
+<div class="sidebar-name desktop-name">Adam<br/>Feldmann</div>
+<div class="side-mobile-head">
+<div>
+<div class="sidebar-name">Adam<br/>Feldmann</div>
+<div class="side-mobile-copy">Quick navigation, contact links, and core technologies — now available on mobile too.</div>
+</div>
+<button aria-label="Close navigation" class="menu-toggle" id="menuClose">
+<span class="menu-toggle-lines"></span>
+</button>
+</div>
+<div class="sidebar-title">Senior LLM &amp; Enterprise AI Engineer</div>
+<div class="sidebar-location">PhD · Tenerife, Spain · EU Contractor</div>
+<div class="avail-pill">
+<span class="avail-dot"></span>
+    Open to new projects
+  </div>
+<nav id="snav">
+<a class="active" href="#home">Overview</a>
+<a href="#about">About</a>
+<a href="#nvidia">NVIDIA Stack</a>
+<a href="#experience">Experience</a>
+<a href="#projects">Projects</a>
+<a href="#education">Education</a>
+</nav>
+<div class="s-label">Core Technologies</div>
+<div class="tag-cloud"><span class="tag tag-hi">Python</span>
+<span class="tag tag-hi">PyTorch</span>
+<span class="tag tag-hi">Hugging Face</span>
+<span class="tag tag-hi">Transformers</span>
+<span class="tag tag-hi">LangChain</span>
+<span class="tag">NeMo</span>
+<span class="tag">vLLM</span>
+<span class="tag">Triton</span>
+<span class="tag">TensorRT</span>
+<span class="tag">LoRA</span>
+<span class="tag">QLoRA</span>
+<span class="tag">Quantization</span>
+<span class="tag">DPO</span>
+<span class="tag">FSDP</span>
+<span class="tag">DeepSpeed</span>
+<span class="tag">Weaviate</span>
+<span class="tag">Pinecone</span>
+<span class="tag">FastAPI</span>
+<span class="tag">Docker</span>
+<span class="tag">Kubernetes</span>
+<span class="tag">Azure</span>
+<span class="tag">n8n</span>
+<span class="tag">Apache Spark</span>
+<span class="tag">FHIR</span>
+<span class="tag">GDPR</span>
+<span class="tag">LLM Evaluation</span>
+</div>
+<div class="s-label">Languages</div>
+<div class="tag-cloud">
+<span class="tag tag-amb">Hungarian — Native</span>
+<span class="tag">English — Advanced</span>
+<span class="tag">Spanish — Elementary</span>
+</div>
+<div class="sidebar-contact">
+<a class="c-link email-link" href="mailto:adam.feldmann.dr@gmail.com">
+<div class="c-icon">✉</div>
+<span>adam.feldmann.dr@gmail.com</span>
+</a>
+<a class="c-link" href="https://linkedin.com/in/adam-feldmann" rel="noopener" target="_blank">
+<div class="c-icon" style="font-family:'Inter';font-size:10px;font-weight:700;">in</div>
+<span>linkedin.com/in/adam-feldmann</span>
+</a>
+<a class="c-link" href="https://github.com/dataandai" rel="noopener" target="_blank">
+<div class="c-icon" style="font-family:'JetBrains Mono';font-size:10px;">gh</div>
+<span>github.com/dataandai</span>
+</a>
+</div>
+</aside>
+<!-- ══ MAIN ══ -->
+<main>
+<section class="hero section reveal" id="home">
+<div class="hero-shell">
+<div class="hero-copy">
+<div class="hero-kicker">Open to new senior AI builds</div>
+<h1 class="hero-title">Senior LLM engineering, agentic AI systems, and production delivery.</h1>
+<p class="hero-text">I build end-to-end AI systems across the stack — from from-scratch LLM training on DGX A100 to production RAG, workflow automation, and user-facing products. Recent work spans European and US client delivery with a strong focus on on-premise, GDPR-compliant architecture and dependable production deployment.</p>
+<div class="hero-chip-row"><span class="hero-chip">DGX · NIM · Triton · TensorRT · vLLM</span>
+<span class="hero-chip">LoRA · QLoRA · Quantization</span>
+<span class="hero-chip">RAG · Agents · RLHF / DPO</span>
+<span class="hero-chip">On-prem · GDPR · FastAPI</span>
+</div>
+<div class="hero-actions">
+<a class="hero-btn primary" href="#projects">View Selected Projects</a>
+<a class="hero-btn secondary" href="mailto:adam.feldmann.dr@gmail.com">Start a Conversation</a>
+<a class="hero-btn secondary" href="https://github.com/dataandai" rel="noopener" target="_blank">GitHub Profile</a>
+</div>
+<div class="hero-stats">
+<div class="hero-stat">
+<span class="hero-stat-value">15+</span>
+<span class="hero-stat-label">years across neuroscience, research, and production AI</span>
+</div>
+<div class="hero-stat">
+<span class="hero-stat-value">PhD</span>
+<span class="hero-stat-label">clinical neuroscience with strong product and data background</span>
+</div>
+<div class="hero-stat">
+<span class="hero-stat-value">6.7B</span>
+<span class="hero-stat-label">bilingual GPT pretraining led on NVIDIA DGX A100</span>
+</div>
+<div class="hero-stat">
+<span class="hero-stat-value">EU</span>
+<span class="hero-stat-label">remote contractor for privacy-conscious enterprise delivery</span>
+</div>
+</div>
+</div>
+<div class="hero-panel">
+<div class="hero-panel-card">
+<div class="hero-panel-label">Current product direction</div>
+<div class="hero-panel-title">Production AI systems with strong model and UX discipline</div>
+<p class="hero-panel-text">From enterprise LLM platforms to domain-specific self-help products, I focus on builds where model quality, inference architecture, reliability, and user clarity all matter.</p>
+<ul class="hero-list"><li>Production-grade LLM platforms, agentic flows, RAG systems, and API-first delivery</li><li>Serving patterns across NVIDIA NIM, Triton, TensorRT, and vLLM with on-prem options</li><li>Mobile-aware interface thinking so the portfolio works as well on phone as on desktop</li></ul>
+</div>
+<div class="hero-mini-grid">
+<div class="hero-mini-card">
+<span class="hero-mini-title">Flagship LLM build</span>
+<span class="hero-mini-text">HILANCO GPTX — 6.7B bilingual GPT-NeoX, pretrained from scratch in 2022 on NVIDIA DGX A100.</span>
+</div>
+<div class="hero-mini-card">
+<span class="hero-mini-title">Infrastructure comfort zone</span>
+<span class="hero-mini-text">NVIDIA stack, vLLM, LoRA / QLoRA, quantisation, FastAPI services, and cloud or on-prem delivery.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 01 ABOUT -->
+<section class="section reveal" id="about">
+<div class="section-header">
+<span class="sec-num">01</span>
+<h2 class="sec-title">About</h2>
+</div>
+<div class="badge-row"><div class="honor"><span class="honor-star">★</span> Microsoft Ignite · ML Prague Speaker</div>
+<div class="honor"><span class="honor-star">★</span> IEEE Journal Reviewer</div>
+<div class="honor"><span class="honor-star">★</span> PhD Summa Cum Laude</div>
+</div>
+<p class="summary">Senior AI engineer with <strong>15+ years</strong> spanning clinical neuroscience, academic research, and production AI systems. In early 2022 — months before ChatGPT — I led the pretraining of <strong>HILANCO GPTX</strong>, a 6.7B-parameter bilingual English-Hungarian transformer (GPT-NeoX) pretrained from scratch on NVIDIA DGX A100.<br/><br/>Deep hands-on expertise across the full <strong>NVIDIA AI stack</strong>: DGX A100 &amp; H200, NIM, Triton Inference Server, TensorRT, NeMo, and end-to-end RLHF / DPO pipelines. I also work extensively with <strong>vLLM</strong>, <strong>LoRA</strong>, <strong>QLoRA</strong>, and <strong>quantisation</strong> solutions. I deliver production RAG systems, agentic AI pipelines, and workflow automations for European and US clients — with a strong focus on on-premise, GDPR-compliant architecture.</p>
+</section>
+<!-- 02 NVIDIA STACK -->
+<section class="section reveal" id="nvidia">
+<div class="section-header">
+<span class="sec-num">02</span>
+<h2 class="sec-title">NVIDIA Deep Stack</h2>
+</div>
+<div class="nvidia-grid"><div class="nv-card"><div class="nv-name">DGX A100 &amp; H200</div><div class="nv-desc">HPC cluster pretraining, full-stack fine-tuning, and large-scale experimentation</div></div>
+<div class="nv-card"><div class="nv-name">NVIDIA NIM</div><div class="nv-desc">Production-ready model microservices for enterprise inference deployment</div></div>
+<div class="nv-card"><div class="nv-name">Triton Inference Server</div><div class="nv-desc">Scalable multi-model serving, dynamic batching, and GPU utilisation control</div></div>
+<div class="nv-card"><div class="nv-name">TensorRT</div><div class="nv-desc">Model optimisation, latency reduction, and deployment acceleration</div></div>
+<div class="nv-card"><div class="nv-name">NVIDIA NeMo</div><div class="nv-desc">Training, fine-tuning, alignment workflows, and prompt adaptation</div></div>
+<div class="nv-card"><div class="nv-name">vLLM</div><div class="nv-desc">High-throughput open-weight LLM serving with efficient batching and token streaming</div></div>
+<div class="nv-card"><div class="nv-name">RLHF / DPO</div><div class="nv-desc">Reward modeling, preference optimisation, and alignment pipelines on DGX/H200</div></div>
+<div class="nv-card"><div class="nv-name">LoRA · QLoRA · Quantisation</div><div class="nv-desc">Parameter-efficient adaptation and memory-aware deployment for real production constraints</div></div>
+</div>
+</section>
+<!-- 03 EXPERIENCE -->
+<section class="section reveal" id="experience">
+<div class="section-header">
+<span class="sec-num">03</span>
+<h2 class="sec-title">Experience</h2>
+</div>
+<div class="exp-item">
+<div>
+<div class="exp-period">Apr 2024<br/>Present</div>
+</div>
+<div>
+<div class="exp-role">Senior LLM &amp; Enterprise AI Engineer</div>
+<div class="exp-org">Independent EU Contractor · Tenerife, Spain (Remote)</div>
+<ul class="bullets"><li>Production RAG systems via NVIDIA NIM, Triton, TensorRT, and vLLM — on-premise for GDPR compliance</li><li>Agentic tool layers with multi-step reasoning, workflow orchestration, and structured tool use</li><li>Large-scale Spark ingestion pipelines feeding Weaviate/Pinecone with hallucination &amp; retrieval evaluation</li><li>RLHF / DPO pipelines with NeMo on DGX/H200 infrastructure, plus LoRA / QLoRA adaptation flows</li><li>Quantisation-aware deployment and n8n workflow automations for European SME and enterprise clients</li></ul>
+</div>
+</div>
+<div class="exp-item">
+<div>
+<div class="exp-period">Nov 2019<br/>Jul 2023</div>
+<div class="concurrent-tag">concurrent</div>
+</div>
+<div>
+<div class="exp-role">Group Leader, Applied Data Science &amp; AI</div>
+<div class="exp-org">University of Pécs · Hungary</div>
+<ul class="bullets">
+<li>Led pretraining of HILANCO GPTX: 6.7B-parameter bilingual GPT-NeoX on NVIDIA DGX A100</li>
+<li>Collaborated with Microsoft Hungary on Hungarian BERT Large (Azure); presented at Microsoft Ignite</li>
+<li>Computer vision-based drug recognition system for pharmaceutical identification</li>
+<li>Published prompt engineering research June 2022 — predating ChatGPT; presented at ML Prague</li>
+</ul>
+</div>
+</div>
+<div class="exp-item">
+<div>
+<div class="exp-period">Apr 2022<br/>Nov 2024</div>
+<div class="concurrent-tag">concurrent</div>
+</div>
+<div>
+<div class="exp-role">Lecturer — Generative AI</div>
+<div class="exp-org">Óbuda University · Remote</div>
+<ul class="bullets">
+<li>Led practical sessions on Generative AI for BSc students</li>
+<li>Contributed to curriculum development integrating LLM and NLP in MSc engineering education</li>
+</ul>
+</div>
+</div>
+<div class="exp-item">
+<div>
+<div class="exp-period">May 2009<br/>Nov 2019</div>
+</div>
+<div>
+<div class="exp-role">Lecturer — Neuropsychology &amp; Medical Statistics</div>
+<div class="exp-org">University of Pécs, Medical School · Hungary</div>
+<ul class="bullets">
+<li>Advanced statistical methods and MRI data processing for clinical research and diagnostics</li>
+<li>Taught biostatistics, voxel-based morphometry, and clinical trial methodology</li>
+<li>Applied early machine learning to clinical neuroscience and diagnostic imaging</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- 04 PROJECTS -->
+<section class="section reveal" id="projects">
+<div class="section-header">
+<span class="sec-num">04</span>
+<h2 class="sec-title">Projects</h2>
+</div>
+<div class="tab-bar">
+<button class="tab-btn active" data-tab="deliveries">2026 Deliverables</button>
+<button class="tab-btn" data-tab="research">Research, LLMs &amp; Open Repos</button>
+</div>
+<!-- TAB: 2026 Deliverables -->
+<div class="tab-panel active" id="tab-deliveries">
+<div class="proj-grid">
 
-  <main id="top">
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="eyebrow">Available for senior AI engineering contracts · Remote · EU-based</div>
-          <h1>Production LLM engineering, from RAG to GPU serving.</h1>
-          <p class="lead">
-            I design and ship RAG systems, agent workflows, and model-serving stacks for teams that need
-            more than a demo. I am strongest at the boundary between model behavior, infrastructure,
-            applied research, and product engineering.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="mailto:adam.feldmann.dr@gmail.com">Discuss a project</a>
-            <a class="button" href="https://github.com/dataandai" target="_blank" rel="noreferrer">GitHub</a>
-            <a class="button" href="https://www.linkedin.com/in/adam-feldmann/" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
+<div class="proj-card">
+<div class="proj-media">
+<img alt="B2B AI Outreach Agent dashboard preview" src="https://raw.githubusercontent.com/dataandai/B2B-AI-Outreach-Agent/main/assets/dashboard-overview.png"/>
+</div>
+<div class="proj-body">
+<div class="proj-type">Client Delivery · Agentic B2B AI</div>
+<div class="proj-name">B2B AI Outreach Agent</div>
+<div class="proj-desc">Autonomous prospecting and email-management workflow with campaign KPIs, AI inbox triage, lead scoring, and compliance guardrails for high-volume outbound operations.</div>
+<div class="proj-tags"><span class="proj-tag">Autonomous Agents</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Dashboard UI</span><span class="proj-tag">Lead Scoring</span></div>
+<a class="proj-link" href="https://github.com/dataandai/b2b-ai-outreach-agent" rel="noopener" target="_blank">GitHub ↗</a>
+</div>
+</div>
 
-          <div class="proof-strip" aria-label="Credibility highlights">
-            <div class="proof">
-              <strong>6.7B bilingual LLM pretraining</strong>
-              <span>Led HILANCO GPTX on NVIDIA DGX A100 infrastructure.</span>
-            </div>
-            <div class="proof">
-              <strong>PhD in clinical neuroscience · 15+ years in AI</strong>
-              <span>From medical imaging and statistics to production LLM systems.</span>
-            </div>
-            <div class="proof">
-              <strong>Privacy-aware delivery</strong>
-              <span>RAG, agent workflows, on-prem deployment, and enterprise AI builds.</span>
-            </div>
-          </div>
-        </div>
 
-        <aside class="side-card">
-          <div>
-            <div class="availability">
-              <strong>Available for selected engagements</strong>
-              <span>Senior AI engineering · LLM infrastructure · RAG systems · Applied AI products</span>
-            </div>
-            <h2>Good fit for</h2>
-            <p>
-              Teams turning LLM prototypes into reliable internal tools, customer-facing products, or on-prem deployments.
-            </p>
+<div class="proj-card">
+<div class="proj-body">
+<div class="proj-type">Client Delivery · Agentic Marketing AI</div>
+<div class="proj-name">AI Content Strategy Engine</div>
+<div class="proj-desc">Agentic pipeline for market research, gap analysis, editorial planning, SEO prioritisation, and KPI-aware content strategy in a modular API-first architecture.</div>
+<div class="proj-tags"><span class="proj-tag">Agentic</span><span class="proj-tag">Python</span><span class="proj-tag">RAG</span><span class="proj-tag">REST API</span></div>
+<a class="proj-link" href="https://github.com/dataandai/ai-content-strategy-engine" rel="noopener" target="_blank">GitHub ↗</a>
+</div>
+</div>
 
-            <div class="focus-list">
-              <div>
-                <strong>RAG and agent systems</strong>
-                <span>Retrieval pipelines, structured outputs, tool use, workflow state, and evaluation.</span>
-              </div>
-              <div>
-                <strong>LLM infrastructure and serving</strong>
-                <span>NVIDIA stack, Triton, TensorRT, NIM, Dockerized and on-prem deployment paths.</span>
-              </div>
-              <div>
-                <strong>Applied AI product engineering</strong>
-                <span>FastAPI, Next.js, workflow automation, healthcare and B2B platforms.</span>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
 
-    <section id="services">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Positioning</div>
-            <h2>Three angles I bring to AI systems.</h2>
-          </div>
-          <p>
-            I work best on projects where the model is only one layer of the system:
-            retrieval, serving, evaluation, data flows, privacy, and product constraints all matter.
-          </p>
-        </div>
+<div class="proj-card">
+<div class="proj-body">
+<div class="proj-type">Open Source · Agent Framework</div>
+<div class="proj-name">Sovereign Agent Framework</div>
+<div class="proj-desc">Model-agnostic autonomous agent SDK for Moltbook with dynamic role assembly, peer skill discovery, team orchestration, and self-modifying strategy patterns.</div>
+<div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Autonomous Agents</span><span class="proj-tag">Docker</span><span class="proj-tag">MIT License</span></div>
+<a class="proj-link" href="https://github.com/dataandai/sovereign-agent-moltbook-python-sdk" rel="noopener" target="_blank">GitHub ↗</a>
+</div>
+</div>
 
-        <div class="grid-3">
-          <article class="card emph">
-            <h3>LLM systems engineering</h3>
-            <p>Production RAG, agent workflows, structured outputs, retrieval evaluation, and API-first AI platforms.</p>
-            <div class="tags">
-              <span class="tag">RAG</span>
-              <span class="tag">Agents</span>
-              <span class="tag">LLM eval</span>
-              <span class="tag">FastAPI</span>
-            </div>
-          </article>
 
-          <article class="card">
-            <h3>Infrastructure-aware AI</h3>
-            <p>GPU-backed, on-prem, and privacy-aware model deployment.</p>
-            <div class="tags">
-              <span class="tag">NVIDIA NIM</span>
-              <span class="tag">Triton</span>
-              <span class="tag">TensorRT</span>
-              <span class="tag">Docker</span>
-            </div>
-          </article>
+<div class="proj-card featured">
+<div class="proj-media">
+<img alt="AI News Hub Open Source preview" src="https://raw.githubusercontent.com/dataandai/ai-news-hub-opensource/main/ai-news-portal/public/og-image.png"/>
+</div>
+<div class="proj-body">
+<div class="proj-type">Open Source · AI Media Platform</div>
+<div class="proj-name">AI News Hub Open Source</div>
+<div class="proj-desc">Complete AI-powered news aggregation platform with Next.js 13 frontend, FastAPI backend, CrewAI autonomous agents, category-based curation, AI summaries, PostgreSQL, and Docker Compose deployment.</div>
+<div class="proj-tags"><span class="proj-tag">Next.js 13</span><span class="proj-tag">FastAPI</span><span class="proj-tag">CrewAI</span><span class="proj-tag">PostgreSQL</span><span class="proj-tag">Docker</span></div>
+<a class="proj-link" href="https://github.com/dataandai/ai-news-hub-opensource/tree/main" rel="noopener" target="_blank">GitHub ↗</a>
+</div>
+</div>
 
-          <article class="card">
-            <h3>Research-depth prototyping</h3>
-            <p>Model-internals notebooks covering optimizer behavior, pruning, LoRA adaptation, and residual-stream patching.</p>
-            <div class="tags">
-              <span class="tag">PyTorch</span>
-              <span class="tag">Transformers</span>
-              <span class="tag">LoRA</span>
-              <span class="tag">Interpretability</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
 
-    <section id="work">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Selected work</div>
-            <h2>Production systems and applied AI work.</h2>
-          </div>
-          <p>
-            Selected projects where research, infrastructure, and product constraints had to meet in working software.
-          </p>
-        </div>
+<div class="proj-card featured">
+<div class="proj-media">
+<img alt="Scalable IVF Management Platform preview" src="https://raw.githubusercontent.com/dataandai/Scalable-ivf-management-platform/main/docs/screenshots/screenshot_3.png"/>
+</div>
+<div class="proj-body">
+<div class="proj-type">Client Delivery · HealthTech Platform</div>
+<div class="proj-name">Scalable IVF Management Platform</div>
+<div class="proj-desc">Buyer-facing multi-tenant IVF operations platform with clinic, patient, and cycle management, JWT authentication, tenant-scoped analytics, KPI dashboards, and a Terraform-backed cloud deployment baseline.</div>
+<div class="proj-tags"><span class="proj-tag">FastAPI</span><span class="proj-tag">Next.js</span><span class="proj-tag">PostgreSQL</span><span class="proj-tag">Terraform</span><span class="proj-tag">Multi-Tenant</span></div>
+<a class="proj-link" href="https://github.com/dataandai/Scalable-ivf-management-platform" rel="noopener" target="_blank">GitHub ↗</a>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB: Research & Personal -->
+<div class="tab-panel" id="tab-research">
+<div class="proj-grid">
 
-        <div class="case-grid">
-          <article class="case-big">
-            <div class="project-meta">Featured case study · National LLM initiative</div>
-            <h3>HILANCO GPTX — 6.7B bilingual English-Hungarian model</h3>
-            <p>
-              Led pretraining of a 6.7B-parameter bilingual GPT-NeoX model on NVIDIA DGX A100 infrastructure
-              as part of a Hungarian low-resource language initiative.
-            </p>
-            <p>
-              A large-model training project combining Hungarian-language NLP, GPU infrastructure, data preparation, and evaluation work.
-            </p>
-            <div class="metric-row">
-              <div class="metric"><strong>6.7B</strong><span>parameters</span></div>
-              <div class="metric"><strong>EN–HU</strong><span>bilingual model</span></div>
-              <div class="metric"><strong>DGX A100</strong><span>training infrastructure</span></div>
-            </div>
-            <div class="tags">
-              <span class="tag">GPT-NeoX</span>
-              <span class="tag">NVIDIA DGX</span>
-              <span class="tag">Hungarian NLP</span>
-              <span class="tag">Pretraining</span>
-            </div>
-          </article>
+<div class="proj-card wide">
+<div>
+<div class="proj-type">National LLM Initiative · Hungary · 2021–2022</div>
+<div class="proj-name">HILANCO GPTX — National LLM Initiative</div>
+<div class="proj-desc">6.7B-parameter bilingual English-Hungarian transformer (GPT-NeoX), pretrained from scratch on NVIDIA DGX A100. One of the earliest large-scale LLM initiatives for a low-resource EU language.</div>
+<div class="proj-tags"><span class="proj-tag">GPT-NeoX</span><span class="proj-tag">DGX A100</span><span class="proj-tag">Bilingual NLU</span><span class="proj-tag">Prompt Engineering</span><span class="proj-tag">NeMo</span></div>
+</div>
+<div class="proj-right">
+<ul class="bullets">
+<li>Pretrained from scratch in 2022 on NVIDIA DGX A100 as a 6.7B bilingual English-Hungarian transformer</li>
+<li>Prompt engineering wiki published June 2022 — 5 months before ChatGPT</li>
+<li>Presented at national government AI conference</li>
+</ul>
+<a class="proj-link" href="https://github.com/dataandai/Hungarian-gpt-3/wiki" rel="noopener" target="_blank">GitHub Wiki ↗</a>
+</div>
+</div>
 
-          <div class="grid-1">
-            <article class="card project-card">
-              <div class="project-meta">AI infrastructure planning</div>
-              <h3>On-Prem AI Workload, Serving & Capacity Planner</h3>
-              <p>
-                Infrastructure sizing and workload simulation tool for AI teams planning GPU-backed serving capacity.
-              </p>
-              <div class="tags">
-                <span class="tag">GPU sizing</span>
-                <span class="tag">VRAM planning</span>
-                <span class="tag">Monte Carlo</span>
-                <span class="tag">vLLM / CUDA</span>
-              </div>
-            </article>
 
-            <article class="card project-card" style="margin-top:16px">
-              <div class="project-meta">Healthtech platform</div>
-              <h3>Scalable IVF Management Platform</h3>
-              <p>
-                Multi-tenant healthcare operations platform for clinic, patient, and treatment-cycle workflows, with tenant-scoped analytics.
-              </p>
-              <div class="tags">
-                <span class="tag">FastAPI</span>
-                <span class="tag">Next.js</span>
-                <span class="tag">PostgreSQL</span>
-                <span class="tag">Terraform</span>
-              </div>
-            </article>
-          </div>
-        </div>
+<div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Compression Research</div><div class="proj-name">ICA-Based Second-Pass Pruning Scan for LLMs</div><div class="proj-desc">Minimal diagnostic prototype testing whether ICA-derived activation structure can provide a useful second-pass pruning signal after standard LLM compression methods such as Wanda, SparseGPT, or low-rank pruning.</div><div class="proj-tags"><span class="proj-tag">ICA</span><span class="proj-tag">LLM Compression</span><span class="proj-tag">SparseGPT</span><span class="proj-tag">Research</span></div><a class="proj-link" href="https://github.com/dataandai/Second-pass-analysis-for-pruned-LLMs-using-Independent-Component-Analysis" rel="noopener" target="_blank">GitHub ↗</a></div></div>
 
-        <div class="grid-3" style="margin-top:16px">
-          <article class="card project-card">
-            <div class="project-meta">Agent framework</div>
-            <h3>Sovereign Agent Framework</h3>
-            <p>Python framework for role assembly, peer capability discovery, and coordinated multi-agent workflows.</p>
-            <div class="tags"><span class="tag">Python</span><span class="tag">Agents</span><span class="tag">Docker</span></div>
-          </article>
 
-          <article class="card project-card">
-            <div class="project-meta">AI workflow automation</div>
-            <h3>B2B AI Outreach Agent</h3>
-            <p>Outbound workflow for prospecting, inbox triage, lead scoring, campaign monitoring, and human review.</p>
-            <div class="tags"><span class="tag">FastAPI</span><span class="tag">Operations</span><span class="tag">Lead scoring</span></div>
-          </article>
+<div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Pruning Demo</div><div class="proj-name">TinyQwen Evolutionary Pruning Demo</div><div class="proj-desc">Compact Colab/Jupyter demo showing evolutionary structured pruning on a small decoder-only transformer with RoPE, RMSNorm, SwiGLU, elastic FFN widths, optional block skipping, and loss-tolerance-based architecture search.</div><div class="proj-tags"><span class="proj-tag">Qwen</span><span class="proj-tag">Pruning</span><span class="proj-tag">RoPE</span><span class="proj-tag">Evolutionary Search</span></div><a class="proj-link" href="https://github.com/dataandai/TinyQwen-Evolutionary-Pruning-Demo" rel="noopener" target="_blank">GitHub ↗</a></div></div>
 
-          <article class="card project-card">
-            <div class="project-meta">AI content platform</div>
-            <h3>The AI News Hub</h3>
-            <p>Turns scientific and technical source material into structured editorial content using clustering, summarisation, and review workflows.</p>
-            <div class="tags"><span class="tag">Summarisation</span><span class="tag">Knowledge graph</span><span class="tag">Editorial AI</span></div>
-          </article>
-        </div>
-      </div>
-    </section>
 
-    <section id="labs">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">LLM lab</div>
-            <h2>Runnable notebooks on LLM internals, pruning, and adaptation.</h2>
-          </div>
-          <p>
-            A small collection of runnable notebooks on model internals, pruning, optimizer behavior,
-            LoRA adaptation, and residual-stream analysis.
-          </p>
-        </div>
+<div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Adaptive LoRA Research</div><div class="proj-name">GC-LoRA: Gain-Controlled LoRA Expert Pool</div><div class="proj-desc">Controlled notebook prototype for online adapter adaptation with a frozen Qwen backbone, a gain-weighted pool of parallel LoRA experts, and a garbage-collection loop that removes weak experts and clones or perturbs stronger ones.</div><div class="proj-tags"><span class="proj-tag">LoRA</span><span class="proj-tag">Qwen2.5-0.5B</span><span class="proj-tag">Online Adaptation</span><span class="proj-tag">Expert Pool</span></div><a class="proj-link" href="https://github.com/dataandai/gc-lora-expert-pool" rel="noopener" target="_blank">GitHub ↗</a></div></div>
 
-        <div class="labs">
-          <article class="lab-card">
-            <h3>GC-LoRA expert pool</h3>
-            <p>Frozen Qwen backbone with parallel LoRA experts, gain-weighted mixing, and kill / clone / perturb expert lifecycle.</p>
-            <a href="https://github.com/dataandai/Adaptive-expert-flywheel-for-LLMs" target="_blank" rel="noreferrer">View repo →</a>
-          </article>
 
-          <article class="lab-card">
-            <h3>Residual patching demo</h3>
-            <p>TinyStories activation patching with source-token analysis, logit lens views, and lightweight graph export.</p>
-            <a href="https://github.com/dataandai/LLM-residual-attribution-graph" target="_blank" rel="noreferrer">View repo →</a>
-          </article>
+<div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Mechanistic Interpretability</div><div class="proj-name">LLM-fMRI / Tiny LLM Residual Patching</div><div class="proj-desc">Functional imaging and causal source patching for a tiny HuggingFace language model, mapping where information is carried inside a transformer during token generation and exporting residual attribution graphs for prompt-specific causal hypotheses.</div><div class="proj-tags"><span class="proj-tag">Residual Patching</span><span class="proj-tag">Interpretability</span><span class="proj-tag">Activation Patching</span><span class="proj-tag">Causal Graphs</span></div><a class="proj-link" href="https://github.com/dataandai/tiny-llm-residual-patching" rel="noopener" target="_blank">GitHub ↗</a></div></div>
 
-          <article class="lab-card">
-            <h3>ICA second-pass pruning</h3>
-            <p>ICA-derived activation structure used as a protection signal after standard LLM pruning methods.</p>
-            <a href="https://github.com/dataandai/Second-pass-analysis-for-pruned-LLMs-using-Independent-Component-Analysis" target="_blank" rel="noreferrer">View repo →</a>
-          </article>
 
-          <article class="lab-card">
-            <h3>Transformer subspace diagnostics</h3>
-            <p>Stable rank, subspace drift, ICA activation components, and optimizer-induced geometry during training.</p>
-            <a href="https://github.com/dataandai/transformer-subspace-diagnostics" target="_blank" rel="noreferrer">View repo →</a>
-          </article>
+<div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Representation Research</div><div class="proj-name">Transformer Subspace Diagnostics</div><div class="proj-desc">Tiny Qwen Subspace Observatory — an experimental research platform for studying how internal representations emerge, evolve, stabilise, reorganise, and interact during transformer training.</div><div class="proj-tags"><span class="proj-tag">Tiny Qwen</span><span class="proj-tag">Subspace Analysis</span><span class="proj-tag">Representation Dynamics</span><span class="proj-tag">Diagnostics</span></div><a class="proj-link" href="https://github.com/dataandai/transformer-subspace-diagnostics" rel="noopener" target="_blank">GitHub ↗</a></div></div>
 
-          <article class="lab-card">
-            <h3>AdamW vs Muon spectral diagnostics</h3>
-            <p>Tiny Transformer notebook comparing spectra, stable rank, gradient projection, and matrix trajectories under AdamW and Muon.</p>
-            <a href="https://github.com/dataandai/Transformer-Spectral-Observatory-AdamW-vs-Muon" target="_blank" rel="noreferrer">View repo →</a>
-          </article>
 
-          <article class="lab-card">
-            <h3>Evolutionary pruning demo</h3>
-            <p>Tiny Transformer supernet with elastic FFN width, optional block skipping, and loss-tolerance model selection.</p>
-            <a href="https://github.com/dataandai/Neural-Architecture-Search-Using-Evolution-Algorithm" target="_blank" rel="noreferrer">View repo →</a>
-          </article>
-        </div>
-      </div>
-    </section>
+<div class="proj-card wide"><div><div class="proj-type">Live Product · Self-Help Science Website</div><div class="proj-name">The AI News Hub</div><div class="proj-desc">Evidence-based self-help website that turns scientific articles into clear, supportive explanations for neurodivergent readers — helping people better understand recurring behaviour patterns, anxiety responses, and practical regulation strategies without paywalls, signups, or diagnostic framing.</div><div class="proj-tags"><span class="proj-tag">Live Website</span><span class="proj-tag">Neurodivergence</span><span class="proj-tag">Science Translation</span><span class="proj-tag">Knowledge Graph</span><span class="proj-tag">Neurocolor</span></div></div><div class="proj-right"><ul class="bullets"><li>Makes scientific papers understandable and emotionally usable for neurodivergent people in plain language</li><li>Explains behaviour patterns and internal states with supportive, non-pathologising framing instead of labels or gatekeeping</li><li>Includes an interactive knowledge graph and Neurocolor self-reflection flow to surface patterns visually</li></ul><a class="proj-link" href="https://theainewshub.com" rel="noopener" target="_blank">theainewshub.com ↗</a></div></div>
 
-    <section id="experience">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Experience</div>
-            <h2>Research, production engineering, and teaching.</h2>
-          </div>
-          <p>
-            Applied AI across clinical research, language models, GPU infrastructure, enterprise workflows, and education.
-          </p>
-        </div>
 
-        <div class="timeline">
-          <article class="role">
-            <div class="date">Apr 2024 — Present</div>
-            <div>
-              <h3>Senior LLM & Enterprise AI Engineer</h3>
-              <div class="org">Independent EU Contractor · Tenerife, Spain · Remote</div>
-              <ul>
-                <li>Design and delivery of production RAG systems, agent workflows, and API-first AI platforms.</li>
-                <li>Work across NVIDIA model serving, on-prem deployment, retrieval quality, and evaluation.</li>
-                <li>Workflow automation for European SME and enterprise clients.</li>
-              </ul>
-            </div>
-          </article>
+</div>
+</div>
+</section>
+<!-- 05 EDUCATION -->
+<section class="section reveal" id="education">
+<div class="section-header">
+<span class="sec-num">05</span>
+<h2 class="sec-title">Education</h2>
+</div>
+<div class="edu-grid">
+<div class="edu-card">
+<div class="edu-degree">PhD — Summa Cum Laude</div>
+<div class="edu-inst">University of Pécs, Medical School</div>
+<div class="edu-year">2000 – 2005 · Pécs, Hungary</div>
+<div class="edu-thesis">Dissertation: Voxel-Based Morphometry in Clinical Neuroscience</div>
+</div>
+<div class="edu-card">
+<div class="edu-degree">MSc — Psychology</div>
+<div class="edu-inst">University of Pécs, Institute of Psychology</div>
+<div class="edu-year">2010 – 2015 · Pécs, Hungary</div>
+<div class="edu-thesis">Dissertation: Feature-Based Image Classification in Early Machine Learning</div>
+</div>
+</div>
+</section>
+</main>
+<script>
+  const body = document.body;
+  const menuToggle = document.getElementById('menuToggle');
+  const menuClose = document.getElementById('menuClose');
+  const mobileOverlay = document.getElementById('mobileOverlay');
 
-          <article class="role">
-            <div class="date">Nov 2019 — Jul 2023</div>
-            <div>
-              <h3>Group Leader, Applied Data Science & AI</h3>
-              <div class="org">University of Pécs · Hungary</div>
-              <ul>
-                <li>Led pretraining of HILANCO GPTX, a 6.7B-parameter bilingual GPT-NeoX model on NVIDIA DGX A100 infrastructure.</li>
-                <li>Collaborated with Microsoft Hungary on Hungarian BERT Large on Azure and presented the work at Microsoft Ignite.</li>
-                <li>Directed applied AI work including computer-vision-based drug recognition for pharmaceutical identification.</li>
-              </ul>
-            </div>
-          </article>
+  const closeMenu = () => {
+    body.classList.remove('menu-open');
+    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+  };
 
-          <article class="role">
-            <div class="date">Apr 2022 — Nov 2024</div>
-            <div>
-              <h3>Lecturer — Generative AI</h3>
-              <div class="org">Óbuda University · Remote</div>
-              <ul>
-                <li>Practice-oriented Generative AI sessions for BSc students, focused on applied LLM workflows.</li>
-                <li>Curriculum work integrating LLM and NLP topics into MSc engineering education.</li>
-              </ul>
-            </div>
-          </article>
+  const toggleMenu = () => {
+    const isOpen = body.classList.toggle('menu-open');
+    if (menuToggle) menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  };
 
-          <article class="role">
-            <div class="date">May 2009 — Nov 2019</div>
-            <div>
-              <h3>Lecturer — Neuropsychology & Medical Statistics</h3>
-              <div class="org">University of Pécs, Medical School · Hungary</div>
-              <ul>
-                <li>Taught biostatistics, clinical trial methodology, MRI data processing, and voxel-based morphometry.</li>
-                <li>Applied early machine learning methods to clinical neuroscience and diagnostic imaging workflows.</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+  if (menuToggle) menuToggle.addEventListener('click', toggleMenu);
+  if (menuClose) menuClose.addEventListener('click', closeMenu);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
 
-    <section id="stack">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Stack</div>
-            <h2>Tools I use in real systems.</h2>
-          </div>
-          <p>
-            Coverage across the system: model, serving, backend, retrieval, workflow, infrastructure, and evaluation.
-          </p>
-        </div>
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
 
-        <div class="stack-cloud" aria-label="Technology stack">
-          <span>Python</span><span>PyTorch</span><span>Hugging Face Transformers</span><span>LoRA / QLoRA</span>
-          <span>FSDP</span><span>DeepSpeed</span><span>NVIDIA NIM</span><span>Triton</span><span>TensorRT</span>
-          <span>NeMo</span><span>FastAPI</span><span>Next.js</span><span>Docker</span><span>Kubernetes</span>
-          <span>Azure</span><span>Weaviate</span><span>Pinecone</span><span>LangChain</span><span>n8n</span>
-          <span>Apache Spark</span><span>FHIR</span><span>GDPR</span><span>LLM Evaluation</span>
-        </div>
-      </div>
-    </section>
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('#snav a');
 
-    <section class="contact" id="contact">
-      <div class="wrap">
-        <div class="kicker">Contact</div>
-        <h2>Need senior help with LLM systems, RAG, or model serving?</h2>
-        <p>
-          Available for selected senior AI engineering engagements: production RAG, LLM serving,
-          applied AI systems, and privacy-aware enterprise delivery.
-        </p>
-        <div class="hero-actions" style="justify-content:center">
-          <a class="button primary" href="mailto:adam.feldmann.dr@gmail.com">adam.feldmann.dr@gmail.com</a>
-          <a class="button" href="https://github.com/dataandai" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="button" href="https://www.linkedin.com/in/adam-feldmann/" target="_blank" rel="noreferrer">LinkedIn</a>
-        </div>
-      </div>
-    </section>
-  </main>
+  navLinks.forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
 
-  <footer>
-    <div class="wrap">
-      <span>© 2026 Adam Feldmann</span>
-      <div class="footer-links">
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#labs">LLM lab</a>
-        <a href="mailto:adam.feldmann.dr@gmail.com">Contact</a>
-      </div>
-    </div>
-  </footer>
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`#snav a[href="#${entry.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-25% 0px -65% 0px' });
+
+  sections.forEach(s => navObserver.observe(s));
+
+  // Scroll reveal
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
 </body>
 </html>
