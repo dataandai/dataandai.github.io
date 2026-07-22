@@ -2357,7 +2357,7 @@
 </div>
 <div class="cs-block" id="cs-analytics">
 <div class="cs-sub">03 · Governed Text-to-SQL Agent — governing analytics access</div>
-<p class="summary">Letting an LLM write SQL against a warehouse is easy; letting a <strong>non-technical manager</strong> do it safely is an engineering problem. This agent answers plain-language business questions over public BigQuery retail data under the same thesis — the model may be probabilistic, the boundary must be deterministic: sqlglot-validated single-SELECT SQL against allow-listed tables, PII blocked at three layers before it can reach a prompt or a report, server-side byte-billing caps, owner-scoped deletes behind exact-token human confirmation, bounded self-healing, and an execution-based eval suite with p95 latency and error rates reported from live telemetry.</p>
+<p class="summary">Letting an LLM write SQL against a warehouse is easy; letting a <strong>non-technical manager</strong> do it safely is an engineering problem. This agent answers plain-language business questions over public BigQuery retail data under the same thesis — the model may be probabilistic, the boundary must be deterministic: sqlglot-validated single-SELECT SQL against allow-listed tables, PII blocked at three layers before it can reach a prompt or a report, server-side byte-billing caps, owner-scoped deletes behind exact-token human confirmation, bounded self-healing, an execution-based eval suite with p95 latency and error rates from live telemetry, and a production N8N automation workflow wrapping the agent for event-driven and scheduled operation.</p>
 <ul class="bullets">
 <li><strong>94 passing tests · 10/10 execution-based evals</strong> — runnable locally with a deterministic stub LLM and mock BigQuery, no cloud credentials required</li>
 <li>PII defense in depth: generation-time instruction → SQL projection rejection (incl. <code>SELECT *</code>) → deterministic row masking → regex safety net on final prose</li>
@@ -2531,7 +2531,7 @@
 <div class="proj-type">Open Source · Governed Analytics Agent</div>
 <div class="proj-name">Governed Text-to-SQL Agent</div>
 <div class="proj-desc">Natural-language BI agent for non-technical managers over BigQuery: sqlglot-validated single-SELECT SQL on allow-listed tables, three-layer PII masking, server-side byte-billing caps, owner-scoped destructive ops behind exact-token confirmation, bounded self-healing, and an execution-based eval suite — 94 tests, 10/10 evals.</div>
-<div class="proj-tags"><span class="proj-tag">LangGraph</span><span class="proj-tag">BigQuery</span><span class="proj-tag">sqlglot</span><span class="proj-tag">PII Guardrails</span><span class="proj-tag">Evals</span></div>
+<div class="proj-tags"><span class="proj-tag">LangGraph</span><span class="proj-tag">N8N</span><span class="proj-tag">BigQuery</span><span class="proj-tag">sqlglot</span><span class="proj-tag">PII Guardrails</span><span class="proj-tag">Evals</span></div>
 <a class="proj-link" href="https://github.com/dataandai/governed-text-to-sql-agent" rel="noopener" target="_blank">GitHub ↗</a>
 <a class="proj-link" href="#cs-analytics" style="margin-left:var(--space-3);">Case Study ↓</a>
 </div>
