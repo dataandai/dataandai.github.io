@@ -500,6 +500,37 @@
       background: linear-gradient(90deg, var(--border-strong), transparent);
     }
 
+    /* Case study */
+    .cs-thesis {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-hi);
+      border-left: 3px solid var(--cyan);
+      background: var(--cyan-dim);
+      border-radius: var(--radius-sm);
+      padding: var(--space-4) var(--space-5);
+      margin: var(--space-6) 0;
+      max-width: 860px;
+    }
+    .cs-block { margin-top: var(--space-7); }
+    #case-study .bullets code {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      color: var(--cyan-soft);
+      background: var(--cyan-dim);
+      border-radius: var(--radius-xs);
+      padding: 1px 6px;
+    }
+    .cs-sub {
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: var(--space-4);
+    }
+
     .sec-num {
       display: inline-flex;
       align-items: center;
@@ -2140,6 +2171,7 @@
 <a href="#nvidia">NVIDIA Stack</a>
 <a href="#experience">Experience</a>
 <a href="#projects">Projects</a>
+<a href="#case-study">Case Study</a>
 <a href="#education">Education</a>
 </nav>
 <div class="s-label">Core Technologies</div>
@@ -2375,6 +2407,7 @@
 </a>
 </div>
 <a class="proj-link" href="https://github.com/dataandai/Maci-minimal-agent-control-infrastructure" rel="noopener" target="_blank">GitHub ↗</a>
+<a class="proj-link" href="#case-study" style="margin-left:var(--space-3);">Case Study ↓</a>
 </div>
 </div>
 
@@ -2484,10 +2517,55 @@
 </div>
 </div>
 </section>
-<!-- 05 EDUCATION -->
-<section class="section reveal" id="education">
+<!-- 05 CASE STUDY -->
+<section class="section reveal" id="case-study">
 <div class="section-header">
 <span class="sec-num">05</span>
+<h2 class="sec-title">Case Study — MACI</h2>
+</div>
+<div class="badge-row">
+<div class="honor"><span class="honor-star">★</span> 44 tests incl. adversarial tenant-isolation cases</div>
+<div class="honor"><span class="honor-star">★</span> Terraform-first · one-command deploy &amp; destroy</div>
+<div class="honor"><span class="honor-star">★</span> EU AI Act–aligned control patterns</div>
+</div>
+<p class="summary">My consulting work is concentrated in environments where client identity cannot be disclosed: regulated financial institutions and public-sector organizations in the EU. What these engagements share is not a model problem — it is a <strong>control problem</strong>. Every enterprise team can call an LLM; what blocks agentic workflows from production are the questions security, legal and audit keep asking: can we <strong>prove</strong> Tenant A never touched Tenant B's knowledge base? Can an operator shut an agent down — per tenant, per agent, per tool — before an incident becomes a compliance event? Can every model, tool and policy decision be audited tamper-evidently after the fact?<br/><br/><strong>MACI</strong> (Minimal Agent Control Infrastructure) is my answer to that problem class, rebuilt in the open on AWS-native primitives so the patterns can be inspected, deployed and challenged without touching any client system or data. Where NDAs prevent me from showing the systems, MACI shows the engineering.</p>
+<div class="cs-thesis">"The model can remain probabilistic; the operational boundary around it must be deterministic." — tenant identity, tool access, budgets, audit and failure handling are enforced by software policy, never by prompt instructions.</div>
+<div class="cs-block">
+<div class="cs-sub">Design decisions</div>
+<ul class="bullets">
+<li><strong>Identity from the trust boundary, not the model</strong> — tenant context derives exclusively from validated JWT claims and Bedrock <code>sessionAttributes</code>; a model asked to "act as tenant B" has no code path to do so</li>
+<li><strong>Fail-closed contracts everywhere</strong> — strict Pydantic schemas with <code>extra="forbid"</code> on every request and tool; unknown fields are rejected, not ignored</li>
+<li><strong>Per-operation authorization, not just tool allowlisting</strong> — an allowed tool still cannot touch another tenant's resources</li>
+<li><strong>Humans own the high-risk path</strong> — financial actions route through an approval queue; kill switches exist at global, tenant, agent and tool scope; every agent has a revocable identity with a named human custodian</li>
+<li><strong>Audit that survives an incident review</strong> — hashed, tamper-evident events with optional S3 Object Lock archive; OTel-shaped traces exported back into evaluation sets</li>
+</ul>
+</div>
+<div class="cs-block">
+<div class="cs-sub">Regulatory alignment — engineering view</div>
+<div class="nvidia-grid">
+<div class="nv-card"><div class="nv-name">Record-keeping &amp; traceability</div><div class="nv-desc">Hash-chained audit trail with immutable S3 Object Lock archive — the engineering counterpart of EU AI Act logging obligations</div></div>
+<div class="nv-card"><div class="nv-name">Human oversight</div><div class="nv-desc">Approval workflow, agent custodianship and scoped kill switches map to effective-intervention requirements</div></div>
+<div class="nv-card"><div class="nv-name">Robustness &amp; cybersecurity</div><div class="nv-desc">Per-step guardrail checks on input, retrieved context and output; fail-closed schema validation throughout</div></div>
+<div class="nv-card"><div class="nv-name">Risk management</div><div class="nv-desc">Documented threat model plus adversarial tests for tenant impersonation, tool misuse and RAG isolation</div></div>
+<div class="nv-card"><div class="nv-name">Data governance</div><div class="nv-desc">Per-tenant policy engine, resource-ownership checks and knowledge-base isolation gateway — GDPR-aware separation by construction</div></div>
+<div class="nv-card"><div class="nv-name">Operational resilience</div><div class="nv-desc">Usage ledger, budget caps and tenant-scoped circuit breakers, in line with DORA-style expectations for financial clients</div></div>
+</div>
+<p class="summary" style="margin-top:var(--space-4);font-size:14px;color:var(--muted);">Engineering interpretation, not legal advice — compliance certification remains the deployer's responsibility, a distinction I also insist on with clients.</p>
+</div>
+<div class="cs-block">
+<div class="cs-sub">Evidence</div>
+<ul class="bullets">
+<li><strong>44 passing tests</strong> covering tenant impersonation, tool tenant-override, RAG isolation, approval-bypass attempts, guardrail intervention, graph safe-stop and idempotency — runnable with zero AWS credentials, since every cloud call sits behind a mockable gateway</li>
+<li><strong>Guided first-deploy lab</strong>: from empty AWS account to smoke-tested API — plan/apply, demo tenant seeding, Cognito user + JWT, API smoke test — and a one-command destroy</li>
+<li><strong>Honest limitations, documented</strong>: threat model, production-readiness gates and environment-specific gaps are stated explicitly, because a reference that overclaims is worse than none</li>
+</ul>
+<a class="proj-link" href="https://github.com/dataandai/Maci-minimal-agent-control-infrastructure" rel="noopener" target="_blank">Read the code on GitHub ↗</a>
+</div>
+</section>
+<!-- 06 EDUCATION -->
+<section class="section reveal" id="education">
+<div class="section-header">
+<span class="sec-num">06</span>
 <h2 class="sec-title">Education</h2>
 </div>
 <div class="edu-grid">
