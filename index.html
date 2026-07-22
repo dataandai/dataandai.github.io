@@ -2168,10 +2168,10 @@
 <nav id="snav">
 <a class="active" href="#home">Overview</a>
 <a href="#about">About</a>
+<a href="#case-study">Case Studies</a>
 <a href="#nvidia">NVIDIA Stack</a>
 <a href="#experience">Experience</a>
 <a href="#projects">Projects</a>
-<a href="#case-study">Case Study</a>
 <a href="#education">Education</a>
 </nav>
 <div class="s-label">Core Technologies</div>
@@ -2237,7 +2237,8 @@
 <span class="hero-chip">On-prem · GDPR · FastAPI</span>
 </div>
 <div class="hero-actions">
-<a class="hero-btn primary" href="#projects">View Selected Projects</a>
+<a class="hero-btn primary" href="#case-study">Read the Case Studies</a>
+<a class="hero-btn secondary" href="#projects">View Selected Projects</a>
 <a class="hero-btn secondary" href="mailto:adam.feldmann.dr@gmail.com">Start a Conversation</a>
 <a class="hero-btn secondary" href="https://github.com/dataandai" rel="noopener" target="_blank">GitHub Profile</a>
 </div>
@@ -2292,10 +2293,79 @@
 </div>
 <p class="summary">Senior AI engineer with <strong>15+ years</strong> spanning clinical neuroscience, academic research, and production AI systems. In early 2022 — months before ChatGPT — I led the pretraining of <strong>HILANCO GPTX</strong>, a 6.7B-parameter bilingual English-Hungarian transformer (GPT-NeoX) pretrained from scratch on NVIDIA DGX A100.<br/><br/>Deep hands-on expertise across the full <strong>NVIDIA AI stack</strong>: DGX A100 &amp; H200, NIM, Triton Inference Server, TensorRT, NeMo, and end-to-end RLHF / DPO pipelines. I also work extensively with <strong>vLLM</strong>, <strong>LoRA</strong>, <strong>QLoRA</strong>, and <strong>quantisation</strong> solutions. I deliver production RAG systems, agentic AI pipelines, and workflow automations for European and US clients — with a strong focus on on-premise, GDPR-compliant architecture.</p>
 </section>
-<!-- 02 NVIDIA STACK -->
-<section class="section reveal" id="nvidia">
+<!-- 02 CASE STUDIES -->
+<section class="section reveal" id="case-study">
 <div class="section-header">
 <span class="sec-num">02</span>
+<h2 class="sec-title">Case Studies</h2>
+</div>
+<p class="summary">One thesis, three layers. <strong>MACI</strong> governs agents, the <strong>AIBrix Tenant Gateway</strong> governs serving, and the <strong>Governed Text-to-SQL Agent</strong> governs analytics access — each an open, deployable replica of control patterns from NDA-covered client work in regulated environments.</p>
+<div class="cs-block">
+<div class="cs-sub">01 · MACI — governing the agent layer</div>
+<div class="badge-row">
+<div class="honor"><span class="honor-star">★</span> 44 tests incl. adversarial tenant-isolation cases</div>
+<div class="honor"><span class="honor-star">★</span> Terraform-first · one-command deploy &amp; destroy</div>
+<div class="honor"><span class="honor-star">★</span> EU AI Act–aligned control patterns</div>
+</div>
+<p class="summary">My consulting work is concentrated in environments where client identity cannot be disclosed: regulated financial institutions and public-sector organizations in the EU. What these engagements share is not a model problem — it is a <strong>control problem</strong>. Every enterprise team can call an LLM; what blocks agentic workflows from production are the questions security, legal and audit keep asking: can we <strong>prove</strong> Tenant A never touched Tenant B's knowledge base? Can an operator shut an agent down — per tenant, per agent, per tool — before an incident becomes a compliance event? Can every model, tool and policy decision be audited tamper-evidently after the fact?<br/><br/><strong>MACI</strong> (Minimal Agent Control Infrastructure) is my answer to that problem class, rebuilt in the open on AWS-native primitives so the patterns can be inspected, deployed and challenged without touching any client system or data. Where NDAs prevent me from showing the systems, MACI shows the engineering.</p>
+<div class="cs-thesis">"The model can remain probabilistic; the operational boundary around it must be deterministic." — tenant identity, tool access, budgets, audit and failure handling are enforced by software policy, never by prompt instructions.</div>
+<div class="cs-block">
+<div class="cs-sub">Design decisions</div>
+<ul class="bullets">
+<li><strong>Identity from the trust boundary, not the model</strong> — tenant context derives exclusively from validated JWT claims and Bedrock <code>sessionAttributes</code>; a model asked to "act as tenant B" has no code path to do so</li>
+<li><strong>Fail-closed contracts everywhere</strong> — strict Pydantic schemas with <code>extra="forbid"</code> on every request and tool; unknown fields are rejected, not ignored</li>
+<li><strong>Per-operation authorization, not just tool allowlisting</strong> — an allowed tool still cannot touch another tenant's resources</li>
+<li><strong>Humans own the high-risk path</strong> — financial actions route through an approval queue; kill switches exist at global, tenant, agent and tool scope; every agent has a revocable identity with a named human custodian</li>
+<li><strong>Audit that survives an incident review</strong> — hashed, tamper-evident events with optional S3 Object Lock archive; OTel-shaped traces exported back into evaluation sets</li>
+</ul>
+</div>
+<div class="cs-block">
+<div class="cs-sub">Regulatory alignment — engineering view</div>
+<div class="nvidia-grid">
+<div class="nv-card"><div class="nv-name">Record-keeping &amp; traceability</div><div class="nv-desc">Hash-chained audit trail with immutable S3 Object Lock archive — the engineering counterpart of EU AI Act logging obligations</div></div>
+<div class="nv-card"><div class="nv-name">Human oversight</div><div class="nv-desc">Approval workflow, agent custodianship and scoped kill switches map to effective-intervention requirements</div></div>
+<div class="nv-card"><div class="nv-name">Robustness &amp; cybersecurity</div><div class="nv-desc">Per-step guardrail checks on input, retrieved context and output; fail-closed schema validation throughout</div></div>
+<div class="nv-card"><div class="nv-name">Risk management</div><div class="nv-desc">Documented threat model plus adversarial tests for tenant impersonation, tool misuse and RAG isolation</div></div>
+<div class="nv-card"><div class="nv-name">Data governance</div><div class="nv-desc">Per-tenant policy engine, resource-ownership checks and knowledge-base isolation gateway — GDPR-aware separation by construction</div></div>
+<div class="nv-card"><div class="nv-name">Operational resilience</div><div class="nv-desc">Usage ledger, budget caps and tenant-scoped circuit breakers, in line with DORA-style expectations for financial clients</div></div>
+</div>
+<p class="summary" style="margin-top:var(--space-4);font-size:14px;color:var(--muted);">Engineering interpretation, not legal advice — compliance certification remains the deployer's responsibility, a distinction I also insist on with clients.</p>
+</div>
+<div class="cs-block">
+<div class="cs-sub">Evidence</div>
+<ul class="bullets">
+<li><strong>44 passing tests</strong> covering tenant impersonation, tool tenant-override, RAG isolation, approval-bypass attempts, guardrail intervention, graph safe-stop and idempotency — runnable with zero AWS credentials, since every cloud call sits behind a mockable gateway</li>
+<li><strong>Guided first-deploy lab</strong>: from empty AWS account to smoke-tested API — plan/apply, demo tenant seeding, Cognito user + JWT, API smoke test — and a one-command destroy</li>
+<li><strong>Honest limitations, documented</strong>: threat model, production-readiness gates and environment-specific gaps are stated explicitly, because a reference that overclaims is worse than none</li>
+</ul>
+<a class="proj-link" href="https://github.com/dataandai/Maci-minimal-agent-control-infrastructure" rel="noopener" target="_blank">Read the code on GitHub ↗</a>
+</div>
+</div>
+<div class="cs-block" id="cs-gateway">
+<div class="cs-sub">02 · AIBrix Tenant Gateway — governing the serving layer</div>
+<p class="summary">High-throughput serving stacks like AIBrix/vLLM solve scheduling and GPU utilization; they do not solve tenancy. For clients running private or sovereign LLM infrastructure, the recurring question is the same one MACI answers at the agent layer, asked at the serving layer: <strong>can an adversarial client cross a tenant boundary?</strong> This gateway is the open replica of that boundary: dual tenant resolution (Host domain + JWT claim — both must agree), fail-closed model and LoRA adapter policy, spoofed-header stripping with trusted server-side re-injection, tokenizer-backed Redis sliding-window quotas, tamper-evident billing references, and a TTFT-metered streaming proxy — deployable in three modes from laptop to full GPU EKS stack, with the production gaps documented instead of hidden.</p>
+<ul class="bullets">
+<li>Spoofed routing headers (<code>x-tenant-id</code>, <code>external-filter</code>, <code>config-profile</code>) are stripped and re-derived from validated identity — a tenant-A token on a tenant-B domain is denied</li>
+<li>Quota estimation uses a real tokenizer and ZSET sliding-window Lua scripts — no <code>len(text)//4</code> heuristics in production-like modes</li>
+<li>Strict Pydantic contracts reject unknown and vendor-specific fields fail-closed before anything reaches the serving pool</li>
+</ul>
+<a class="proj-link" href="https://github.com/dataandai/aibrix-tenant-gateway" rel="noopener" target="_blank">Read the code on GitHub ↗</a>
+</div>
+<div class="cs-block" id="cs-analytics">
+<div class="cs-sub">03 · Governed Text-to-SQL Agent — governing analytics access</div>
+<p class="summary">Letting an LLM write SQL against a warehouse is easy; letting a <strong>non-technical manager</strong> do it safely is an engineering problem. This agent answers plain-language business questions over public BigQuery retail data under the same thesis — the model may be probabilistic, the boundary must be deterministic: sqlglot-validated single-SELECT SQL against allow-listed tables, PII blocked at three layers before it can reach a prompt or a report, server-side byte-billing caps, owner-scoped deletes behind exact-token human confirmation, bounded self-healing, and an execution-based eval suite with p95 latency and error rates reported from live telemetry.</p>
+<ul class="bullets">
+<li><strong>94 passing tests · 10/10 execution-based evals</strong> — runnable locally with a deterministic stub LLM and mock BigQuery, no cloud credentials required</li>
+<li>PII defense in depth: generation-time instruction → SQL projection rejection (incl. <code>SELECT *</code>) → deterministic row masking → regex safety net on final prose</li>
+<li>Destructive operations are previewed, owner-scoped and expire — replying "yes" cancels; only the exact token <code>CONFIRM DELETE</code> executes</li>
+</ul>
+<a class="proj-link" href="https://github.com/dataandai/governed-text-to-sql-agent" rel="noopener" target="_blank">Read the code on GitHub ↗</a>
+</div>
+</section>
+<!-- 03 NVIDIA STACK -->
+<section class="section reveal" id="nvidia">
+<div class="section-header">
+<span class="sec-num">03</span>
 <h2 class="sec-title">NVIDIA Deep Stack</h2>
 </div>
 <div class="nvidia-grid"><div class="nv-card"><div class="nv-name">DGX A100 &amp; H200</div><div class="nv-desc">HPC cluster pretraining, full-stack fine-tuning, and large-scale experimentation</div></div>
@@ -2308,10 +2378,10 @@
 <div class="nv-card"><div class="nv-name">LoRA · QLoRA · Quantisation</div><div class="nv-desc">Parameter-efficient adaptation and memory-aware deployment for real production constraints</div></div>
 </div>
 </section>
-<!-- 03 EXPERIENCE -->
+<!-- 04 EXPERIENCE -->
 <section class="section reveal" id="experience">
 <div class="section-header">
-<span class="sec-num">03</span>
+<span class="sec-num">04</span>
 <h2 class="sec-title">Experience</h2>
 </div>
 <div class="exp-item">
@@ -2369,10 +2439,10 @@
 </div>
 </div>
 </section>
-<!-- 04 PROJECTS -->
+<!-- 05 PROJECTS -->
 <section class="section reveal" id="projects">
 <div class="section-header">
-<span class="sec-num">04</span>
+<span class="sec-num">05</span>
 <h2 class="sec-title">Projects</h2>
 </div>
 <div class="tab-bar">
@@ -2415,7 +2485,7 @@
 <div class="proj-card wide">
 <div>
 <div class="proj-type">Open Source · Multi-Tenant LLM Serving</div>
-<div class="proj-name">SaaS Governance Layer for AIBrix / vLLM</div>
+<div class="proj-name">AIBrix Tenant Gateway</div>
 <div class="proj-desc">Audit-hardened AWS/EKS reference implementation that places a tenant policy gateway in front of AIBrix/vLLM: OIDC/JWT tenant identity, model and LoRA adapter policy enforcement, spoofed-header stripping, Redis sliding-window quotas, strict fail-closed request contracts, audit and metering events, and a streaming proxy with TTFT metrics.</div>
 <div class="proj-tags"><span class="proj-tag">FastAPI</span><span class="proj-tag">AIBrix</span><span class="proj-tag">vLLM</span><span class="proj-tag">Kubernetes · EKS</span><span class="proj-tag">Redis</span><span class="proj-tag">OIDC / JWT</span></div>
 <ul class="bullets">
@@ -2426,12 +2496,13 @@
 </div>
 <div class="proj-right">
 <div class="proj-shot-grid">
-<a class="proj-shot wide" href="https://github.com/dataandai/SaaS-governance-layer-reference-implementation-for-AIBrix-vLLM" rel="noopener" target="_blank">
-<img alt="SaaS governance layer for AIBrix/vLLM repository preview" loading="lazy" src="https://opengraph.githubassets.com/1/dataandai/SaaS-governance-layer-reference-implementation-for-AIBrix-vLLM"/>
+<a class="proj-shot wide" href="https://github.com/dataandai/aibrix-tenant-gateway" rel="noopener" target="_blank">
+<img alt="AIBrix tenant gateway repository preview" loading="lazy" src="https://opengraph.githubassets.com/1/dataandai/aibrix-tenant-gateway"/>
 <span class="proj-shot-label">Tenant Policy Gateway</span>
 </a>
 </div>
-<a class="proj-link" href="https://github.com/dataandai/SaaS-governance-layer-reference-implementation-for-AIBrix-vLLM" rel="noopener" target="_blank">GitHub ↗</a>
+<a class="proj-link" href="https://github.com/dataandai/aibrix-tenant-gateway" rel="noopener" target="_blank">GitHub ↗</a>
+<a class="proj-link" href="#cs-gateway" style="margin-left:var(--space-3);">Case Study ↓</a>
 </div>
 </div>
 
@@ -2446,6 +2517,18 @@
 <div class="proj-desc">Autonomous prospecting and email-management workflow with campaign KPIs, AI inbox triage, lead scoring, and compliance guardrails for high-volume outbound operations.</div>
 <div class="proj-tags"><span class="proj-tag">Autonomous Agents</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Dashboard UI</span><span class="proj-tag">Lead Scoring</span></div>
 <a class="proj-link" href="https://github.com/dataandai/b2b-ai-outreach-agent" rel="noopener" target="_blank">GitHub ↗</a>
+</div>
+</div>
+
+
+<div class="proj-card">
+<div class="proj-body">
+<div class="proj-type">Open Source · Governed Analytics Agent</div>
+<div class="proj-name">Governed Text-to-SQL Agent</div>
+<div class="proj-desc">Natural-language BI agent for non-technical managers over BigQuery: sqlglot-validated single-SELECT SQL on allow-listed tables, three-layer PII masking, server-side byte-billing caps, owner-scoped destructive ops behind exact-token confirmation, bounded self-healing, and an execution-based eval suite — 94 tests, 10/10 evals.</div>
+<div class="proj-tags"><span class="proj-tag">LangGraph</span><span class="proj-tag">BigQuery</span><span class="proj-tag">sqlglot</span><span class="proj-tag">PII Guardrails</span><span class="proj-tag">Evals</span></div>
+<a class="proj-link" href="https://github.com/dataandai/governed-text-to-sql-agent" rel="noopener" target="_blank">GitHub ↗</a>
+<a class="proj-link" href="#cs-analytics" style="margin-left:var(--space-3);">Case Study ↓</a>
 </div>
 </div>
 
@@ -2515,51 +2598,6 @@
 
 
 </div>
-</div>
-</section>
-<!-- 05 CASE STUDY -->
-<section class="section reveal" id="case-study">
-<div class="section-header">
-<span class="sec-num">05</span>
-<h2 class="sec-title">Case Study — MACI</h2>
-</div>
-<div class="badge-row">
-<div class="honor"><span class="honor-star">★</span> 44 tests incl. adversarial tenant-isolation cases</div>
-<div class="honor"><span class="honor-star">★</span> Terraform-first · one-command deploy &amp; destroy</div>
-<div class="honor"><span class="honor-star">★</span> EU AI Act–aligned control patterns</div>
-</div>
-<p class="summary">My consulting work is concentrated in environments where client identity cannot be disclosed: regulated financial institutions and public-sector organizations in the EU. What these engagements share is not a model problem — it is a <strong>control problem</strong>. Every enterprise team can call an LLM; what blocks agentic workflows from production are the questions security, legal and audit keep asking: can we <strong>prove</strong> Tenant A never touched Tenant B's knowledge base? Can an operator shut an agent down — per tenant, per agent, per tool — before an incident becomes a compliance event? Can every model, tool and policy decision be audited tamper-evidently after the fact?<br/><br/><strong>MACI</strong> (Minimal Agent Control Infrastructure) is my answer to that problem class, rebuilt in the open on AWS-native primitives so the patterns can be inspected, deployed and challenged without touching any client system or data. Where NDAs prevent me from showing the systems, MACI shows the engineering.</p>
-<div class="cs-thesis">"The model can remain probabilistic; the operational boundary around it must be deterministic." — tenant identity, tool access, budgets, audit and failure handling are enforced by software policy, never by prompt instructions.</div>
-<div class="cs-block">
-<div class="cs-sub">Design decisions</div>
-<ul class="bullets">
-<li><strong>Identity from the trust boundary, not the model</strong> — tenant context derives exclusively from validated JWT claims and Bedrock <code>sessionAttributes</code>; a model asked to "act as tenant B" has no code path to do so</li>
-<li><strong>Fail-closed contracts everywhere</strong> — strict Pydantic schemas with <code>extra="forbid"</code> on every request and tool; unknown fields are rejected, not ignored</li>
-<li><strong>Per-operation authorization, not just tool allowlisting</strong> — an allowed tool still cannot touch another tenant's resources</li>
-<li><strong>Humans own the high-risk path</strong> — financial actions route through an approval queue; kill switches exist at global, tenant, agent and tool scope; every agent has a revocable identity with a named human custodian</li>
-<li><strong>Audit that survives an incident review</strong> — hashed, tamper-evident events with optional S3 Object Lock archive; OTel-shaped traces exported back into evaluation sets</li>
-</ul>
-</div>
-<div class="cs-block">
-<div class="cs-sub">Regulatory alignment — engineering view</div>
-<div class="nvidia-grid">
-<div class="nv-card"><div class="nv-name">Record-keeping &amp; traceability</div><div class="nv-desc">Hash-chained audit trail with immutable S3 Object Lock archive — the engineering counterpart of EU AI Act logging obligations</div></div>
-<div class="nv-card"><div class="nv-name">Human oversight</div><div class="nv-desc">Approval workflow, agent custodianship and scoped kill switches map to effective-intervention requirements</div></div>
-<div class="nv-card"><div class="nv-name">Robustness &amp; cybersecurity</div><div class="nv-desc">Per-step guardrail checks on input, retrieved context and output; fail-closed schema validation throughout</div></div>
-<div class="nv-card"><div class="nv-name">Risk management</div><div class="nv-desc">Documented threat model plus adversarial tests for tenant impersonation, tool misuse and RAG isolation</div></div>
-<div class="nv-card"><div class="nv-name">Data governance</div><div class="nv-desc">Per-tenant policy engine, resource-ownership checks and knowledge-base isolation gateway — GDPR-aware separation by construction</div></div>
-<div class="nv-card"><div class="nv-name">Operational resilience</div><div class="nv-desc">Usage ledger, budget caps and tenant-scoped circuit breakers, in line with DORA-style expectations for financial clients</div></div>
-</div>
-<p class="summary" style="margin-top:var(--space-4);font-size:14px;color:var(--muted);">Engineering interpretation, not legal advice — compliance certification remains the deployer's responsibility, a distinction I also insist on with clients.</p>
-</div>
-<div class="cs-block">
-<div class="cs-sub">Evidence</div>
-<ul class="bullets">
-<li><strong>44 passing tests</strong> covering tenant impersonation, tool tenant-override, RAG isolation, approval-bypass attempts, guardrail intervention, graph safe-stop and idempotency — runnable with zero AWS credentials, since every cloud call sits behind a mockable gateway</li>
-<li><strong>Guided first-deploy lab</strong>: from empty AWS account to smoke-tested API — plan/apply, demo tenant seeding, Cognito user + JWT, API smoke test — and a one-command destroy</li>
-<li><strong>Honest limitations, documented</strong>: threat model, production-readiness gates and environment-specific gaps are stated explicitly, because a reference that overclaims is worse than none</li>
-</ul>
-<a class="proj-link" href="https://github.com/dataandai/Maci-minimal-agent-control-infrastructure" rel="noopener" target="_blank">Read the code on GitHub ↗</a>
 </div>
 </section>
 <!-- 06 EDUCATION -->
