@@ -2437,10 +2437,10 @@
 </div>
 <p class="summary">Senior Applied AI Engineer with <strong>15+ years across machine learning, statistics, research and production systems</strong>, including <strong>8+ years delivering enterprise ML/AI and product systems</strong>. My ML and MLOps experience includes Azure, Docker and Kubernetes from 2017 onward, followed by LLM pretraining and fine-tuning. In the more recent phase of my work, I have delivered enterprise RAG and agentic systems for EU and US clients, including a <strong>Fortune 500 engagement through a Big Four consulting partner</strong>.<br/><br/>My work covers the path from evaluation to deployment: source-grounded answers, deterministic and LLM-as-judge evaluators, release gates, governance controls, LLM serving and GDPR-conscious on-premise infrastructure. I also led the pretraining of <strong>HILANCO GPTX</strong>, a 6.7B bilingual GPT-NeoX model, from data preparation through NVIDIA DGX A100 training and engineering handover. Every build carries the same thesis: the model may remain probabilistic; the operational boundary around it must be deterministic.</p>
 </section>
-<!-- 01 PRIMARY CASE STUDIES -->
+<!-- 02 PRIMARY CASE STUDIES -->
 <section class="section reveal primary-case" id="case-study">
 <div class="section-header">
-<span class="sec-num">01</span>
+<span class="sec-num">02</span>
 <h2 class="sec-title">Selected Case Studies</h2>
 </div>
 <div class="cs-thesis"><strong>From building agents to building the harness that decides whether an agent is allowed to ship.</strong> The focus is evaluation frameworks, deterministic and LLM-as-judge evaluators, and the agentic harnesses they run inside.</div>
@@ -2565,12 +2565,12 @@
 </div>
 <div class="exp-item">
 <div>
-<div class="exp-period">Apr 2024<br/>Present</div>
+<div class="exp-period">Jan 2024<br/>Present</div>
 </div>
 <div>
 <div class="exp-role">Senior LLM &amp; AI Infrastructure Consultant</div>
 <div class="exp-org">Independent B2B Consultant · Tenerife, Spain (Remote)</div>
-<ul class="bullets"><li>Designed evaluation, governance and serving architecture for a <strong>Fortune 500 enterprise engagement delivered through a Big Four partner</strong></li><li>Delivered private, deployment-ready RAG and agentic systems for EU and US clients, including document intelligence, source-grounded answers, evaluation gates and IaC-aware handoff</li><li>Built agent and eval harnesses, EU AI Act–aware control layers and production LLM serving with vLLM/AIBrix, LoRA/QLoRA, TTFT/throughput analysis and GDPR-conscious on-prem capacity planning</li></ul>
+<ul class="bullets"><li>Designed evaluation, governance and serving architecture for a <strong>Fortune 500 US energy company engagement delivered through a Big Four partner</strong>, using Elasticsearch and Neo4j retrieval, guardrails and re-ranking</li><li>Delivered private, deployment-ready RAG and agentic systems across <strong>11+ EU/US engagements</strong>, including document intelligence, source-grounded answers, evaluation gates and IaC-aware handoff</li><li>Built agent and eval harnesses, EU AI Act–aware control layers and production LLM serving with vLLM/AIBrix, LoRA/QLoRA, TTFT/throughput analysis and GDPR-conscious on-prem capacity planning</li></ul>
 </div>
 </div>
 <div class="exp-item">
@@ -2638,7 +2638,7 @@
 <div>
 <div class="proj-type">Open Source · Governed Agent Control Plane</div>
 <div class="proj-name">MACI — Minimal Agent Control Infrastructure</div>
-<div class="proj-desc">AWS-native control-plane foundation for putting AI agents inside deterministic software boundaries: identity binding, per-operation authorization, policy pre-checks, guardrails, human approval gates, circuit breaker / kill switch, immutable hash-chained audit trail, cost and budget controls, and a self-healing recovery daemon — deployable end-to-end with Terraform.</div>
+<div class="proj-desc">AWS-native control-plane foundation for putting AI agents inside deterministic software boundaries: identity binding, per-operation authorization, policy pre-checks, guardrails, human approval gates, circuit breaker / kill switch, immutable hash-chained audit trail, cost and budget controls, and a self-healing recovery daemon — deployable end-to-end with Terraform and validated by <strong>44 automated tests</strong>, including adversarial tenant-isolation cases.</div>
 <div class="proj-tags"><span class="proj-tag">AWS Lambda</span><span class="proj-tag">Amazon Bedrock</span><span class="proj-tag">DynamoDB</span><span class="proj-tag">Terraform</span><span class="proj-tag">Pydantic v2</span><span class="proj-tag">Red-Team Evals</span></div>
 <ul class="bullets">
 <li>Stops cross-tenant data access with strong identity binding and per-operation policy enforcement</li>
@@ -2658,7 +2658,6 @@
 </a>
 </div>
 <a class="proj-link" href="https://github.com/dataandai/Maci-minimal-agent-control-infrastructure" rel="noopener" target="_blank">GitHub ↗</a>
-<a class="proj-link" href="#case-study" style="margin-left:var(--space-3);">Case Study ↓</a>
 </div>
 </div>
 
@@ -2683,7 +2682,6 @@
 </a>
 </div>
 <a class="proj-link" href="https://github.com/dataandai/aibrix-tenant-gateway" rel="noopener" target="_blank">GitHub ↗</a>
-<a class="proj-link" href="#cs-gateway" style="margin-left:var(--space-3);">Case Study ↓</a>
 </div>
 </div>
 
@@ -2706,10 +2704,9 @@
 <div class="proj-body">
 <div class="proj-type">Open Source · Governed Analytics Agent</div>
 <div class="proj-name">Governed Text-to-SQL Agent</div>
-<div class="proj-desc">Natural-language BI agent for non-technical managers over BigQuery: sqlglot-validated single-SELECT SQL on allow-listed tables, three-layer PII masking, server-side byte-billing caps, owner-scoped destructive ops behind exact-token confirmation, and bounded self-healing.</div>
+<div class="proj-desc">Natural-language BI agent for non-technical managers over BigQuery: sqlglot-validated single-SELECT SQL on allow-listed tables, three-layer PII masking, server-side byte-billing caps, owner-scoped destructive ops behind exact-token confirmation, bounded self-healing, and <strong>94 tests with 10/10 execution-based evals</strong>.</div>
 <div class="proj-tags"><span class="proj-tag">LangGraph</span><span class="proj-tag">N8N</span><span class="proj-tag">BigQuery</span><span class="proj-tag">sqlglot</span><span class="proj-tag">PII Guardrails</span><span class="proj-tag">Evals</span></div>
 <a class="proj-link" href="https://github.com/dataandai/governed-text-to-sql-agent" rel="noopener" target="_blank">GitHub ↗</a>
-<a class="proj-link" href="#cs-analytics" style="margin-left:var(--space-3);">Case Study ↓</a>
 </div>
 </div>
 
@@ -2775,9 +2772,6 @@
 <div class="proj-card"><div class="proj-body"><div class="proj-type">Open Repo · Representation Research</div><div class="proj-name">Transformer Subspace Diagnostics</div><div class="proj-desc">Tiny Qwen Subspace Observatory — an experimental research platform for studying how internal representations emerge, evolve, stabilise, reorganise, and interact during transformer training.</div><div class="proj-tags"><span class="proj-tag">Tiny Qwen</span><span class="proj-tag">Subspace Analysis</span><span class="proj-tag">Representation Dynamics</span><span class="proj-tag">Diagnostics</span></div><a class="proj-link" href="https://github.com/dataandai/transformer-subspace-diagnostics" rel="noopener" target="_blank">GitHub ↗</a></div></div>
 
 
-<div class="proj-card wide"><div><div class="proj-type">Live Product · Self-Help Science Website</div><div class="proj-name">The AI News Hub</div><div class="proj-desc">Evidence-based self-help website that turns scientific articles into clear, supportive explanations for neurodivergent readers — helping people better understand recurring behaviour patterns, anxiety responses, and practical regulation strategies without paywalls, signups, or diagnostic framing.</div><div class="proj-tags"><span class="proj-tag">Live Website</span><span class="proj-tag">Neurodivergence</span><span class="proj-tag">Science Translation</span><span class="proj-tag">Knowledge Graph</span><span class="proj-tag">Neurocolor</span></div></div><div class="proj-right"><ul class="bullets"><li>Makes scientific papers understandable and emotionally usable for neurodivergent people in plain language</li><li>Explains behaviour patterns and internal states with supportive, non-pathologising framing instead of labels or gatekeeping</li><li>Includes an interactive knowledge graph and Neurocolor self-reflection flow to surface patterns visually</li></ul><a class="proj-link" href="https://theainewshub.com" rel="noopener" target="_blank">theainewshub.com ↗</a></div></div>
-
-
 </div>
 </div>
 </section>
@@ -2792,13 +2786,13 @@
 <div class="edu-degree">PhD — Summa Cum Laude</div>
 <div class="edu-inst">University of Pécs, Medical School</div>
 <div class="edu-year">2000 – 2005 · Pécs, Hungary</div>
-<div class="edu-thesis">Dissertation: Voxel-Based Morphometry in Clinical Neuroscience</div>
+<div class="edu-thesis">Clinical neuroscience and medical imaging. Dissertation: Voxel-Based Morphometry in Clinical Neuroscience.</div>
 </div>
 <div class="edu-card">
 <div class="edu-degree">MSc — Psychology</div>
 <div class="edu-inst">University of Pécs, Institute of Psychology</div>
 <div class="edu-year">2010 – 2015 · Pécs, Hungary</div>
-<div class="edu-thesis">Dissertation: Feature-Based Image Classification in Early Machine Learning</div>
+<div class="edu-thesis">Second degree in psychology and behavioural science. Dissertation: Feature-Based Image Classification in Early Machine Learning.</div>
 </div>
 </div>
 </section>
