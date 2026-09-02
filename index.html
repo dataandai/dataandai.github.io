@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Adam Feldmann · Senior LLM &amp; Enterprise AI Engineer — Governed Agentic AI, RAG &amp; LLMOps</title>
+<title>Adam Feldmann · Senior Applied AI Engineer — LLM Systems, Agent Architecture &amp; LLMOps</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -17,8 +17,8 @@
 
     :root {
       color-scheme: dark;
-      --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-display: 'Syne', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-body: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-display: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
 
       --bg: #06090d;
@@ -124,7 +124,7 @@
       background-size: 56px 56px, 56px 56px, 18px 18px;
       background-position: 0 0, 0 0, 0 0;
       mask-image: linear-gradient(90deg, rgba(0,0,0,0.42), rgba(0,0,0,0.12));
-      opacity: .58;
+      opacity: .28;
       animation: ambientGrid 44s linear infinite;
     }
 
@@ -434,6 +434,10 @@
       display: none;
     }
 
+    .mobile-topbar {
+      display: none;
+    }
+
     .desktop-name {
       display: block;
     }
@@ -445,7 +449,8 @@
       display: flex;
       flex-direction: column;
       flex: 1;
-      width: calc(100% - var(--sidebar-w));
+      width: auto;
+      min-width: 0;
       max-width: var(--content-w);
       margin-left: var(--sidebar-w);
       padding: 48px clamp(28px, 5vw, 72px) 96px;
@@ -619,7 +624,7 @@
     }
 
     /* ── HERO / UX LAYER ── */
-    .mobile-topbar,
+      overflow-wrap: anywhere;
     .mobile-overlay {
       display: none;
     }
@@ -706,14 +711,14 @@
     }
 
     .hero-title {
-      max-width: 100%;
+      max-width: 22ch;
       margin-bottom: 20px;
       color: var(--text-hi);
       font-family: var(--font-display);
-      font-size: clamp(31px, 3.2vw, 46px);
+      font-size: clamp(34px, 3.4vw, 50px);
       font-weight: 800;
       line-height: .96;
-      letter-spacing: -0.035em;
+      letter-spacing: -0.025em;
       text-wrap: balance;
       word-break: normal;
       overflow-wrap: normal;
@@ -721,30 +726,81 @@
     }
 
     .hero-text {
-      max-width: 62ch;
+      max-width: 56ch;
       margin-bottom: 24px;
       color: var(--text);
       font-size: clamp(15px, 1.25vw, 17px);
       line-height: 1.68;
     }
 
+    .hero-proof-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      margin-bottom: 22px;
+      color: var(--text-hi);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .hero-proof {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .hero-proof::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--amber);
+    }
+
+    .architecture-note {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 14px;
+      align-items: baseline;
+      margin: -4px 0 22px;
+      padding-left: 14px;
+      border-left: 2px solid var(--amber);
+    }
+
+    .architecture-note-label {
+      color: var(--amber);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .architecture-note-text {
+      max-width: 72ch;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
     .hero-chip-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 9px;
-      margin-bottom: 24px;
+      gap: 7px;
+      margin-bottom: 22px;
     }
 
     .hero-chip {
       display: inline-flex;
       align-items: center;
       min-height: 32px;
-      padding: 7px 11px;
+      padding: 6px 10px;
       border: 1px solid var(--border);
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.04);
       color: var(--text);
-      font-size: 12px;
+      font-size: 11px;
       line-height: 1;
       white-space: nowrap;
       backdrop-filter: blur(8px);
@@ -753,7 +809,7 @@
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
       margin-bottom: 28px;
     }
 
@@ -805,14 +861,21 @@
     }
 
     .hero-btn.secondary {
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-hi);
+      min-height: 44px;
+      padding-right: 0;
+      padding-left: 0;
+      border-color: transparent;
+      background: transparent;
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-color: rgba(84, 244, 207, 0.45);
+      text-underline-offset: 4px;
     }
 
     .hero-btn.secondary:hover {
-      border-color: rgba(231, 181, 73, 0.42);
-      background: rgba(231, 181, 73, 0.08);
+      border-color: transparent;
+      background: transparent;
+      color: var(--text-hi);
     }
 
     .hero-stats {
@@ -1200,7 +1263,7 @@
       grid-template-columns: 176px minmax(0, 1fr);
       gap: 22px;
       margin-bottom: 12px;
-      padding: 18px;
+      padding: 22px;
       border: 1px solid var(--border);
       border-radius: 22px;
       background:
@@ -1291,7 +1354,7 @@
     .bullets li {
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.62;
+      line-height: 1.55;
     }
 
     /* ── PROJECTS ── */
@@ -1827,8 +1890,9 @@
       }
 
       main {
-        padding-right: 34px;
-        padding-left: 34px;
+        max-width: none;
+        padding-right: 28px;
+        padding-left: 28px;
       }
 
       .hero-shell {
@@ -1836,8 +1900,8 @@
       }
 
       .hero-title {
-        max-width: 12ch;
-        font-size: clamp(40px, 6vw, 62px);
+        max-width: 22ch;
+        font-size: clamp(38px, 5vw, 56px);
       }
 
       .proj-card,
@@ -2061,9 +2125,10 @@
       }
 
       .hero-title {
-        max-width: 100%;
-        font-size: clamp(34px, 10vw, 52px);
-        letter-spacing: -0.035em;
+        max-width: 17ch;
+        font-size: clamp(31px, 8.6vw, 45px);
+        line-height: 1.02;
+        letter-spacing: -0.02em;
       }
 
       .hero-stats {
@@ -2140,6 +2205,11 @@
         width: 100%;
       }
 
+      .hero-btn.secondary {
+        width: auto;
+        min-height: 32px;
+      }
+
       .hero-stats,
       .hero-mini-grid {
         grid-template-columns: 1fr;
@@ -2160,7 +2230,11 @@
       }
 
       .mobile-brand-role {
-        max-width: 180px;
+        max-width: 220px;
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
+        line-height: 1.35;
       }
 
       .proj-media,
@@ -2205,7 +2279,7 @@
 <div class="mobile-topbar">
 <div class="mobile-brand">
 <div class="mobile-brand-name">Adam Feldmann</div>
-<div class="mobile-brand-role">Senior LLM &amp; Enterprise AI Engineer</div>
+<div class="mobile-brand-role">Senior Applied AI Engineer · LLM Systems / Agent Architecture</div>
 </div>
 <button aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation" class="menu-toggle" id="menuToggle">
 <span class="menu-toggle-lines"></span>
@@ -2224,7 +2298,7 @@
 <span class="menu-toggle-lines"></span>
 </button>
 </div>
-<div class="sidebar-title">Senior LLM &amp; Enterprise AI Engineer</div>
+<div class="sidebar-title">Senior Applied AI Engineer</div>
 <div class="sidebar-location">PhD · Tenerife, Spain · B2B Consultant</div>
 <div class="avail-pill">
 <span class="avail-dot"></span>
@@ -2297,18 +2371,19 @@
 <div class="hero-shell">
 <div class="hero-copy">
 <div class="hero-kicker">Open to new senior AI builds</div>
-<h1 class="hero-title">I make agentic AI measurable, governable, and ready for production.</h1>
-<p class="hero-text">In 2026 Q1-Q2, my work focused on a shift from building agents to building the harness that decides whether an agent is allowed to ship: evaluation frameworks, deterministic and LLM-as-judge evaluators, and the agentic harnesses they run inside.</p>
+<h1 class="hero-title">Governed agentic AI, ready for production.</h1>
+<p class="hero-text">Senior Applied AI Engineer specializing in LLM Systems, Agent Harnesses, Eval Harnesses and LLMOps. I build enterprise systems that turn probabilistic agents into measurable, production-ready products.</p>
+<div class="hero-proof-row"><span class="hero-proof">Fortune 500 engagement</span><span class="hero-proof">Big Four delivery partner</span><span class="hero-proof">8+ years enterprise AI products</span></div>
 <div class="hero-chip-row"><span class="hero-chip">Agentic Harnesses · LangGraph</span>
 <span class="hero-chip">Eval Harnesses · OpenTelemetry · DeepEval · AWS AgentCore</span>
 <span class="hero-chip">On-prem · GDPR · EU AI Act</span>
-<span class="hero-chip">DGX · NIM · Triton · TensorRT · vLLM</span>
-<span class="hero-chip">LoRA · QLoRA · Quantization</span>
+<span class="hero-chip">vLLM</span>
+<span class="hero-chip">LoRA · QLoRA · Quantization · Fine-Tuning</span>
 </div>
 <div class="hero-actions">
-<a class="hero-btn primary" href="#case-study">Read the Case Studies</a>
-<a class="hero-btn secondary" href="#projects">View Selected Projects</a>
-<a class="hero-btn secondary" href="mailto:adam.feldmann.dr@gmail.com">Start a Conversation</a>
+<a class="hero-btn primary" href="mailto:adam.feldmann.dr@gmail.com?subject=AI%20systems%20engagement">Discuss an AI Systems Engagement</a>
+<a class="hero-btn secondary" href="#projects">Selected Projects</a>
+<a class="hero-btn secondary" href="mailto:adam.feldmann.dr@gmail.com">Email Adam</a>
 </div>
 <div class="hero-stats">
 <div class="hero-stat">
@@ -2316,16 +2391,16 @@
 <span class="hero-stat-label">years across neuroscience, research, and production AI</span>
 </div>
 <div class="hero-stat">
-<span class="hero-stat-value">PhD</span>
-<span class="hero-stat-label">clinical neuroscience with strong product and data background</span>
+<span class="hero-stat-value">F500</span>
+<span class="hero-stat-label">enterprise engagement delivered through a Big Four consulting partner</span>
 </div>
 <div class="hero-stat">
 <span class="hero-stat-value">6.7B</span>
 <span class="hero-stat-label">bilingual GPT pretraining led on NVIDIA DGX A100</span>
 </div>
 <div class="hero-stat">
-<span class="hero-stat-value">EU</span>
-<span class="hero-stat-label">remote contractor for privacy-conscious enterprise delivery</span>
+<span class="hero-stat-value">8+</span>
+<span class="hero-stat-label">years delivering enterprise ML/AI and product systems</span>
 </div>
 </div>
 </div>
@@ -2360,7 +2435,7 @@
 <div class="honor"><span class="honor-star">★</span> PhD Summa Cum Laude</div>
 <div class="honor"><span class="honor-star">★</span> Hungarian AI Coalition Recognition (2021) — National AI Strategy</div>
 </div>
-<p class="summary">Senior AI engineer with <strong>17+ years</strong> spanning clinical neuroscience, academic research, applied statistics, and production AI systems. In early 2022 — months before ChatGPT — I led the pretraining of <strong>HILANCO GPTX</strong>, a 6.7B-parameter bilingual English-Hungarian transformer (GPT-NeoX) pretrained from scratch on NVIDIA DGX A100.<br/><br/>Since April 2024 I have delivered production RAG systems, on-prem AI and agentic products for <strong>11+ companies</strong> across the EU and US. In 2026 Q1-Q2, my focus was the engineering discipline around agents: <strong>agentic harnesses</strong> for controlled execution and <strong>eval harnesses</strong> for repeatable behavioural and regression testing, using deterministic and LLM-as-judge evaluators. Every build carries the same thesis: the model may remain probabilistic; the operational boundary around it must be deterministic.</p>
+<p class="summary">Senior Applied AI Engineer with <strong>15+ years across machine learning, statistics, research and production systems</strong>, including <strong>8+ years delivering enterprise ML/AI and product systems</strong>. My ML and MLOps experience includes Azure, Docker and Kubernetes from 2017 onward, followed by LLM pretraining and fine-tuning. In the more recent phase of my work, I have delivered enterprise RAG and agentic systems for EU and US clients, including a <strong>Fortune 500 engagement through a Big Four consulting partner</strong>.<br/><br/>My work covers the path from evaluation to deployment: source-grounded answers, deterministic and LLM-as-judge evaluators, release gates, governance controls, LLM serving and GDPR-conscious on-premise infrastructure. I also led the pretraining of <strong>HILANCO GPTX</strong>, a 6.7B bilingual GPT-NeoX model, from data preparation through NVIDIA DGX A100 training and engineering handover. Every build carries the same thesis: the model may remain probabilistic; the operational boundary around it must be deterministic.</p>
 </section>
 <!-- 01 PRIMARY CASE STUDIES -->
 <section class="section reveal primary-case" id="case-study">
@@ -2380,7 +2455,8 @@
 <div class="cs-sub">Enterprise analytics</div>
 <h3 class="proj-name">Semantic DAG Governance for Natural-Language Agents</h3>
 <p class="summary"><strong>Focus:</strong> non-technical users need precise natural-language analytics without giving an agent freedom to define metrics, joins, PII access, or unsafe SQL.</p>
-<p class="summary"><strong>Eval:</strong> deterministic evaluation points gate PII refusal and access control at 100%, check plan accuracy against structured query objects, and track false refusals independently. <a href="https://github.com/dataandai/governed-text-to-sql-agent" rel="noopener" target="_blank">Public reference ↗</a></p>
+<p class="summary"><strong>Eval:</strong> deterministic evaluation points gate PII refusal and access control at 100%.</p>
+<div class="case-availability"><a href="https://github.com/dataandai/governed-text-to-sql-agent" rel="noopener" target="_blank">governed-text-to-sql-agent ↗</a></div>
 </div>
 <div class="cs-block">
 <div class="cs-sub">Enterprise analytics</div>
@@ -2459,7 +2535,6 @@
 <div class="cs-sub">03 · Governed Text-to-SQL Agent — governing analytics access</div>
 <p class="summary">Letting an LLM write SQL against a warehouse is easy; letting a <strong>non-technical manager</strong> do it safely is an engineering problem. This agent answers plain-language business questions over public BigQuery retail data under the same thesis — the model may be probabilistic, the boundary must be deterministic: sqlglot-validated single-SELECT SQL against allow-listed tables, PII blocked at three layers before it can reach a prompt or a report, server-side byte-billing caps, owner-scoped deletes behind exact-token human confirmation, bounded self-healing, an execution-based eval suite with p95 latency and error rates from live telemetry, and a production N8N automation workflow wrapping the agent for event-driven and scheduled operation.</p>
 <ul class="bullets">
-<li><strong>94 passing tests · 10/10 execution-based evals</strong> — runnable locally with a deterministic stub LLM and mock BigQuery, no cloud credentials required</li>
 <li>PII defense in depth: generation-time instruction → SQL projection rejection (incl. <code>SELECT *</code>) → deterministic row masking → regex safety net on final prose</li>
 <li>Destructive operations are previewed, owner-scoped and expire — replying "yes" cancels; only the exact token <code>CONFIRM DELETE</code> executes</li>
 </ul>
@@ -2495,7 +2570,7 @@
 <div>
 <div class="exp-role">Senior LLM &amp; AI Infrastructure Consultant</div>
 <div class="exp-org">Independent B2B Consultant · Tenerife, Spain (Remote)</div>
-<ul class="bullets"><li>Delivered RAG, on-prem AI and agentic product systems for <strong>11+ companies since April 2024</strong>, including regulated financial-sector and public-sector organizations in the EU and US</li><li>Design EU AI Act–aware control layers for agentic AI: tamper-evident audit trails, human-approval workflows, scoped kill switches, per-tenant policy enforcement</li><li>Build <strong>agentic harnesses</strong> for controlled routing, tool use, human approval, recovery, and auditable execution across LangGraph and AWS-track architectures</li><li>Build <strong>eval harnesses</strong> with deterministic and LLM-as-judge evaluators, category-gated regression suites, ground-truth checks, and release-quality promotion gates</li><li>Production RAG systems via NVIDIA NIM, Triton, TensorRT, and vLLM — on-premise for GDPR compliance</li><li>Large-scale Spark ingestion pipelines feeding Weaviate/Pinecone with hallucination &amp; retrieval evaluation</li><li>RLHF / DPO pipelines with NeMo on DGX/H200 infrastructure, plus LoRA / QLoRA adaptation flows</li><li>Advise clients on GPU hardware sizing: workload profiling (TTFT, throughput, KV-cache), model-to-hardware fit, on-prem capacity planning</li></ul>
+<ul class="bullets"><li>Designed evaluation, governance and serving architecture for a <strong>Fortune 500 enterprise engagement delivered through a Big Four partner</strong></li><li>Delivered private, deployment-ready RAG and agentic systems for EU and US clients, including document intelligence, source-grounded answers, evaluation gates and IaC-aware handoff</li><li>Built agent and eval harnesses, EU AI Act–aware control layers and production LLM serving with vLLM/AIBrix, LoRA/QLoRA, TTFT/throughput analysis and GDPR-conscious on-prem capacity planning</li></ul>
 </div>
 </div>
 <div class="exp-item">
@@ -2550,6 +2625,7 @@
 <span class="sec-num">05</span>
 <h2 class="sec-title">Projects</h2>
 </div>
+<div class="architecture-note"><span class="architecture-note-label">Architecture evidence</span><span class="architecture-note-text">Cloud deployment diagrams, agent control flows and runnable end-to-end implementations are documented in the repositories below. The n8n workflow and supporting infrastructure are included where shown.</span></div>
 <div class="tab-bar">
 <button class="tab-btn active" data-tab="deliveries">Selected Work</button>
 <button class="tab-btn" data-tab="research">Research, LLMs &amp; Open Repos</button>
@@ -2630,7 +2706,7 @@
 <div class="proj-body">
 <div class="proj-type">Open Source · Governed Analytics Agent</div>
 <div class="proj-name">Governed Text-to-SQL Agent</div>
-<div class="proj-desc">Natural-language BI agent for non-technical managers over BigQuery: sqlglot-validated single-SELECT SQL on allow-listed tables, three-layer PII masking, server-side byte-billing caps, owner-scoped destructive ops behind exact-token confirmation, bounded self-healing, and an execution-based eval suite — 94 tests, 10/10 evals.</div>
+<div class="proj-desc">Natural-language BI agent for non-technical managers over BigQuery: sqlglot-validated single-SELECT SQL on allow-listed tables, three-layer PII masking, server-side byte-billing caps, owner-scoped destructive ops behind exact-token confirmation, and bounded self-healing.</div>
 <div class="proj-tags"><span class="proj-tag">LangGraph</span><span class="proj-tag">N8N</span><span class="proj-tag">BigQuery</span><span class="proj-tag">sqlglot</span><span class="proj-tag">PII Guardrails</span><span class="proj-tag">Evals</span></div>
 <a class="proj-link" href="https://github.com/dataandai/governed-text-to-sql-agent" rel="noopener" target="_blank">GitHub ↗</a>
 <a class="proj-link" href="#cs-analytics" style="margin-left:var(--space-3);">Case Study ↓</a>
